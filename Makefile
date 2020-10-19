@@ -6,24 +6,20 @@
 #    By: juvan-de <juvan-de@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/27 11:29:28 by juvan-de      #+#    #+#                  #
-#    Updated: 2020/10/19 12:44:17 by juvan-de      ########   odam.nl          #
+#    Updated: 2020/10/19 13:37:37 by juvan-de      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = minirt
+NAME = minishell
 
 OBJ_DIR = ./obj/
-OBJ_FILES = 
-				
+OBJ_FILES = main.o \
+						
 OBJECTS = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
 
-SRC_DIR = ./src/
+SRC_DIR = ./srcs/
 
-INC_DIR = ./includes/
-INC_FILES = 
-INCLUDES = $(addprefix $(INC_DIR), $(INC_FILES))
-
-LIBFT = -L./libft -lft
+LIB = -L./libft -lft -L./ft_printf -lftprintf  -L./getnextline -lgnl
 
 CFLAGS = -Wall -Werror -Wextra
 
@@ -31,12 +27,12 @@ all: $(NAME)
 
 $(NAME): $(OBJECTS)
 	make -C libft
-	@cp libft/libft.a .
-	make -C mlx
-	$(CC) -Lmlx/ -lmlx -framework OpenGL -framework AppKit -o $(NAME) $(OBJECTS) $(LIBFT) $(CFLAGS)
+	make -C ft_printf
+	make -C getnextline
+	$(CC) -o $(NAME) $(OBJECTS) $(LIB) $(CFLAGS)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@gcc -Imlx -Ilibft -c $< -o $@
+	@gcc -c $< -o $@
 
 bonus:
 	$(MAKE) WITH_BONUS=1 all
@@ -47,11 +43,16 @@ clean:
 
 fclean: clean
 	/bin/rm -f $(NAME) execute
-	/bin/rm -f libft/libft.a
+	/bin/rm -f libft/libft.a 
+	/bin/rm -f libft.a 
+	/bin/rm -f ft_printf/libftprintf.a 
+	/bin/rm -f libftprintf.a
+	/bin/rm -f getnextline/libgnl.a 
+	/bin/rm -f libgnl.a
 
 re: fclean all
 
 libft:
 	$(MAKE) -C libft bonus
 
-.PHONY: all $(NAME) clean fclean re libft exe
+.PHONY: all $(NAME) clean fclean re libft
