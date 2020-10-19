@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: avan-ber <avan-ber@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/13 10:50:06 by avan-ber       #+#    #+#                */
-/*   Updated: 2020/01/06 14:37:45 by avan-ber      ########   odam.nl         */
+/*   Created: 2019/12/13 10:50:06 by avan-ber      #+#    #+#                 */
+/*   Updated: 2020/10/19 13:39:52 by avan-ber      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int				get_size_n(t_flags flags, va_list ap, int count);
 */
 int				ft_strlen_substr(const char **str, char c);
 void			ft_putlstr_fd(char *str, int len, int fd);
-size_t			ft_strlen(const char *s);
+size_t			ft_strlen_printf(const char *s);
 int				nbr_spacecounter_figure_base_u(unsigned long long nb, int base);
 int				nbr_spacecounter_figure_base(long long nb, int base);
 
