@@ -6,18 +6,19 @@
 #    By: juvan-de <juvan-de@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/27 11:29:28 by juvan-de      #+#    #+#                  #
-#    Updated: 2020/10/19 13:53:22 by juvan-de      ########   odam.nl          #
+#    Updated: 2020/10/19 18:02:53 by juvan-de      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 OBJ_DIR = ./obj/
-OBJ_FILES = main.o \
-						
-OBJECTS = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
-
 SRC_DIR = ./srcs/
+SRC_FILES = main.c \
+			parsing/parsing.c \
+						
+CFILES		= $(SRC_FILES:%=srcs/%)
+OBJ_FILES	= $(CFILES:.c=.o)
 
 LIB = -L./libft -lft -L./ft_printf -lftprintf  -L./getnextline -lgnl
 
@@ -25,11 +26,11 @@ CFLAGS = -Wall -Werror -Wextra
 
 all: $(NAME)
 
-$(NAME): $(OBJECTS)
-	make -C libft
+$(NAME): $(OBJ_FILES)
+	make bonus -C libft
 	make -C ft_printf
-	make -C getnextline
-	$(CC) -o $(NAME) $(OBJECTS) $(LIB) $(CFLAGS)
+	make bonus -C getnextline
+	$(CC) -o $(NAME) $(OBJ_FILES) $(LIB) $(CFLAGS)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@gcc -c $< -o $@
@@ -38,7 +39,7 @@ bonus:
 	$(MAKE) WITH_BONUS=1 all
 
 clean:
-	/bin/rm -f $(OBJECTS) main.o
+	/bin/rm -f $(OBJ_FILES) main.o
 	$(MAKE) -C libft clean
 	$(MAKE) -C ft_printf clean
 	$(MAKE) -C getnextline clean
