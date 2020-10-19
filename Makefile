@@ -6,7 +6,7 @@
 #    By: juvan-de <juvan-de@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/27 11:29:28 by juvan-de      #+#    #+#                  #
-#    Updated: 2020/10/19 13:45:57 by juvan-de      ########   odam.nl          #
+#    Updated: 2020/10/19 13:53:22 by juvan-de      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,8 +40,13 @@ bonus:
 clean:
 	/bin/rm -f $(OBJECTS) main.o
 	$(MAKE) -C libft clean
+	$(MAKE) -C ft_printf clean
+	$(MAKE) -C getnextline clean
 
 fclean: clean
+	$(MAKE) -C libft fclean
+	$(MAKE) -C ft_printf fclean
+	$(MAKE) -C getnextline fclean
 	/bin/rm -f $(NAME) execute
 	/bin/rm -f libft/libft.a 
 	/bin/rm -f libft.a 
@@ -51,8 +56,5 @@ fclean: clean
 	/bin/rm -f libgnl.a
 
 re: fclean all
-
-libft:
-	$(MAKE) -C libft bonus
 
 .PHONY: all $(NAME) clean fclean re 
