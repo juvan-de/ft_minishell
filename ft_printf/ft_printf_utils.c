@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: avan-ber <avan-ber@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/13 10:20:28 by avan-ber       #+#    #+#                */
-/*   Updated: 2020/01/03 16:01:23 by avan-ber      ########   odam.nl         */
+/*   Created: 2019/12/13 10:20:28 by avan-ber      #+#    #+#                 */
+/*   Updated: 2020/10/19 13:36:17 by avan-ber      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_putlstr_fd(char *str, int len, int fd)
 	write(fd, str, len);
 }
 
-size_t	ft_strlen(const char *s)
+size_t	ft_strlen_printf(const char *s)
 {
 	size_t i;
 

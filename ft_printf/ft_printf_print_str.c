@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: avan-ber <avan-ber@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/13 10:25:01 by avan-ber       #+#    #+#                */
-/*   Updated: 2020/01/03 16:07:22 by avan-ber      ########   odam.nl         */
+/*   Created: 2019/12/13 10:25:01 by avan-ber      #+#    #+#                 */
+/*   Updated: 2020/10/19 13:37:18 by avan-ber      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int			print_str(t_flags flags, char *str)
 
 	if (str == 0)
 		return (print_str_null(flags));
-	strlen = ft_strlen(str);
+	strlen = ft_strlen_printf(str);
 	if (flags.prenumber < strlen && flags.precision == 1)
 		print_char = flags.prenumber;
 	else
