@@ -6,7 +6,7 @@
 #    By: juvan-de <juvan-de@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/27 11:29:28 by juvan-de      #+#    #+#                  #
-#    Updated: 2020/10/19 13:37:37 by juvan-de      ########   odam.nl          #
+#    Updated: 2020/10/19 13:45:57 by juvan-de      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,4 +55,4 @@ re: fclean all
 libft:
 	$(MAKE) -C libft bonus
 
-.PHONY: all $(NAME) clean fclean re libft
+.PHONY: all $(NAME) clean fclean re 
