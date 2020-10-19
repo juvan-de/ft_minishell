@@ -6,7 +6,7 @@
 #    By: juvan-de <juvan-de@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/27 11:29:28 by juvan-de      #+#    #+#                  #
-#    Updated: 2020/10/19 18:35:59 by juvan-de      ########   odam.nl          #
+#    Updated: 2020/10/19 19:09:05 by juvan-de      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,10 @@ OBJ_DIR = ./obj/
 SRC_DIR = ./srcs/
 SRC_FILES = main.c \
 			parsing/parsing.c \
+			list/ft_lstaddback_shell.c \
+			list/ft_lstnew_shell.c \
+			utils/minishell_utils1.c \
+			
 						
 CFILES		= $(SRC_FILES:%=srcs/%)
 OBJ_FILES	= $(CFILES:.c=.o)
