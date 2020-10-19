@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_lstadd_back_bonus.c                             :+:    :+:            */
+/*   ft_lstaddback_shell.c                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-de <juvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/08 17:08:15 by juvan-de      #+#    #+#                 */
-/*   Updated: 2020/10/19 18:59:00 by juvan-de      ########   odam.nl         */
+/*   Created: 2020/10/19 18:59:25 by juvan-de      #+#    #+#                 */
+/*   Updated: 2020/10/19 19:01:02 by juvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/minishell.h"
 
-void	ft_lstadd_back(t_list **alst, t_list *new)
+void	ft_lstadd_back_shell(t_shell **alst, t_shell *new)
 {
-	t_list *temp;
+	t_shell *temp;
 
 	if ((*alst) == 0)
 	{

@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_lstadd_back_bonus.c                             :+:    :+:            */
+/*   ft_lstnew_shell.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: juvan-de <juvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/08 17:08:15 by juvan-de      #+#    #+#                 */
-/*   Updated: 2020/10/19 18:59:00 by juvan-de      ########   odam.nl         */
+/*   Created: 2020/10/19 18:56:45 by juvan-de      #+#    #+#                 */
+/*   Updated: 2020/10/19 19:33:59 by juvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/minishell.h"
+#include <stdlib.h>
 
-void	ft_lstadd_back(t_list **alst, t_list *new)
+t_shell		*ft_lstnew_shell(void *content)
 {
-	t_list *temp;
+	t_shell *new;
 
-	if ((*alst) == 0)
-	{
-		(*alst) = new;
-		return ;
-	}
-	temp = *alst;
-	while (temp->next != 0)
-	{
-		temp = temp->next;
-	}
-	temp->next = new;
+	new = malloc(sizeof(t_shell));
+	if (new == 0)
+		return (0);
+	new->content = content;
+	new->containerized = make_container((char*)content);
+	new->next = 0;
+	return (new);
 }
