@@ -6,7 +6,7 @@
 #    By: juvan-de <juvan-de@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/27 11:29:28 by juvan-de      #+#    #+#                  #
-#    Updated: 2020/10/19 18:02:53 by juvan-de      ########   odam.nl          #
+#    Updated: 2020/10/19 18:35:59 by juvan-de      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ OBJ_FILES	= $(CFILES:.c=.o)
 
 LIB = -L./libft -lft -L./ft_printf -lftprintf  -L./getnextline -lgnl
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = 
 
 all: $(NAME)
 
