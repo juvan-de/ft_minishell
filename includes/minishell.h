@@ -6,7 +6,7 @@
 /*   By: juvan-de <juvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 12:23:31 by juvan-de      #+#    #+#                 */
-/*   Updated: 2020/10/19 19:27:03 by juvan-de      ########   odam.nl         */
+/*   Updated: 2020/10/20 11:54:39 by juvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,7 @@ t_list		*make_container(char *content);
 
 void		ft_lstadd_back_shell(t_shell **alst, t_shell *new);
 t_shell		*ft_lstnew_shell(void *content);
+
 void		ft_print_list(t_list *list);
+void		ft_print_shell(t_shell *list);
 #endif
