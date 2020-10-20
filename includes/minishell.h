@@ -4,6 +4,7 @@
 # include "../ft_printf/printf.h"
 # include "../libft/libft.h"
 
+
 typedef struct		s_shell
 {
 	void			*content;
@@ -12,6 +13,7 @@ typedef struct		s_shell
 	int				datatype;
 }					t_shell;
 
+void		distributor(t_list *list);
 t_shell		*pars_semicolon(char *input);
 t_list		*first_parser(char *input);
 void		ft_lstadd_back_shell(t_shell **alst, t_shell *new);

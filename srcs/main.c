@@ -6,7 +6,7 @@
 /*   By: juvan-de <juvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 12:23:16 by juvan-de      #+#    #+#                 */
-/*   Updated: 2020/10/20 15:33:03 by juvan-de      ########   odam.nl         */
+/*   Updated: 2020/10/20 16:56:00 by juvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		main(void)
 		else
 		{
 			shell = first_parser(line);
-			ft_print_list(shell);
+			distributor(shell);
 		}
 	}
 	return (0);

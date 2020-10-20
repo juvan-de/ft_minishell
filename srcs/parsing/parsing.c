@@ -1,5 +1,4 @@
 #include "../../includes/minishell.h"
-#include <stdbool.h>
 
 void		make_token(char *content, int i, t_list **list)
 {
