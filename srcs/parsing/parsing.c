@@ -6,7 +6,7 @@
 /*   By: juvan-de <juvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 15:45:22 by juvan-de      #+#    #+#                 */
-/*   Updated: 2020/10/20 11:07:37 by juvan-de      ########   odam.nl         */
+/*   Updated: 2020/10/20 11:21:06 by juvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,12 @@ t_shell	*pars_semicolon(char *input)
 	}
 	free(array);
 	return (list);
+}
+
+int		haha(void)
+{
+	int i;
+
+	i = 10;
+	return (10);
 }
