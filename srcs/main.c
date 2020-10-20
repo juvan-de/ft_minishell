@@ -6,7 +6,7 @@
 /*   By: juvan-de <juvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 12:23:16 by juvan-de      #+#    #+#                 */
-/*   Updated: 2020/10/19 13:32:57 by avan-ber      ########   odam.nl         */
+/*   Updated: 2020/10/20 09:04:41 by avan-ber      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 int		main()
 {
-	char *line;
+	char	*line;
+	int		ret;
 
-	while(1)
+	while (1)
 	{
-		line = get_next_line(0, &line);
-		if(ft_strncmp(line, "exit", 5) == 0)
+		ret = get_next_line(0, &line);
+		if (ft_strncmp(line, "exit", 5) == 0)
 			return (0);
 		else
 			ft_printf("hij leest:\n%s", line);

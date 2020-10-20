@@ -1,1 +1,25 @@
 This is where we will put down some notes:
+
+executable runnen:
+	-based on the Path var
+	-based on relative path
+	-based on absolute path
+
+echo:
+	printing text
+	-with -n
+
+cd:
+	going to another dir
+	-based on relative path
+	-based on absolute path
+
+pwd:
+	printing the path to the current dir n absolute path
+
+export:
+	shows env in a layout. Set the var on ascivalue order order
+	export with a argument makes a nwe var.
+	var has to be in format test=hallo and will result in test="hallo" (also test="""hallo""" will result in test="hallo")
+	if the name already exist it changes the equal to
+	if there is a space it will make 2 var
