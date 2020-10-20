@@ -1,26 +1,18 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: juvan-de <juvan-de@student.codam.nl>         +#+                      #
-#                                                    +#+                       #
-#    Created: 2019/11/27 11:29:28 by juvan-de      #+#    #+#                  #
-#    Updated: 2020/10/20 11:44:55 by juvan-de      ########   odam.nl          #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = minishell
 
-OBJ_DIR = objs
-SRC_DIR = srcs
-_OBJ_FILES = main \
-			parsing/parsing \
-			list/ft_lstaddback_shell \
-			list/ft_lstnew_shell \
-			utils/minishell_utils1 \
-
-OBJ_FILES = $(addsuffix .o, $(addprefix $(OBJ_DIR)/,$(_OBJ_FILES)))
+OBJ_DIR = ./obj/
+SRC_DIR = ./srcs/
+SRC_FILES = main.c \
+			parsing/parsing.c \
+			parsing/distribution.c \
+			list/ft_lstaddback_shell.c \
+			list/ft_lstnew_shell.c \
+			utils/minishell_utils1.c \
+			pwd/pwd.c \
+			
+						
+CFILES		= $(SRC_FILES:%=srcs/%)
+OBJ_FILES	= $(CFILES:.c=.o)
 
 LIB = -L./libft -lft -L./ft_printf -lftprintf  -L./getnextline -lgnl
 
@@ -32,7 +24,7 @@ $(NAME): $(OBJ_FILES)
 	make bonus -C libft
 	make -C ft_printf
 	make bonus -C getnextline
-	$(CC) -o $(NAME) $(OBJ_FILES) $(LIB) $(CFLAGS)
+	$(CC) -o $(NAME) $(OBJ_FILES) $(LIB) 
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)/$(dir $*)
