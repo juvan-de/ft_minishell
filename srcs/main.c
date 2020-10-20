@@ -6,15 +6,16 @@
 /*   By: juvan-de <juvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 12:23:16 by juvan-de      #+#    #+#                 */
-/*   Updated: 2020/10/20 11:57:39 by juvan-de      ########   odam.nl         */
+/*   Updated: 2020/10/20 15:33:03 by juvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		test()
+int		main(void)
 {
-	char *line;
+	t_list	*shell;
+	char	*line;
 
 	while (1)
 	{
@@ -22,14 +23,11 @@ int		test()
 		if (ft_strncmp(line, "exit", 5) == 0)
 			return (0);
 		else
-			ft_printf("hij leest:\n%s\n", line);
+		{
+			shell = first_parser(line);
+			ft_print_list(shell);
+		}
 	}
+	return (0);
 }
 
-int		main(void)
-{
-	t_shell	*shell;
-
-	shell = pars_semicolon("wat als er geen semicolon is??; en nu wel dan?");
-	ft_print_shell(shell);
-}

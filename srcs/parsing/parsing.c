@@ -1,74 +1,42 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   parsing.c                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: juvan-de <juvan-de@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2020/10/19 15:45:22 by juvan-de      #+#    #+#                 */
-/*   Updated: 2020/10/20 12:08:03 by juvan-de      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../includes/minishell.h"
+#include <stdbool.h>
 
-char	**check_for_special_chars(char **array)
+void		make_token(char *content, int i, t_list **list)
 {
-	char	*chars;
-	char	**res;
-	int		i[2];
+	char	*res;
+	t_list	*temp;
 
-	chars = "<>'\"";
-	i[0] = 0;
-	while (array[i[0]])
-	{
-		i[1] = 0;
-		while (array[i[0]][i[1]])
-		{
-			if (ft_strnstr)
-			i[1]++;
-		}
-		i[0]++;
-	}
+	res = ft_substr(content, 0, i);
+	temp = ft_lstnew(res);
+	ft_lstadd_back(list, temp);
 }
 
-t_list	*make_container(char *content)
+t_list		*first_parser(char *input)
 {
 	t_list	*list;
-	t_list	*new;
-	char	**array;
 	int		i;
+	int		doublequotemark;
+	int		singlequotemark;
 
 	i = 0;
-	array = ft_split(content, ' ');
+	doublequotemark = -1;
+	singlequotemark = -1;
 	list = 0;
-	check_for_special_chars(array);
-	while (array[i])
+	while (input[i] && input[i] != ';')
 	{
-		new = ft_lstnew(array[i]);
-		ft_lstadd_back(&list, new);
+		if (input[i] == '\"' && singlequotemark == -1)
+			doublequotemark *= -1;
+		if (input[i] == '\'' && doublequotemark == -1)
+			singlequotemark *= -1;
 		i++;
+		if (input[i] == ' ' && doublequotemark == -1 && singlequotemark == -1)
+		{
+			i++;
+			make_token(input, i, &list);
+			input = input + i;
+			i = 0;
+		}
 	}
-	free(array);
-	return (list);
-}
-
-t_shell	*pars_semicolon(char *input)
-{
-	t_shell	*list;
-	t_shell	*new;
-	char	**array;
-	int		i;
-
-	i = 0;
-	array = ft_split(input, ';');
-	list = 0;
-	while (array[i])
-	{
-		new = ft_lstnew_shell(array[i]);
-		ft_lstadd_back_shell(&list, new);
-		i++;
-	}
-	free(array);
+	make_token(input, i, &list);
 	return (list);
 }

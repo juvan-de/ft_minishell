@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: juvan-de <juvan-de@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2020/10/19 12:23:31 by juvan-de      #+#    #+#                 */
-/*   Updated: 2020/10/20 11:54:39 by juvan-de      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include "../getnextline/get_next_line.h"
@@ -21,11 +9,11 @@ typedef struct		s_shell
 	void			*content;
 	struct s_list	*containerized;
 	struct s_shell	*next;
+	int				datatype;
 }					t_shell;
 
 t_shell		*pars_semicolon(char *input);
-t_list		*make_container(char *content);
-
+t_list		*first_parser(char *input);
 void		ft_lstadd_back_shell(t_shell **alst, t_shell *new);
 t_shell		*ft_lstnew_shell(void *content);
 
