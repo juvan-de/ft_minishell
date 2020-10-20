@@ -6,27 +6,25 @@
 #    By: juvan-de <juvan-de@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/27 11:29:28 by juvan-de      #+#    #+#                  #
-#    Updated: 2020/10/19 19:09:05 by juvan-de      ########   odam.nl          #
+#    Updated: 2020/10/20 09:03:18 by avan-ber      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-OBJ_DIR = ./obj/
-SRC_DIR = ./srcs/
-SRC_FILES = main.c \
-			parsing/parsing.c \
-			list/ft_lstaddback_shell.c \
-			list/ft_lstnew_shell.c \
-			utils/minishell_utils1.c \
-			
-						
-CFILES		= $(SRC_FILES:%=srcs/%)
-OBJ_FILES	= $(CFILES:.c=.o)
+OBJ_DIR = objs
+SRC_DIR = srcs
+_OBJ_FILES = main \
+			parsing/parsing \
+			list/ft_lstaddback_shell \
+			list/ft_lstnew_shell \
+			utils/minishell_utils1 \
+
+OBJ_FILES = $(addsuffix .o, $(addprefix $(OBJ_DIR)/,$(_OBJ_FILES)))
 
 LIB = -L./libft -lft -L./ft_printf -lftprintf  -L./getnextline -lgnl
 
-CFLAGS = 
+CFLAGS =
 
 all: $(NAME)
 
@@ -36,8 +34,9 @@ $(NAME): $(OBJ_FILES)
 	make bonus -C getnextline
 	$(CC) -o $(NAME) $(OBJ_FILES) $(LIB) $(CFLAGS)
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@gcc -c $< -o $@
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)/$(dir $*)
+	gcc -c $(CFLAGS) $< -o $@
 
 bonus:
 	$(MAKE) WITH_BONUS=1 all
@@ -53,13 +52,13 @@ fclean: clean
 	$(MAKE) -C ft_printf fclean
 	$(MAKE) -C getnextline fclean
 	/bin/rm -f $(NAME) execute
-	/bin/rm -f libft/libft.a 
-	/bin/rm -f libft.a 
-	/bin/rm -f ft_printf/libftprintf.a 
+	/bin/rm -f libft/libft.a
+	/bin/rm -f libft.a
+	/bin/rm -f ft_printf/libftprintf.a
 	/bin/rm -f libftprintf.a
-	/bin/rm -f getnextline/libgnl.a 
+	/bin/rm -f getnextline/libgnl.a
 	/bin/rm -f libgnl.a
 
 re: fclean all
 
-.PHONY: all $(NAME) clean fclean re 
+.PHONY: all $(NAME) clean fclean re
