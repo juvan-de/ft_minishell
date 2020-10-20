@@ -6,7 +6,7 @@
 #    By: juvan-de <juvan-de@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/27 11:29:28 by juvan-de      #+#    #+#                  #
-#    Updated: 2020/10/20 09:03:18 by avan-ber      ########   odam.nl          #
+#    Updated: 2020/10/20 11:20:42 by avan-ber      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,3 +62,5 @@ fclean: clean
 re: fclean all
 
 .PHONY: all $(NAME) clean fclean re
+
+dit is mijn test
