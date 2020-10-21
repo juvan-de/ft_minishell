@@ -6,7 +6,7 @@
 /*   By: avan-ber <avan-ber@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/20 14:37:19 by avan-ber      #+#    #+#                 */
-/*   Updated: 2020/10/20 15:37:56 by avan-ber      ########   odam.nl         */
+/*   Updated: 2020/10/21 09:26:20 by avan-ber      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,21 @@
 #include <stdlib.h>
 #include "../../includes/minishell.h"
 
-char *get_var(char *str, int len, char **var)
+char	*get_var(char *str, int len, char **var, t_envvar_list *envvar_list)
 {
-	int		i;
-	char	*new;
+	int	i;
 
-	new = malloc(i + 2);
 	i = 0;
-	while (i < len)
+	while (i < envvar_list->used)
 	{
-		new[i] = str[i];
+		if (ft_strncmp(str, envvar_list->var[i].name, len) == 0)
+			return (strdup(envvar_list->var[i].value));
 		i++;
 	}
-	new[i] = '1';
-	new[i +  1] = '\0';
-	return (new);
+	return (ft_strdup(""));
 }
 
-char *insert_var(char *str, char *var)
+char *insert_var(char *str, char *var, t_envvar_list *envvar_list)
 {
 	int		i;
 	int		j;
@@ -52,7 +49,7 @@ char *insert_var(char *str, char *var)
 			{
 				i++;
 			}
-			new = get_var(str + j, i - j, var);
+			new = get_var(str + j, i - j, var, envvar_list);
 			res = ft_strjoin(res, new);
 			j = i;
 		}
@@ -63,9 +60,3 @@ char *insert_var(char *str, char *var)
 	return (res);
 }
 
-int main(void)
-{
-	char	*new;
-	new = insert_var(ft_strdup("dit is een $PATH"));
-	printf("%s\n", new);
-}

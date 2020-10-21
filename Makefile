@@ -6,7 +6,7 @@
 #    By: juvan-de <juvan-de@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/27 11:29:28 by juvan-de      #+#    #+#                  #
-#    Updated: 2020/10/20 15:38:48 by avan-ber      ########   odam.nl          #
+#    Updated: 2020/10/21 09:25:13 by avan-ber      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 OBJ_DIR = objs
 SRC_DIR = srcs
-_OBJ_FILES = parsing/insert_var
+_OBJ_FILES = main
 
 OBJ_FILES = $(addsuffix .o, $(addprefix $(OBJ_DIR)/,$(_OBJ_FILES)))
 
@@ -38,7 +38,7 @@ bonus:
 	$(MAKE) WITH_BONUS=1 all
 
 clean:
-	/bin/rm -f $(OBJ_DIR) main.o
+	/bin/rm -rf $(OBJ_DIR) main.o
 	$(MAKE) -C libft clean
 	$(MAKE) -C ft_printf clean
 	$(MAKE) -C getnextline clean
