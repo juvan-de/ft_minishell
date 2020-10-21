@@ -17,6 +17,7 @@ t_list		*first_parser(char *input)
 	int		doublequotemark;
 	int		singlequotemark;
 
+	printf("\n\nhij komt in first parser met deze zin : %s\n\n", input);
 	i = 0;
 	doublequotemark = -1;
 	singlequotemark = -1;
@@ -37,6 +38,7 @@ t_list		*first_parser(char *input)
 		}
 	}
 	make_token(input, i, &list);
+	ft_print_list(list);
 	return (list);
 }
 

@@ -1,19 +1,6 @@
 
 #include "../includes/minishell.h"
 
-typedef	struct		s_envvar
-{
-	char			*name;
-	char			*value;
-}					t_envvar;
-
-typedef struct		s_envvar_list
-{
-	int				size;
-	int				used;
-	t_envvar		*var;
-}					t_envvar_list;
-
 int		ft_arraylen(char **envp)
 {
 	int i;
@@ -81,6 +68,7 @@ void	envvar_list_init(t_envvar_list *envvar_list, char **envp)
 	{
 		ft_split_in_two(envp[i], &(envvar_list->var[i].name),
 											&(envvar_list->var[i].value), '=');
+		ft_printf("[%s] [%s]\n",  envvar_list->var[i].name, envvar_list->var[i].value);
 		i++;
 	}
 	while (i <= envvar_list->size)
@@ -124,7 +112,10 @@ void	add_envvar(t_envvar_list *envvar_list, char *var)
 
 int		main(int ac, char **av, char **envp)
 {
-	t_envvar_list envvar_list;
+	char			*line;
+	t_list			*list;
+	int				ret;
+	t_envvar_list	envvar_list;
 
 	if (ac != 1)
 	{
@@ -132,5 +123,18 @@ int		main(int ac, char **av, char **envp)
 		return (0);
 	}
 	envvar_list_init(&envvar_list, envp);
+	while (1)
+	{
+		ft_printf("<%s>", av[0] + 2);
+		ret = get_next_line(0, &line);
+		list = first_parser(line);
+		ft_print_list(list);
+		while (list)
+		{
+			list->content = insert_var(list->content, envp, &envvar_list);
+			list = list->next;
+		}
+		ft_print_list(list);
+	}
 }
 

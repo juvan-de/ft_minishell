@@ -2,8 +2,9 @@ NAME = minishell
 
 OBJ_DIR = objs
 SRC_DIR = srcs
-_OBJ_FILES = main
+_OBJ_FILES = main \
 			parsing/parsing \
+			parsing/insert_var \
 			parsing/distribution \
 			list/ft_lstaddback_shell \
 			list/ft_lstnew_shell \

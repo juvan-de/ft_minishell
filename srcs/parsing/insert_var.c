@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "../../includes/minishell.h"
 
-char	*get_var(char *str, int len, char **var, t_envvar_list *envvar_list)
+static char	*get_var(char *str, int len, char **var, t_envvar_list *envvar_list)
 {
 	int	i;
 
@@ -11,13 +11,13 @@ char	*get_var(char *str, int len, char **var, t_envvar_list *envvar_list)
 	while (i < envvar_list->used)
 	{
 		if (ft_strncmp(str, envvar_list->var[i].name, len) == 0)
-			return (strdup(envvar_list->var[i].value));
+			return (ft_strdup(envvar_list->var[i].value));
 		i++;
 	}
 	return (ft_strdup(""));
 }
 
-char	*insert_var(char *str, char *var, t_envvar_list *envvar_list)
+char	*insert_var(char *str, char **var, t_envvar_list *envvar_list)
 {
 	int		i;
 	int		j;
