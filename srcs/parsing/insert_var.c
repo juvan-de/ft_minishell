@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   insert_var.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: avan-ber <avan-ber@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2020/10/20 14:37:19 by avan-ber      #+#    #+#                 */
-/*   Updated: 2020/10/21 09:26:20 by avan-ber      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -28,7 +17,7 @@ char	*get_var(char *str, int len, char **var, t_envvar_list *envvar_list)
 	return (ft_strdup(""));
 }
 
-char *insert_var(char *str, char *var, t_envvar_list *envvar_list)
+char	*insert_var(char *str, char *var, t_envvar_list *envvar_list)
 {
 	int		i;
 	int		j;
@@ -50,7 +39,8 @@ char *insert_var(char *str, char *var, t_envvar_list *envvar_list)
 				i++;
 			}
 			new = get_var(str + j, i - j, var, envvar_list);
-			res = ft_strjoin(res, new);
+			if (new == NULL)
+				res = ft_strjoin(res, new);
 			j = i;
 		}
 		i++;

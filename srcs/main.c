@@ -6,7 +6,7 @@
 /*   By: juvan-de <juvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 12:23:16 by juvan-de      #+#    #+#                 */
-/*   Updated: 2020/10/21 09:36:44 by avan-ber      ########   odam.nl         */
+/*   Updated: 2020/10/21 10:47:23 by avan-ber      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ void	envvar_list_init(t_envvar_list *envvar_list, char **envp)
 	i = 0;
 	while (i < envvar_list->used)
 	{
-		ft_split_in_two(envp[i], &(envvar_list->var[i].name), &(envvar_list->var[i].value), '=');
+		ft_split_in_two(envp[i], &(envvar_list->var[i].name),
+											&(envvar_list->var[i].value), '=');
 		i++;
 	}
 	while (i <= envvar_list->size)
