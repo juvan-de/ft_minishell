@@ -114,6 +114,7 @@ int		main(int ac, char **av, char **envp)
 {
 	char			*line;
 	t_list			*list;
+	t_list			*tmp;
 	int				ret;
 	t_envvar_list	envvar_list;
 
@@ -129,11 +130,13 @@ int		main(int ac, char **av, char **envp)
 		ret = get_next_line(0, &line);
 		list = first_parser(line);
 		ft_print_list(list);
-		while (list)
+		tmp = list;
+		while (tmp)
 		{
-			list->content = insert_var(list->content, envp, &envvar_list);
-			list = list->next;
+			tmp->content = insert_var(tmp->content, envp, &envvar_list);
+			tmp = tmp->next;
 		}
+		ft_printf("waarom km hij hier niet\n");
 		ft_print_list(list);
 	}
 }

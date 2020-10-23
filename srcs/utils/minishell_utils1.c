@@ -4,7 +4,7 @@ void	ft_print_list(t_list *list)
 {
 	while (list != NULL)
 	{
-		ft_printf("%s\n", list->content);
+		ft_printf("[%s]\n", list->content);
 		list = list->next;
 	}
 }
