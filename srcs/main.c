@@ -1,4 +1,3 @@
-
 #include "../includes/minishell.h"
 
 typedef	struct		s_envvar
@@ -125,12 +124,19 @@ void	add_envvar(t_envvar_list *envvar_list, char *var)
 int		main(int ac, char **av, char **envp)
 {
 	t_envvar_list envvar_list;
+	char			*line;
+	t_shell			*list;
 
 	if (ac != 1)
 	{
-		ft_printf("Error\nminishell does not need argumenets\n");
+		ft_printf("Error\nminishell does not need arguments\n");
 		return (0);
 	}
 	envvar_list_init(&envvar_list, envp);
+//	while (1)
+//	{
+//		get_next_line(1, &line);
+		list = first_parser("echo -n \"we are champions!\";   something something");
+		ft_print_shell(list);
+//	}
 }
-
