@@ -1,4 +1,3 @@
-
 #include "../includes/minishell.h"
 
 int		ft_arraylen(char **envp)
@@ -120,7 +119,7 @@ int		main(int ac, char **av, char **envp)
 
 	if (ac != 1)
 	{
-		ft_printf("Error\nminishell does not need argumenets\n");
+		ft_printf("Error\nminishell does not need arguments\n");
 		return (0);
 	}
 	envvar_list_init(&envvar_list, envp);
@@ -139,5 +138,10 @@ int		main(int ac, char **av, char **envp)
 		ft_printf("waarom km hij hier niet\n");
 		ft_print_list(list);
 	}
+//	while (1)
+//	{
+//		get_next_line(1, &line);
+		// list = first_parser("echo -n \"we are champions!\";   something something");
+		// ft_print_shell(list);
+//	}
 }
-
