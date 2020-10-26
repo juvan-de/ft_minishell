@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-int			ft_content_in_list(char *content)
+static int			ft_content_in_list(char *content)
 {
 	int	i;
 	const char *commands[4];
@@ -36,24 +36,18 @@ static char		*make_token(char *content, int i, t_shell **list)
 	char	*res;
 	t_shell	*temp;
 
-	if (ft_strrchr("|;<>", (int)content[i]) != 0 && content[i])
+	res = ft_substr(content, 0, i);
+	temp = ft_lstnew_shell(res);
+	ft_lstadd_back_shell(list, temp);
+	while (content[i] && ft_strrchr("|;<> ", (int)content[i]) != 0)
 	{
-		res = ft_substr(content, 0, i);
-		temp = ft_lstnew_shell(res);
-		ft_lstadd_back_shell(list, temp);
-		res = ft_substr(content, i, 1);
-		temp = ft_lstnew_shell(res);
-		ft_lstadd_back_shell(list, temp);
+		if (ft_strrchr("|;<>", (int)content[i]) != 0)
+		{
+			temp = ft_lstnew_shell(ft_substr(content, i, 1));
+			ft_lstadd_back_shell(list, temp);
+		}
 		i++;
 	}
-	else
-	{
-		res = ft_substr(content, 0, i);
-		temp = ft_lstnew_shell(res);
-		ft_lstadd_back_shell(list, temp);
-	}
-	while (content[i] && content[i] == ' ')
-		i++;
 	return (content + i);
 }
 
