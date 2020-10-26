@@ -112,8 +112,8 @@ void	add_envvar(t_envvar_list *envvar_list, char *var)
 int		main(int ac, char **av, char **envp)
 {
 	char			*line;
-	t_list			*list;
-	t_list			*tmp;
+	t_shell			*shell;
+	t_shell			*tmp;
 	int				ret;
 	t_envvar_list	envvar_list;
 
@@ -127,16 +127,18 @@ int		main(int ac, char **av, char **envp)
 	{
 		ft_printf("<%s>", av[0] + 2);
 		ret = get_next_line(0, &line);
-		list = first_parser(line);
-		ft_print_list(list);
-		tmp = list;
+		printf("getnextline gaat goed\n");
+		shell = first_parser(line);
+		printf("first parser gaat goed\n");
+		ft_print_shell(shell);
+		tmp = shell;
 		while (tmp)
 		{
 			tmp->content = insert_var(tmp->content, envp, &envvar_list);
 			tmp = tmp->next;
 		}
 		ft_printf("waarom km hij hier niet\n");
-		ft_print_list(list);
+		ft_print_shell(shell);
 	}
 //	while (1)
 //	{

@@ -56,7 +56,7 @@ static char		*make_token(char *content, int i, t_shell **list)
 
 t_shell		*first_parser(char *input)
 {
-	t_shell	*list;
+	t_shell	*shell;
 	int		i;
 	int		doublequotemark;
 	int		singlequotemark;
@@ -65,7 +65,7 @@ t_shell		*first_parser(char *input)
 	i = 0;
 	doublequotemark = -1;
 	singlequotemark = -1;
-	list = 0;
+	shell = 0;
 	while (input[i])
 	{
 		if (input[i] == '\"' && singlequotemark == -1)
@@ -74,12 +74,12 @@ t_shell		*first_parser(char *input)
 			singlequotemark *= -1;
 		if (ft_strrchr(" |<>;", (int)input[i]) != 0 && doublequotemark == -1 && singlequotemark == -1 && i > 0)
 		{
-			input = make_token(input, i, &list);
+			input = make_token(input, i, &shell);
 			i = -1;
 		}
 		i++;
 	}
-	make_token(input, i, &list);
-	ft_print_list(list);
-	return (list);
+	make_token(input, i, &shell);
+	ft_print_shell(shell);
+	return (shell);
 }
