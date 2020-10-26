@@ -49,7 +49,7 @@ static char		*make_token(char *content, int i, t_shell **list)
 		temp = ft_lstnew_shell(res);
 		ft_lstadd_back_shell(list, temp);
 	}
-	while (ft_strrchr(" |<>;", (int)content[i]) != 0)
+	while (content[i] == ' ')
 		i++;
 	return (content + i);
 }

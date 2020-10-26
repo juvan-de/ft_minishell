@@ -123,7 +123,7 @@ int		main(int ac, char **av, char **envp)
 //	while (1)
 //	{
 //		get_next_line(1, &line);
-		list = first_parser("echo -n \"we are champions!\";   something something");
+		list = first_parser("echo -n \"we are champions!\" ;   something something");
 		ft_print_shell(list);
 //	}
 }
