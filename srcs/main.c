@@ -1,18 +1,5 @@
 #include "../includes/minishell.h"
 
-typedef	struct		s_envvar
-{
-	char			*name;
-	char			*value;
-}					t_envvar;
-
-typedef struct		s_envvar_list
-{
-	int				size;
-	int				used;
-	t_envvar		*var;
-}					t_envvar_list;
-
 int		ft_arraylen(char **envp)
 {
 	int i;

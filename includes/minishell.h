@@ -11,6 +11,19 @@ typedef struct		s_shell
 	struct s_shell	*next;
 }					t_shell;
 
+typedef	struct		s_envvar
+{
+	char			*name;
+	char			*value;
+}					t_envvar;
+
+typedef struct		s_envvar_list
+{
+	int				size;
+	int				used;
+	t_envvar		*var;
+}					t_envvar_list;
+
 //enum commands {
 //	pwd,
 //	echo,
@@ -18,7 +31,7 @@ typedef struct		s_shell
 	
 //}
 
-void		distributor(t_list *list);
+void		distributor(t_list *list, t_envvar_list *envlist);
 
 void		ft_lstadd_back_shell(t_shell **alst, t_shell *new);
 t_shell		*ft_lstnew_shell(void *content);
