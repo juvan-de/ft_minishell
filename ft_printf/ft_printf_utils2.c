@@ -5,14 +5,14 @@
 /*                                                     +:+                    */
 /*   By: avan-ber <avan-ber@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/13 19:41:40 by avan-ber       #+#    #+#                */
-/*   Updated: 2020/01/04 12:28:01 by avan-ber      ########   odam.nl         */
+/*   Created: 2019/12/13 19:41:40 by avan-ber      #+#    #+#                 */
+/*   Updated: 2020/10/26 17:05:05 by juvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-char		*ft_strchr(const char *s, int c)
+char		*ft_strchr_printf(const char *s, int c)
 {
 	int i;
 

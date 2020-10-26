@@ -113,6 +113,7 @@ int		main(int ac, char **av, char **envp)
 	t_envvar_list envvar_list;
 	char			*line;
 	t_shell			*list;
+	t_minishell		*data;
 
 	if (ac != 1)
 	{
@@ -120,10 +121,9 @@ int		main(int ac, char **av, char **envp)
 		return (0);
 	}
 	envvar_list_init(&envvar_list, envp);
-//	while (1)
-//	{
-//		get_next_line(1, &line);
-		list = first_parser("echo -n \"we are champions!\" ;   something something");
-		ft_print_shell(list);
-//	}
+	list = first_parser("echo>> \"hallo vandaag is rood\" heh<e; w00t");
+	ft_print_shell(list);
+	data = parser(list);
+	//print_array(data);
+//	ft_print_list(data->redirect);
 }

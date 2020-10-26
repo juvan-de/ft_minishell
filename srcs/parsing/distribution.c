@@ -1,6 +1,6 @@
 #include "../../includes/distributor.h"
 
-void	distributor(t_list *list, t_envvar_list *envlist)
+void	distributor(t_shell *list, t_envvar_list *envlist)
 {
 	int	i;
 

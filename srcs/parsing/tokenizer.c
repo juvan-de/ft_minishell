@@ -43,8 +43,17 @@ static char		*make_token(char *content, int i, t_shell **list)
 	{
 		if (ft_strrchr("|;<>", (int)content[i]) != 0)
 		{
-			temp = ft_lstnew_shell(ft_substr(content, i, 1));
-			ft_lstadd_back_shell(list, temp);
+			if (content[i] == '>' && content[i + 1] == '>')
+			{
+				temp = ft_lstnew_shell(ft_substr(content, i, 2));
+				ft_lstadd_back_shell(list, temp);
+				i++;
+			}
+			else
+			{
+				temp = ft_lstnew_shell(ft_substr(content, i, 1));
+				ft_lstadd_back_shell(list, temp);
+			}
 		}
 		i++;
 	}
