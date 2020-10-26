@@ -9,6 +9,8 @@ _OBJ_FILES = main \
 			list/ft_lstaddback_shell \
 			list/ft_lstnew_shell \
 			utils/minishell_utils1 \
+			echo/echo \
+			env/env \
 			pwd/pwd
 
 OBJ_FILES = $(addsuffix .o, $(addprefix $(OBJ_DIR)/,$(_OBJ_FILES)))

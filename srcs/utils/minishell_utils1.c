@@ -17,3 +17,26 @@ void	ft_print_shell(t_shell *list)
 		list = list->next;
 	}
 }
+
+int		ft_shell_find_elem(t_shell *shell)
+{
+	int i;
+
+	i = 0;
+	while (!(shell == 0 || ft_strncmp(shell->content, ";", 2) == 0))
+	{
+		shell = shell->next;
+		i++;
+	}
+	return (i);
+}
+
+int		ft_arraylen(char **array)
+{
+	int i;
+
+	i = 0;
+	while (array[i] != '\0')
+		i++;
+	return (i);
+}

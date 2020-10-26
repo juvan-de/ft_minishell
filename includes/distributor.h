@@ -6,13 +6,17 @@
 typedef struct		s_keyword
 {
 	char	*keyword;
-	void	(*func)(t_list *list, t_envvar_list *envlist);
+	void	(*func)(t_shell *shell, t_envvar_list *envlist);
 }					t_keyword;
 
-void		ft_pwd(t_list *list, t_envvar_list *envlist);
+void		ft_pwd(t_shell *shell, t_envvar_list *envlist);
+void		ft_env(t_shell *shell, t_envvar_list *envlist);
+void		ft_echo(t_shell *shell, t_envvar_list *envlist);
 
 t_keyword		g_keyword[] = {
 	{"pwd", &ft_pwd},
+	{"env", &ft_env},
+	{"echo", &ft_echo},
 	{0, NULL}
 };
 

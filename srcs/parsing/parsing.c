@@ -61,7 +61,6 @@ t_shell		*first_parser(char *input)
 	int		doublequotemark;
 	int		singlequotemark;
 
-	printf("\n\nhij komt in first parser met deze zin : %s\n\n", input);
 	i = 0;
 	doublequotemark = -1;
 	singlequotemark = -1;
@@ -80,6 +79,5 @@ t_shell		*first_parser(char *input)
 		i++;
 	}
 	make_token(input, i, &shell);
-	ft_print_shell(shell);
 	return (shell);
 }

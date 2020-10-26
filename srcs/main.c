@@ -67,7 +67,6 @@ void	envvar_list_init(t_envvar_list *envvar_list, char **envp)
 	{
 		ft_split_in_two(envp[i], &(envvar_list->var[i].name),
 											&(envvar_list->var[i].value), '=');
-		ft_printf("[%s] [%s]\n",  envvar_list->var[i].name, envvar_list->var[i].value);
 		i++;
 	}
 	while (i <= envvar_list->size)
@@ -127,18 +126,14 @@ int		main(int ac, char **av, char **envp)
 	{
 		ft_printf("<%s>", av[0] + 2);
 		ret = get_next_line(0, &line);
-		printf("getnextline gaat goed\n");
 		shell = first_parser(line);
-		printf("first parser gaat goed\n");
-		ft_print_shell(shell);
 		tmp = shell;
 		while (tmp)
 		{
 			tmp->content = insert_var(tmp->content, envp, &envvar_list);
 			tmp = tmp->next;
 		}
-		ft_printf("waarom km hij hier niet\n");
-		ft_print_shell(shell);
+		distributor(shell, &envvar_list);
 	}
 //	while (1)
 //	{
