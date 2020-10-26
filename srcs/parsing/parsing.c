@@ -3,11 +3,13 @@
 int			ft_content_in_list(char *content)
 {
 	int	i;
-	const char *commands[2];
+	const char *commands[4];
 
 	i = 0;
 	commands[0] = "echo";
 	commands[1] = "pwd";
+	commands[2] = "env";
+	commands[3] = 0;
 	while (commands[i])
 	{
 		if (ft_strncmp(commands[i], content, ft_strlen(content) + 1) == 0)
@@ -21,7 +23,7 @@ int			check_datatype(char *content)
 {
 	if (ft_content_in_list(content))
 		return (0);
-	if (content[0] == '-')
+	else if (content[0] == '-')
 		return (1);
 	else if (ft_strrchr("|;<>", (int)content[0]) != 0)
 		return (2);
@@ -42,6 +44,7 @@ static char		*make_token(char *content, int i, t_shell **list)
 		res = ft_substr(content, i, 1);
 		temp = ft_lstnew_shell(res);
 		ft_lstadd_back_shell(list, temp);
+		i++;
 	}
 	else
 	{
@@ -49,7 +52,7 @@ static char		*make_token(char *content, int i, t_shell **list)
 		temp = ft_lstnew_shell(res);
 		ft_lstadd_back_shell(list, temp);
 	}
-	while (content[i] == ' ')
+	while (content[i] && content[i] == ' ')
 		i++;
 	return (content + i);
 }
