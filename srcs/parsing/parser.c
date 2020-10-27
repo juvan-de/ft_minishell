@@ -44,7 +44,10 @@ t_minishell	*parser(t_shell *list)
 			}
 			else if ((*((char*)list->content)) == '>')
 			{
-				temp = ft_lstnew("big");
+				if (ft_strncmp((char*)(list->content), ">>", 3) == 0)
+					temp = ft_lstnew("overwrite");
+				else
+					temp = ft_lstnew("big");
 				ft_lstadd_back(&redirects, temp);
 			}
 		}

@@ -121,9 +121,9 @@ int		main(int ac, char **av, char **envp)
 		return (0);
 	}
 	envvar_list_init(&envvar_list, envp);
-	list = first_parser("echo>> \"hallo vandaag is rood\" heh<e; w00t");
-	ft_print_shell(list);
+	list = first_parser("echo >> \"hallo vandaag is rood\" heh<e; w00t");
+//	ft_print_shell(list);
 	data = parser(list);
-	//print_array(data);
-//	ft_print_list(data->redirect);
+//	print_array(data);
+	ft_print_list(data->redirect);
 }
