@@ -18,6 +18,7 @@ void	ft_print_shell(t_shell *list)
 	}
 }
 
+<<<<<<< HEAD
 int		ft_shell_find_elem(t_shell *shell)
 {
 	int i;
@@ -39,4 +40,16 @@ int		ft_arraylen(char **array)
 	while (array[i] != '\0')
 		i++;
 	return (i);
+=======
+void	print_array(t_minishell *data)
+{
+	int	i;
+
+	i = 0;
+	while (data->content[i])
+	{
+		ft_printf("[%s]\n", data->content[i]);
+		i++;
+	}
+>>>>>>> main
 }

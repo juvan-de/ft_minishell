@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: avan-ber <avan-ber@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/13 14:45:35 by avan-ber       #+#    #+#                */
-/*   Updated: 2020/01/03 12:09:22 by avan-ber      ########   odam.nl         */
+/*   Created: 2019/12/13 14:45:35 by avan-ber      #+#    #+#                 */
+/*   Updated: 2020/10/26 17:05:53 by juvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	get_flags(t_flags *flags, char **str)
 {
-	while (ft_strchr("-\' #0+", **str) != 0)
+	while (ft_strchr_printf("-\' #0+", **str) != 0)
 	{
 		if (**str == '-')
 		{
