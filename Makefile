@@ -3,12 +3,7 @@ NAME = minishell
 OBJ_DIR = objs
 SRC_DIR = srcs
 _OBJ_FILES = main \
-<<<<<<< HEAD
-			parsing/parsing \
-			parsing/insert_var \
-=======
 			parsing/tokenizer \
->>>>>>> main
 			parsing/distribution \
 			parsing/parser \
 			list/ft_lstaddback_shell \
