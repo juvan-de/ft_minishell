@@ -8,8 +8,9 @@ _OBJ_FILES = main \
 			parsing/parser \
 			list/ft_lstaddback_shell \
 			list/ft_lstnew_shell \
+			redirects/redirection \
 			utils/minishell_utils1 \
-			pwd/pwd
+			pwd/pwd 
 
 OBJ_FILES = $(addsuffix .o, $(addprefix $(OBJ_DIR)/,$(_OBJ_FILES)))
 

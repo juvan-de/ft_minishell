@@ -112,7 +112,7 @@ int		main(int ac, char **av, char **envp)
 {
 	t_envvar_list envvar_list;
 	char			*line;
-	t_shell			*list;
+	t_list			*list;
 	t_minishell		*data;
 
 	if (ac != 1)
@@ -121,9 +121,7 @@ int		main(int ac, char **av, char **envp)
 		return (0);
 	}
 	envvar_list_init(&envvar_list, envp);
-	list = first_parser("echo >> \"hallo vandaag is rood\" heh<e; w00t");
-//	ft_print_shell(list);
+	list = tokenizer("echo \"hallo vandaag is rood\" > w00t");
 	data = parser(list);
-//	print_array(data);
-	ft_print_list(data->redirect);
+	redirection(data->redirect, "achzo");
 }
