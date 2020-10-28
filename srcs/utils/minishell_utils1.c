@@ -13,7 +13,7 @@ void	ft_print_shell(t_shell *list)
 {
 	while (list != NULL)
 	{
-		ft_printf("%s:[%d]\n", list->content, list->datatype);
+		ft_printf("%s:[%s]\n", list->file, list->type);
 		list = list->next;
 	}
 }

@@ -6,13 +6,11 @@
 typedef struct		s_keyword
 {
 	char	*keyword;
-	void	(*func)(t_shell *list, t_envvar_list *envlist);
+	void	(*func)(t_minishell *list, t_envvar_list *envlist);
 }					t_keyword;
 
-void		ft_pwd(t_shell *list, t_envvar_list *envlist);
 
 t_keyword		g_keyword[] = {
-	{"pwd", &ft_pwd},
 	{0, NULL}
 };
 
