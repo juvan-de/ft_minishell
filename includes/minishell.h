@@ -18,19 +18,18 @@ typedef struct		s_shell
 	struct s_shell	*next;
 }					t_shell;
 
+typedef struct		s_envvar
+{
+	char			*name;
+	char			*value;
+}					t_envvar;
+
 typedef struct		s_envvar_list
 {
 	int				size;
 	int				used;
-	char			**var;
+	t_envvar		*var;
 }					t_envvar_list;
-
-//enum commands {
-//	pwd,
-//	echo,
-//	export,
-
-//}
 
 int			ft_arraylen(char **array);
 int			ft_shell_find_elem(t_shell *shell);
@@ -47,5 +46,10 @@ t_shell		*first_parser(char *input);
 
 void		ft_print_list(t_list *list);
 void		ft_print_shell(t_shell *list);
-void		print_array(t_minishell *data);
+void		print_array(char **array);
+int			ft_strchr_i(char *str, char c);
+int			ft_strcmp(char *s1, char *s2);
+char		**ft_arraydup(char **array, int arraylen);
+int			ft_split_in_two(char *str, char **name, char **value, char split);
+void		envvar_list_init(t_envvar_list *envvar_list, char **envp);
 #endif

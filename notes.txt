@@ -23,3 +23,9 @@ export:
 	var has to be in format test=hallo and will result in test="hallo" (also test="""hallo""" will result in test="hallo")
 	if the name already exist it changes the equal to
 	if there is a space it will make 2 var
+
+
+
+testcases:
+	export test=hoi ; test1=$test
+	export hoi=abel hoi1=test; export		[hoi moet boven hoi1]

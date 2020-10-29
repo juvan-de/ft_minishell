@@ -9,11 +9,13 @@ typedef struct		s_keyword
 	void	(*func)(t_shell *list, t_envvar_list *envlist);
 }					t_keyword;
 
-void		ft_pwd(t_shell *list, t_envvar_list *envlist);
+void		ft_export(char **arg, t_envvar_list *envlist);
+void		ft_echo(char **arg, t_envvar_list *envlist);
+void		ft_env(char **arg, t_envvar_list *envlist);
 
 t_keyword		g_keyword[] = {
-	{"pwd", &ft_pwd},
 	{"env", &ft_env},
+	{"export", &ft_export},
 	{"echo", &ft_echo},
 	{0, NULL}
 };

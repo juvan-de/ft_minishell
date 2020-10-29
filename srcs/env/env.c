@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-void	ft_env(char	**env, t_envvar_list *envlist)
+void	ft_env(char **arg, t_envvar_list *envlist)
 {
 	int		i;
 
@@ -10,6 +10,12 @@ void	ft_env(char	**env, t_envvar_list *envlist)
 	}
 	else
 	{
-
+		while (i < envlist->used)
+		{
+			if (envlist->var[i].value == NULL)
+				ft_printf("%s=%s\n", envlist->var[i].name,
+														envlist->var[i].value);
+			i++;
+		}
 	}
 }

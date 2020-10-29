@@ -4,14 +4,16 @@ OBJ_DIR = objs
 SRC_DIR = srcs
 _OBJ_FILES = main \
 			parsing/tokenizer \
-			parsing/distribution \
 			parsing/parser \
+			parsing/distribution \
 			list/ft_lstaddback_shell \
 			list/ft_lstnew_shell \
 			utils/minishell_utils1 \
-			echo/echo \
+			envvar/envvar_utils1 \
+			envvar/envvar_init \
+			export/export \
 			env/env \
-			pwd/pwd
+			echo/echo
 
 OBJ_FILES = $(addsuffix .o, $(addprefix $(OBJ_DIR)/,$(_OBJ_FILES)))
 
