@@ -3,6 +3,7 @@ NAME = minishell
 OBJ_DIR = objs
 SRC_DIR = srcs
 _OBJ_FILES = main \
+			echo/echo \
 			parsing/tokenizer \
 			parsing/distribution \
 			parsing/parser \

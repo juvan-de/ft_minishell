@@ -6,11 +6,13 @@
 typedef struct		s_keyword
 {
 	char	*keyword;
-	void	(*func)(t_minishell *list, t_envvar_list *envlist);
+	void	(*func)(char **list, t_envvar_list *envlist);
 }					t_keyword;
 
+void	ft_echo(char **arg, t_envvar_list *envlist);
 
 t_keyword		g_keyword[] = {
+	{"echo", &ft_echo},
 	{0, NULL}
 };
 
