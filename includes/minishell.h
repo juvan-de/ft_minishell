@@ -33,7 +33,7 @@ typedef struct		s_envvar_list
 
 t_minishell	*parser(t_list *list);
 void		distributor(t_minishell *list, t_envvar_list *envlist);
-void		redirection(t_shell *redirections, char *res);
+void		redirection(t_shell *redirections);
 
 void		ft_lstadd_back_shell(t_shell **alst, t_shell *new);
 t_shell		*ft_lstnew_shell(char *type, char *file);
@@ -44,4 +44,5 @@ t_list		*tokenizer(char *input);
 void		ft_print_list(t_list *list);
 void		ft_print_shell(t_shell *list);
 void		print_array(t_minishell *data);
+int			ft_lstsize_shell(t_shell *lst);
 #endif

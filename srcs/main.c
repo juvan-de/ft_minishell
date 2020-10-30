@@ -110,7 +110,7 @@ void	add_envvar(t_envvar_list *envvar_list, char *var)
 
 int		main(int ac, char **av, char **envp)
 {
-	t_envvar_list envvar_list;
+	t_envvar_list	envvar_list;
 	char			*line;
 	t_list			*list;
 	t_minishell		*data;
@@ -121,7 +121,10 @@ int		main(int ac, char **av, char **envp)
 		return (0);
 	}
 	envvar_list_init(&envvar_list, envp);
-	list = tokenizer("echo \"hallo vandaag is rood\" > w00t");
+	list = tokenizer("echo \"hallo vandaag is rood\" > file1 > file2");
+//	ft_print_list(list);
 	data = parser(list);
-	redirection(data->redirect, "achzo");
+	ft_print_shell(data->redirect);
+	redirection(data->redirect);
+	print_array(data);
 }

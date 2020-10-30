@@ -12,7 +12,7 @@ void	save_redirects(t_shell **redirects, char *type, char *file)
 	else if (type[0] == '>')
 	{
 		if (ft_strncmp(type, ">>", 3) == 0)
-			temp = ft_lstnew_shell("overwrite", file);
+			temp = ft_lstnew_shell("append", file);
 		else
 			temp = ft_lstnew_shell("big", file);
 		ft_lstadd_back_shell(redirects, temp);
@@ -40,7 +40,10 @@ t_minishell	*parser(t_list	*list)
 			i++;
 		}
 		else
+		{
 			save_redirects(&redirects, (char*)list->content, (char*)list->next->content);
+			list = list->next;
+		}
 		list = list->next;
 	}
 	shell->content = content;
