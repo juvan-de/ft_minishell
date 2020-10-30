@@ -9,7 +9,7 @@ void	distributor(t_minishell *list, t_envvar_list *envlist)
 	{
 		if (ft_strncmp(g_keyword[i].keyword, list->content[0], ft_strlen(list->content[0]) + 1) == 0)
 		{
-			g_keyword[i].func(list, envlist);
+			g_keyword[i].func(list->content, envlist);
 			return ;
 		}
 		i++;

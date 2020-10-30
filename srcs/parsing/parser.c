@@ -19,6 +19,22 @@ void	save_redirects(t_shell **redirects, char *type, char *file)
 	}
 }
 
+int			calc_lstsize(t_list *list)
+{
+	int	res;
+	t_list	*temp;
+
+	res = ft_lstsize(list);
+	temp = list;
+	while (temp)
+	{
+		if (*((char*)(temp->content)) == '<' || *((char*)(temp->content)) == '>')
+			res = res - 2;
+		temp = temp->next;
+	}
+	return (res);
+}
+
 t_minishell	*parser(t_list	*list)
 {
 	t_minishell	*shell;
@@ -27,15 +43,15 @@ t_minishell	*parser(t_list	*list)
 	int			arrlen;
 	int			i;
 
-	arrlen = ft_lstsize(list);
+	arrlen = calc_lstsize(list);
 	i = 0;
-	content = malloc(sizeof(*content) * arrlen);
+	content = ft_calloc(sizeof(*content) * (arrlen + 1), 1);
 	redirects = 0;
 	while (list)
 	{
 		if (ft_strrchr("<>", (int)(*((char*)list->content))) == 0)
 		{
-			content[i] = malloc(sizeof(**content) * ft_strlen(list->content));
+			content[i] = ft_calloc(sizeof(**content) * (ft_strlen(list->content) + 1), 1);
 			content[i] = ft_strdup(list->content);
 			i++;
 		}

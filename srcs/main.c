@@ -114,17 +114,23 @@ int		main(int ac, char **av, char **envp)
 	char			*line;
 	t_list			*list;
 	t_minishell		*data;
+	int				fd;
 
 	if (ac != 1)
 	{
 		ft_printf("Error\nminishell does not need arguments\n");
 		return (0);
 	}
+	fd = dup(1);
 	envvar_list_init(&envvar_list, envp);
-	list = tokenizer("echo \"hallo vandaag is rood\" > file1 > file2");
-//	ft_print_list(list);
-	data = parser(list);
-	ft_print_shell(data->redirect);
-	redirection(data->redirect);
-	print_array(data);
+	while (1)
+	{
+		ft_printf("<%s> ", av[0] + 2);
+		get_next_line(1, &line);
+		list = tokenizer(line);
+		data = parser(list);
+		redirection(data->redirect);
+		distributor(data, &envvar_list);
+		dup2(fd, 1);
+	}
 }
