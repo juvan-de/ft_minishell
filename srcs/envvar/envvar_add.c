@@ -24,8 +24,9 @@ void	add_envvar(t_envvar_list *envvar_list, char *s1, char *s2)
 	{
 		resize_envvar_list(envvar_list);
 	}
+	printf("[%d]", envvar_list->used);
 	envvar_list->var[envvar_list->used].name = s1;
-	envvar_list->var[envvar_list->used].name = s2;
+	envvar_list->var[envvar_list->used].value = s2;
 	envvar_list->used++;
 }
 
@@ -37,12 +38,14 @@ void	check_envvar(t_envvar_list *envvar_list, char *var, int add_code)
 
 	if (ft_split_in_two(var, &s1, &s2, '=') == -1)
 		printf("erroroce add_envvar\n");
+	printf("[%s] [%s]\n\n", s1, s2);
 	i = 0;
 	while (i < envvar_list->used)
 	{
 		if (ft_strcmp(s1, envvar_list->var[i].name) == 0)
 		{
 			free(s1);
+			printf("hij komt hier binnen\n");
 			if (add_code == 1)
 			{
 				free(envvar_list->var[i].value);
@@ -50,10 +53,11 @@ void	check_envvar(t_envvar_list *envvar_list, char *var, int add_code)
 			}
 			else
 				free(s2);
+			return ;
 		}
-		else
-			add_envvar(envvar_list, s1, s2);
 		i++;
 	}
+	printf("hij komt uit de loop\n\n");
+	add_envvar(envvar_list, s1, s2);
 }
 

@@ -33,9 +33,8 @@ typedef struct		s_envvar_list
 
 int			ft_arraylen(char **array);
 int			ft_shell_find_elem(t_shell *shell);
-void		distributor(t_shell *shell, t_envvar_list *envlist);
+void		distributor(char **arg, t_envvar_list *envlist);
 t_minishell	*parser(t_shell *list);
-void		distributor(t_shell *list, t_envvar_list *envlist);
 
 void		ft_lstadd_back_shell(t_shell **alst, t_shell *new);
 t_shell		*ft_lstnew_shell(void *content);
@@ -52,4 +51,5 @@ int			ft_strcmp(char *s1, char *s2);
 char		**ft_arraydup(char **array, int arraylen);
 int			ft_split_in_two(char *str, char **name, char **value, char split);
 void		envvar_list_init(t_envvar_list *envvar_list, char **envp);
+void		check_envvar(t_envvar_list *envvar_list, char *var, int add_code);
 #endif

@@ -29,3 +29,4 @@ export:
 testcases:
 	export test=hoi ; test1=$test
 	export hoi=abel hoi1=test; export		[hoi moet boven hoi1]
+	unset path; ./minishell

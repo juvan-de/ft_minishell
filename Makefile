@@ -11,6 +11,7 @@ _OBJ_FILES = main \
 			utils/minishell_utils1 \
 			envvar/envvar_utils1 \
 			envvar/envvar_init \
+			envvar/envvar_add \
 			export/export \
 			env/env \
 			echo/echo

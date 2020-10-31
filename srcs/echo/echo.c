@@ -39,7 +39,7 @@ void	ft_echo(char **arg, t_envvar_list *envlist)
 		i++;
 		while (arg[i] != '\0')
 		{
-			ft_printf("% s", arg[i]);
+			ft_printf(" %s", arg[i]);
 			i++;
 		}
 	}
