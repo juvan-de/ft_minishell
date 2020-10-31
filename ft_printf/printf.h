@@ -6,7 +6,7 @@
 /*   By: avan-ber <avan-ber@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/13 10:50:06 by avan-ber      #+#    #+#                 */
-/*   Updated: 2020/10/19 13:39:52 by avan-ber      ########   odam.nl         */
+/*   Updated: 2020/10/26 17:05:30 by juvan-de      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ size_t			ft_strlen_printf(const char *s);
 int				nbr_spacecounter_figure_base_u(unsigned long long nb, int base);
 int				nbr_spacecounter_figure_base(long long nb, int base);
 
-char			*ft_strchr(const char *s, int c);
+char			*ft_strchr_printf(const char *s, int c);
 void			ft_print_sign(t_flags flags, int neg);
 void			setprecisionfloat(t_flags *flags);
 void			setfloatinfozero(t_float *floatinfo);

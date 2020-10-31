@@ -17,3 +17,15 @@ void	ft_print_shell(t_shell *list)
 		list = list->next;
 	}
 }
+
+void	print_array(t_minishell *data)
+{
+	int	i;
+
+	i = 0;
+	while (data->content[i])
+	{
+		ft_printf("[%s]\n", data->content[i]);
+		i++;
+	}
+}
