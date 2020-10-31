@@ -12,11 +12,13 @@ typedef struct		s_keyword
 void		ft_export(char **arg, t_envvar_list *envlist);
 void		ft_echo(char **arg, t_envvar_list *envlist);
 void		ft_env(char **arg, t_envvar_list *envlist);
+void		ft_pwd(char **arg, t_envvar_list *envlist);
 
 t_keyword		g_keyword[] = {
 	{"env", &ft_env},
 	{"export", &ft_export},
 	{"echo", &ft_echo},
+	{"pwd", &ft_echo},
 	{0, NULL}
 };
 

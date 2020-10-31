@@ -5,6 +5,7 @@ void	envvar_list_init(t_envvar_list *envvar_list, char **envp)
 {
 	int			i;
 
+	envvar_list->old_pwd = false;
 	envvar_list->used = ft_arraylen(envp);
 	envvar_list->size = envvar_list->used + (8 - (envvar_list->used % 8));
 	printf("[used: %d   size:%d]\n\n", envvar_list->used, envvar_list->size);
@@ -20,6 +21,8 @@ void	envvar_list_init(t_envvar_list *envvar_list, char **envp)
 		{
 			printf("hier moet nog geexit worden hi ha ho\nenvvar_list_init\n");
 		}
+		if (ft_strcmp(envvar_list->var[i].name, "OLDPWD") == 0)
+			envvar_list->old_pwd = true;
 		i++;
 	}
 }
