@@ -2,19 +2,25 @@
 
 void	ft_print_list(t_list *list)
 {
-	while (list != NULL)
+	t_list	*temp;
+
+	temp = list;
+	while (temp != NULL)
 	{
-		ft_printf("[%s]\n", list->content);
-		list = list->next;
+		ft_printf("[%s]\n", temp->content);
+		temp = temp->next;
 	}
 }
 
 void	ft_print_shell(t_shell *list)
 {
-	while (list != NULL)
+	t_shell *temp;
+
+	temp = list;
+	while (temp != NULL)
 	{
-		ft_printf("%s:[%s]\n", list->file, list->type);
-		list = list->next;
+		ft_printf("%s:[%s]\n", temp->file, temp->type);
+		temp = temp->next;
 	}
 }
 
@@ -36,8 +42,7 @@ int		ft_lstsize_shell(t_shell *lst)
 	return (counter);
 }
 
-
-void	print_array(t_minishell *data)
+void	ft_print_array(t_minishell *data)
 {
 	int	i;
 
