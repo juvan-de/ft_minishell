@@ -28,11 +28,14 @@ int		main(int ac, char **av, char **envp)
 	envvar_list_init(&envvar_list, envp);
 	while (1)
 	{
-		ft_printf("<%s>", av[0] + 2);
+		ft_printf("<%s> ", av[0] + 2);
 		ret = get_next_line(0, &line);
 		list = tokenizer(line);
-		ft_print_list(list);
-		data = parser(list);
-		distributor(data->content, &envvar_list);
+//		ft_print_list(list);
+		if (list)
+		{
+			data = parser(list);
+			distributor(data->content, &envvar_list);
+		}
 	}
 }

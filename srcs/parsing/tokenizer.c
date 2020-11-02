@@ -72,6 +72,7 @@ t_list		*tokenizer(char *input)
 		}
 		i++;
 	}
-	make_token(input, i, &list);
+	if (i > 0)
+		make_token(input, i, &list);
 	return (list);
 }
