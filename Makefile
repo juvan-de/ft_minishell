@@ -14,6 +14,8 @@ _OBJ_FILES = main \
 			envvar/envvar_add \
 			export/export \
 			env/env \
+			pwd/pwd \
+			cd/cd \
 			echo/echo
 
 OBJ_FILES = $(addsuffix .o, $(addprefix $(OBJ_DIR)/,$(_OBJ_FILES)))

@@ -52,4 +52,5 @@ char		**ft_arraydup(char **array, int arraylen);
 int			ft_split_in_two(char *str, char **name, char **value, char split);
 void		envvar_list_init(t_envvar_list *envvar_list, char **envp);
 void		check_envvar(t_envvar_list *envvar_list, char *var, int add_code);
+int			find_envvar(t_envvar_list *envlist, char *var);
 #endif

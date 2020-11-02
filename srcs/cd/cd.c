@@ -1,27 +1,12 @@
 #include "../../includes/minishell.h"
 #include <stdbool.h>
 
-int		find_envvar(t_envvar_list *envlist, char *var)
-{
-	int i;
-
-	i = 0;
-	while (i < envlist->used)
-	{
-		if (ft_strcmp(var, envlist->var[i].name) == 0)
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-
 void	set_pwd(t_envvar_list *envlist)
 {
 	int index;
 
 	index = find_envvar(envlist, "PWD");
-	if(index != -1)
+	if (index != -1)
 	{
 		if (envlist->var[index].value)
 			free(envlist->var[index].value);
@@ -31,12 +16,12 @@ void	set_pwd(t_envvar_list *envlist)
 	}
 }
 
-set_oldpwd(t_envvar_list *envlist, char *oldpwd)
+void	set_oldpwd(t_envvar_list *envlist, char *oldpwd)
 {
 	int index;
 
 	index = find_envvar(envlist, "OLDPWD");
-	if(index != -1)
+	if (index != -1)
 	{
 		if (envlist->var[index].value)
 			free(envlist->var[index].value);
@@ -51,11 +36,12 @@ void	ft_cd(char **arg, t_envvar_list *envlist)
 	int		index;
 	char	*path;
 	char	*oldpwd;
-	
-	getcwd(oldpwd, 1);
+
+	oldpwd = NULL;
+	oldpwd = getcwd(oldpwd, 1);
 	if (oldpwd == 0)
 		printf("hier moet nog geexit worden hi ah ho\nft_cd\n");
-	if (arg[1] = NULL)
+	if (arg[1] == NULL)
 	{
 		index = find_envvar(envlist, "HOME");
 		if (index == -1)
@@ -72,6 +58,6 @@ void	ft_cd(char **arg, t_envvar_list *envlist)
 		free(oldpwd);
 		printf("hier moet nog geexit worden hi ah ho\nft_cd\n");
 	}
-		set_oldpwd(envlist, oldpwd);
+	set_oldpwd(envlist, oldpwd);
 	set_pwd(envlist);
 }

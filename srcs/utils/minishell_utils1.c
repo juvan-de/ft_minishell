@@ -94,3 +94,17 @@ char	**ft_arraydup(char **array, int arraylen)
 	new[i] = NULL;
 	return (new);
 }
+
+int		find_envvar(t_envvar_list *envlist, char *var)
+{
+	int i;
+
+	i = 0;
+	while (i < envlist->used)
+	{
+		if (ft_strcmp(var, envlist->var[i].name) == 0)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
