@@ -43,6 +43,6 @@ t_list		*tokenizer(char *input);
 
 void		ft_print_list(t_list *list);
 void		ft_print_shell(t_shell *list);
-void		print_array(t_minishell *data);
+void		ft_print_array(t_minishell *data);
 int			ft_lstsize_shell(t_shell *lst);
 #endif
