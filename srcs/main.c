@@ -16,6 +16,7 @@ int		main(int ac, char **av, char **envp)
 		ft_printf("Error\nminishell does not need arguments\n");
 		return (0);
 	}
+	fd = dup(1);
 	envvar_list_init(&envvar_list, envp);
 	while (1)
 	{

@@ -4,10 +4,17 @@
 # include "../ft_printf/printf.h"
 # include "../libft/libft.h"
 
+typedef struct		s_shell
+{
+	char			*file;
+	char			*type;
+	struct s_shell	*next;
+}					t_shell;
+
 typedef struct 			s_minishell
 {
 	char				**content;
-	t_list				*redirect;
+	t_shell				*redirect;
 	struct s_minishell	*next;
 }						t_minishell;
 
@@ -34,14 +41,15 @@ typedef struct		s_envvar_list
 int			ft_arraylen(char **array);
 int			ft_shell_find_elem(t_shell *shell);
 void		distributor(char **arg, t_envvar_list *envlist);
-t_minishell	*parser(t_shell *list);
+t_minishell	*parser(t_list *list);
+void		redirection(t_shell *redirections);
 
 void		ft_lstadd_back_shell(t_shell **alst, t_shell *new);
-t_shell		*ft_lstnew_shell(void *content);
+t_shell		*ft_lstnew_shell(char *type, char *file);
 
 char		*insert_var(char *str, char **var, t_envvar_list *envvar_list);
 int			check_datatype(char *content);
-t_shell		*first_parser(char *input);
+t_list		*tokenizer(char *input);
 
 void		ft_print_list(t_list *list);
 void		ft_print_shell(t_shell *list);
@@ -53,4 +61,5 @@ int			ft_split_in_two(char *str, char **name, char **value, char split);
 void		envvar_list_init(t_envvar_list *envvar_list, char **envp);
 void		check_envvar(t_envvar_list *envvar_list, char *var, int add_code);
 int			find_envvar(t_envvar_list *envlist, char *var);
+int			ft_lstsize_shell(t_shell *lst);
 #endif

@@ -3,11 +3,13 @@ NAME = minishell
 OBJ_DIR = objs
 SRC_DIR = srcs
 _OBJ_FILES = main \
+			echo/echo \
 			parsing/tokenizer \
 			parsing/parser \
 			parsing/distribution \
 			list/ft_lstaddback_shell \
 			list/ft_lstnew_shell \
+			redirects/redirection \
 			utils/minishell_utils1 \
 			envvar/envvar_utils1 \
 			envvar/envvar_init \

@@ -19,40 +19,28 @@ static int			ft_content_in_list(char *content)
 	return (0);
 }
 
-int			check_datatype(char *content)
-{
-	if (ft_content_in_list(content))
-		return (0);
-	else if (content[0] == '-')
-		return (1);
-	else if (ft_strrchr("|;<>", (int)content[0]) != 0)
-		return (2);
-	else
-		return (3);
-}
-
-static char		*make_token(char *content, int i, t_shell **list)
+static char		*make_token(char *content, int i, t_list **list)
 {
 	char	*res;
-	t_shell	*temp;
+	t_list	*temp;
 
 	res = ft_substr(content, 0, i);
-	temp = ft_lstnew_shell(res);
-	ft_lstadd_back_shell(list, temp);
+	temp = ft_lstnew(res);
+	ft_lstadd_back(list, temp);
 	while (content[i] && ft_strrchr("|;<> ", (int)content[i]) != 0)
 	{
 		if (ft_strrchr("|;<>", (int)content[i]) != 0)
 		{
 			if (content[i] == '>' && content[i + 1] == '>')
 			{
-				temp = ft_lstnew_shell(ft_substr(content, i, 2));
-				ft_lstadd_back_shell(list, temp);
+				temp = ft_lstnew(ft_substr(content, i, 2));
+				ft_lstadd_back(list, temp);
 				i++;
 			}
 			else
 			{
-				temp = ft_lstnew_shell(ft_substr(content, i, 1));
-				ft_lstadd_back_shell(list, temp);
+				temp = ft_lstnew(ft_substr(content, i, 1));
+				ft_lstadd_back(list, temp);
 			}
 		}
 		i++;
@@ -60,9 +48,9 @@ static char		*make_token(char *content, int i, t_shell **list)
 	return (content + i);
 }
 
-t_shell		*first_parser(char *input)
+t_list		*tokenizer(char *input)
 {
-	t_shell	*shell;
+	t_list	*list;
 	int		i;
 	int		doublequotemark;
 	int		singlequotemark;
@@ -70,7 +58,7 @@ t_shell		*first_parser(char *input)
 	i = 0;
 	doublequotemark = -1;
 	singlequotemark = -1;
-	shell = 0;
+	list = 0;
 	while (input[i])
 	{
 		if (input[i] == '\"' && singlequotemark == -1)
@@ -79,11 +67,11 @@ t_shell		*first_parser(char *input)
 			singlequotemark *= -1;
 		if (ft_strrchr(" |<>;", (int)input[i]) != 0 && doublequotemark == -1 && singlequotemark == -1 && i > 0)
 		{
-			input = make_token(input, i, &shell);
+			input = make_token(input, i, &list);
 			i = -1;
 		}
 		i++;
 	}
-	make_token(input, i, &shell);
-	return (shell);
+	make_token(input, i, &list);
+	return (list);
 }

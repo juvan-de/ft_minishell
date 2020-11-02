@@ -1,55 +1,64 @@
 #include "../../includes/minishell.h"
 
-int			ft_shell_len(t_shell *list)
+void	save_redirects(t_shell **redirects, char *type, char *file)
 {
-	int	len;
+	t_shell	*temp;
 
-	len = 0;
-	while (list && ft_strncmp(list->content, ";", 2) != 0)
+	if (type[0] == '<')
 	{
-		if (ft_strchr("<>", (int)(*((char*)list->content))) == 0)
-			len++;
-		list = list->next;
+		temp = ft_lstnew_shell("smol", file);
+		ft_lstadd_back_shell(redirects, temp);
 	}
-	return (len);
+	else if (type[0] == '>')
+	{
+		if (ft_strncmp(type, ">>", 3) == 0)
+			temp = ft_lstnew_shell("append", file);
+		else
+			temp = ft_lstnew_shell("big", file);
+		ft_lstadd_back_shell(redirects, temp);
+	}
 }
 
-t_minishell	*parser(t_shell *list)
+int			calc_lstsize(t_list *list)
+{
+	int	res;
+	t_list	*temp;
+
+	res = ft_lstsize(list);
+	temp = list;
+	while (temp)
+	{
+		if (*((char*)(temp->content)) == '<' || *((char*)(temp->content)) == '>')
+			res = res - 2;
+		temp = temp->next;
+	}
+	return (res);
+}
+
+t_minishell	*parser(t_list	*list)
 {
 	t_minishell	*shell;
-	t_list		*redirects;
-	t_list		*temp;
+	t_shell		*redirects;
 	char		**content;
 	int			arrlen;
 	int			i;
 
-	arrlen = ft_shell_len(list);
+	arrlen = calc_lstsize(list);
 	i = 0;
-	content = malloc(sizeof(*content) * arrlen);
+	content = ft_calloc(sizeof(*content) * (arrlen + 1), 1);
 	redirects = 0;
-	while (i < arrlen)
+	while (list)
 	{
 		if (ft_strrchr("<>", (int)(*((char*)list->content))) == 0)
 		{
-			content[i] = malloc(sizeof(**content) * ft_strlen(list->content));
+			content[i] = ft_calloc(sizeof(**content) * (ft_strlen(list->content) + 1), 1);
 			content[i] = ft_strdup(list->content);
 			i++;
 		}
 		else
 		{
-			if ((*((char*)list->content)) == '<')
-			{
-				temp = ft_lstnew("smol");
-				ft_lstadd_back(&redirects, temp);
-			}
-			else if ((*((char*)list->content)) == '>')
-			{
-				if (ft_strncmp((char*)(list->content), ">>", 3) == 0)
-					temp = ft_lstnew("overwrite");
-				else
-					temp = ft_lstnew("big");
-				ft_lstadd_back(&redirects, temp);
-			}
+			save_redirects(&redirects, (char*)list->content, (char*)list->next->content);
+			list = list->next;
 		}
 		list = list->next;
 	}
