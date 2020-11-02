@@ -8,7 +8,7 @@ void	redirection(t_redirect *redirections)
 	int	arrlen;
 
 	fd[0] = dup(1);
-	arrlen = ft_lstsize_shell(redirections);
+	arrlen = ft_lstsize_redirect(redirections);
 	i = 0;
 	while (i < arrlen)
 	{

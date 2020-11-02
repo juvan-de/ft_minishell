@@ -34,11 +34,15 @@ typedef struct			s_envvar_list
 int			ft_arraylen(char **array);
 int			ft_shell_find_elem(t_redirect *shell);
 void		distributor(char **arg, t_envvar_list *envlist);
-t_minishell	*parser(t_list *list);
+int			parser(t_list *list, t_minishell **data);
 void		redirection(t_redirect *redirections);
 
-void		ft_lstadd_back_shell(t_redirect **alst, t_redirect *new);
-t_redirect		*ft_lstnew_shell(char *type, char *file);
+void		ft_lstadd_back_shell(t_minishell **alst, t_minishell *new);
+t_minishell	*ft_lstnew_shell(char **content, t_redirect *redirect);
+
+int			ft_lstsize_redirect(t_redirect *lst);
+void		ft_lstadd_back_redirect(t_redirect **alst, t_redirect *new);
+t_redirect	*ft_lstnew_redirect(char *type, char *file);
 
 char		*insert_var(char *str, char **var, t_envvar_list *envvar_list);
 int			check_datatype(char *content);
@@ -54,5 +58,4 @@ int			ft_split_in_two(char *str, char **name, char **value, char split);
 void		envvar_list_init(t_envvar_list *envvar_list, char **envp);
 void		check_envvar(t_envvar_list *envvar_list, char *var, int add_code);
 int			find_envvar(t_envvar_list *envlist, char *var);
-int			ft_lstsize_shell(t_redirect *lst);
 #endif

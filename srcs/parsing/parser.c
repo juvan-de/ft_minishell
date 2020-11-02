@@ -6,16 +6,16 @@ void	save_redirects(t_redirect **redirects, char *type, char *file)
 
 	if (type[0] == '<')
 	{
-		temp = ft_lstnew_shell("smol", file);
-		ft_lstadd_back_shell(redirects, temp);
+		temp = ft_lstnew_redirect("smol", file);
+		ft_lstadd_back_redirect(redirects, temp);
 	}
 	else if (type[0] == '>')
 	{
 		if (ft_strncmp(type, ">>", 3) == 0)
-			temp = ft_lstnew_shell("append", file);
+			temp = ft_lstnew_redirect("append", file);
 		else
-			temp = ft_lstnew_shell("big", file);
-		ft_lstadd_back_shell(redirects, temp);
+			temp = ft_lstnew_redirect("big", file);
+		ft_lstadd_back_redirect(redirects, temp);
 	}
 }
 
@@ -35,42 +35,20 @@ int			calc_lstsize(t_list *list)
 	return (res);
 }
 
-t_redirect	*redirects_init()
+int			parser(t_list *list, t_minishell **data)
 {
-	t_redirect	*red;
-
-	red = malloc(sizeof(*red));
-	red->file = 0;
-	red->next = 0;
-	red->type = 0;
-	return (red);
-}
-
-t_minishell	*shell_init()
-{
-	t_minishell	*shell;
-
-	shell = malloc(sizeof(*shell));
-	shell->content = 0;
-	shell->next = 0;
-	shell->redirect = 0;
-	return (shell);
-}
-
-t_minishell	*parser(t_list	*list)
-{
-	t_minishell	*shell;
+	t_minishell	*temp;
 	t_redirect	*redirects;
 	char		**content;
 	int			arrlen;
 	int			i;
 
 	arrlen = calc_lstsize(list);
-	i = 0;
 	content = ft_calloc(sizeof(*content) * (arrlen + 1), 1);
-	redirects = redirects_init();
-	shell = shell_init();
-	while (list)
+	i = 0;
+	temp = 0;
+	redirects = 0;
+	while (list && (*((char*)list->content)) != ';')
 	{
 		if (ft_strrchr("<>", (int)(*((char*)list->content))) == 0)
 		{
@@ -85,7 +63,7 @@ t_minishell	*parser(t_list	*list)
 		}
 		list = list->next;
 	}
-	shell->content = content;
-	shell->redirect = redirects;
-	return (shell);
+	temp = ft_lstnew_shell(content, redirects);
+	ft_lstadd_back_shell(data, temp);
+	return (0);
 }
