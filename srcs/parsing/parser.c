@@ -35,10 +35,32 @@ int			calc_lstsize(t_list *list)
 	return (res);
 }
 
+t_redirect	*redirects_init()
+{
+	t_redirect	*red;
+
+	red = malloc(sizeof(*red));
+	red->file = 0;
+	red->next = 0;
+	red->type = 0;
+	return (red);
+}
+
+t_minishell	*shell_init()
+{
+	t_minishell	*shell;
+
+	shell = malloc(sizeof(*shell));
+	shell->content = 0;
+	shell->next = 0;
+	shell->redirect = 0;
+	return (shell);
+}
+
 t_minishell	*parser(t_list	*list)
 {
 	t_minishell	*shell;
-	t_redirect		*redirects;
+	t_redirect	*redirects;
 	char		**content;
 	int			arrlen;
 	int			i;
@@ -46,7 +68,8 @@ t_minishell	*parser(t_list	*list)
 	arrlen = calc_lstsize(list);
 	i = 0;
 	content = ft_calloc(sizeof(*content) * (arrlen + 1), 1);
-	redirects = 0;
+	redirects = redirects_init();
+	shell = shell_init();
 	while (list)
 	{
 		if (ft_strrchr("<>", (int)(*((char*)list->content))) == 0)
@@ -64,6 +87,5 @@ t_minishell	*parser(t_list	*list)
 	}
 	shell->content = content;
 	shell->redirect = redirects;
-	shell->next = 0;
 	return (shell);
 }

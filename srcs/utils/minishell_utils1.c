@@ -14,7 +14,7 @@ void	ft_print_list(t_list *list)
 
 void	ft_print_redirect(t_redirect *list)
 {
-	t_shell *temp;
+	t_redirect *temp;
 
 	temp = list;
 	while (temp != NULL)

@@ -23,7 +23,7 @@ OBJ_FILES = $(addsuffix .o, $(addprefix $(OBJ_DIR)/,$(_OBJ_FILES)))
 
 LIB = -L./libft -lft -L./ft_printf -lftprintf  -L./getnextline -lgnl
 
-CFLAGS =
+CFLAGS = 
 
 all: $(NAME)
 
@@ -31,7 +31,7 @@ $(NAME): $(OBJ_FILES)
 	make bonus -C libft
 	make -C ft_printf
 	make bonus -C getnextline
-	$(CC) -o $(NAME) $(OBJ_FILES) $(LIB)
+	$(CC) -o $(NAME) $(OBJ_FILES) $(LIB) $(CFLAGS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)/$(dir $*)
