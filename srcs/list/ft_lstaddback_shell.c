@@ -1,8 +1,8 @@
 #include "../../includes/minishell.h"
 
-void	ft_lstadd_back_shell(t_shell **alst, t_shell *new)
+void	ft_lstadd_back_shell(t_redirect **alst, t_redirect *new)
 {
-	t_shell *temp;
+	t_redirect *temp;
 
 	if ((*alst) == 0)
 	{

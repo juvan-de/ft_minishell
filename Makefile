@@ -3,7 +3,6 @@ NAME = minishell
 OBJ_DIR = objs
 SRC_DIR = srcs
 _OBJ_FILES = main \
-			echo/echo \
 			parsing/tokenizer \
 			parsing/parser \
 			parsing/distribution \
@@ -16,9 +15,9 @@ _OBJ_FILES = main \
 			envvar/envvar_add \
 			export/export \
 			env/env \
+			echo/echo \
 			pwd/pwd \
 			cd/cd \
-			echo/echo
 
 OBJ_FILES = $(addsuffix .o, $(addprefix $(OBJ_DIR)/,$(_OBJ_FILES)))
 

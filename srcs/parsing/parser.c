@@ -1,8 +1,8 @@
 #include "../../includes/minishell.h"
 
-void	save_redirects(t_shell **redirects, char *type, char *file)
+void	save_redirects(t_redirect **redirects, char *type, char *file)
 {
-	t_shell	*temp;
+	t_redirect	*temp;
 
 	if (type[0] == '<')
 	{
@@ -38,7 +38,7 @@ int			calc_lstsize(t_list *list)
 t_minishell	*parser(t_list	*list)
 {
 	t_minishell	*shell;
-	t_shell		*redirects;
+	t_redirect		*redirects;
 	char		**content;
 	int			arrlen;
 	int			i;

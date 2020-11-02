@@ -9,7 +9,7 @@ void	ft_print_list(t_list *list)
 	}
 }
 
-void	ft_print_shell(t_shell *list)
+void	ft_print_redirect(t_redirect *list)
 {
 	while (list != NULL)
 	{
@@ -18,18 +18,18 @@ void	ft_print_shell(t_shell *list)
 	}
 }
 
-int		ft_shell_find_elem(t_shell *shell)
-{
-	int i;
+// int		ft_shell_find_elem(t_redirect *shell)
+// {
+// 	int i;
 
-	i = 0;
-	while (!(shell == 0 || ft_strncmp(shell->content, ";", 2) == 0))
-	{
-		shell = shell->next;
-		i++;
-	}
-	return (i);
-}
+// 	i = 0;
+// 	while (!(shell == 0 || ft_strncmp(shell->content, ";", 2) == 0))
+// 	{
+// 		shell = shell->next;
+// 		i++;
+// 	}
+// 	return (i);
+// }
 
 int		ft_arraylen(char **array)
 {
@@ -41,9 +41,9 @@ int		ft_arraylen(char **array)
 	return (i);
 }
 
-int		ft_lstsize_shell(t_shell *lst)
+int		ft_lstsize_shell(t_redirect *lst)
 {
-	t_shell	*temp;
+	t_redirect	*temp;
 	int		counter;
 
 	temp = lst;

@@ -1,7 +1,7 @@
 #include "../../includes/minishell.h"
 #include <fcntl.h>
 
-void	redirection(t_shell *redirections)
+void	redirection(t_redirect *redirections)
 {
 	int	fd[2];
 	int	i;
