@@ -36,8 +36,7 @@ int		ft_lstsize_shell(t_shell *lst)
 	return (counter);
 }
 
-
-void	print_array(t_minishell *data)
+void	ft_print_array(t_minishell *data)
 {
 	int	i;
 
