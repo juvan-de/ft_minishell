@@ -28,7 +28,6 @@ typedef struct		s_envvar_list
 {
 	int				size;
 	int				used;
-	bool			old_pwd;
 	t_envvar		*var;
 }					t_envvar_list;
 
