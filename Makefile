@@ -3,15 +3,21 @@ NAME = minishell
 OBJ_DIR = objs
 SRC_DIR = srcs
 _OBJ_FILES = main \
-			echo/echo \
 			parsing/tokenizer \
-			parsing/distribution \
 			parsing/parser \
+			parsing/distribution \
 			list/ft_lstaddback_shell \
 			list/ft_lstnew_shell \
 			redirects/redirection \
 			utils/minishell_utils1 \
-			pwd/pwd 
+			envvar/envvar_utils1 \
+			envvar/envvar_init \
+			envvar/envvar_add \
+			export/export \
+			env/env \
+			echo/echo \
+			pwd/pwd \
+			cd/cd \
 
 OBJ_FILES = $(addsuffix .o, $(addprefix $(OBJ_DIR)/,$(_OBJ_FILES)))
 

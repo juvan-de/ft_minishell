@@ -3,21 +3,21 @@
 #include <stdlib.h>
 #include "../../includes/minishell.h"
 
-char	*get_var(char *str, int len, char **var, t_envvar_list *envvar_list)
+static char	*get_var(char *str, int len, char **var, t_envvar_list *envvar_list)
 {
 	int	i;
 
 	i = 0;
 	while (i < envvar_list->used)
 	{
-		if (ft_strncmp(str, envvar_list->var[i].name, len) == 0)
-			return (strdup(envvar_list->var[i].value));
+		if (ft_strncmp(str, envvar_list->var[i].name, len) == 0 && envvar_list->var[i].name[len] == '\0')
+			return (ft_strdup(envvar_list->var[i].value));
 		i++;
 	}
 	return (ft_strdup(""));
 }
 
-char	*insert_var(char *str, char *var, t_envvar_list *envvar_list)
+char	*insert_var(char *str, char **var, t_envvar_list *envvar_list)
 {
 	int		i;
 	int		j;
@@ -29,7 +29,7 @@ char	*insert_var(char *str, char *var, t_envvar_list *envvar_list)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i] == '$')
+		if (i > 0 && str[i] == '$' && str[i - 1] == '\\')
 		{
 			new = ft_substr(str, j, i);
 			res = ft_strjoin(res, new);
@@ -38,9 +38,8 @@ char	*insert_var(char *str, char *var, t_envvar_list *envvar_list)
 			{
 				i++;
 			}
-			new = get_var(str + j, i - j, var, envvar_list);
-			if (new == NULL)
-				res = ft_strjoin(res, new);
+			new = get_var(str + j + 1, i - j - 1, var, envvar_list);
+			res = ft_strjoin(res, new);
 			j = i;
 		}
 		i++;

@@ -10,33 +10,39 @@ static bool	set_newline(char *data)
 	{
 		i++;
 		if (data[i] != 'n')
-			return (false);
+			return (true);
 		while (data[i] != '\0')
 		{
 			if (data[i] != 'n')
-				return (false);
+				return (true);
 			i++;
 		}
-		return (true);
+		return (false);
 	}
 	else
-		return (false);
+		return (true);
 }
 
-void	ft_echo(t_list *list)
+void	ft_echo(char **arg, t_envvar_list *envlist)
 {
 	bool	newline;
+	int		i;
 
-	list = list->next;
-	newline = set_newline(list->content);
-	if (newline == true)
-		list = list->next;
-	while (list->next)
+	i = 1;
+	(void)envlist;
+	newline = set_newline(arg[1]);
+	if (newline == false)
+		i = 2;
+	if (arg[i] != '\0')
 	{
-		ft_printf("%s ", (char*)list->content);
-		list = list->next;
+		ft_printf("%s", arg[i]);
+		i++;
+		while (arg[i] != '\0')
+		{
+			ft_printf(" %s", arg[i]);
+			i++;
+		}
 	}
-	ft_printf("%s", (char*)list->content);
 	if (newline == true)
 		ft_printf("\n");
 }
