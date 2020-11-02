@@ -24,19 +24,6 @@ void	ft_print_redirect(t_redirect *list)
 	}
 }
 
-// int		ft_shell_find_elem(t_redirect *shell)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	while (!(shell == 0 || ft_strncmp(shell->content, ";", 2) == 0))
-// 	{
-// 		shell = shell->next;
-// 		i++;
-// 	}
-// 	return (i);
-// }
-
 int		ft_arraylen(char **array)
 {
 	int i;
@@ -131,4 +118,34 @@ int		find_envvar(t_envvar_list *envlist, char *var)
 		i++;
 	}
 	return (-1);
+}
+
+char	*str_char_str_join(char *s1, char c, char *s2)
+{
+	int		len_s1;
+	int		len_s2;
+	char	*res;
+
+	len_s1 = ft_strlen(s1);
+	len_s2 = ft_strlen(s2);
+	res = malloc(len_s1 + len_s2 + 1 + 1);
+	if (res == 0)
+		return (0);
+	ft_strlcpy(res, s1, len_s1 + 1);
+	res[len_s1] = c;
+	ft_strlcpy(res + len_s1 + 1, s2, len_s2 + 1);
+	return (res);
+}
+
+void	free_array(char **array)
+{
+	int i;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
 }

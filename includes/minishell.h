@@ -55,4 +55,7 @@ void		envvar_list_init(t_envvar_list *envvar_list, char **envp);
 void		check_envvar(t_envvar_list *envvar_list, char *var, int add_code);
 int			find_envvar(t_envvar_list *envlist, char *var);
 int			ft_lstsize_shell(t_redirect *lst);
+char		*str_char_str_join(char *s1, char c, char *s2);
+void		ft_other_cmds(char **arg, t_envvar_list *envlist);
+void		free_array(char **array);
 #endif

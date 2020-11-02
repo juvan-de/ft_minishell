@@ -28,19 +28,23 @@ void	ft_echo(char **arg, t_envvar_list *envlist)
 	bool	newline;
 	int		i;
 
-	i = 1;
 	(void)envlist;
-	newline = set_newline(arg[1]);
-	if (newline == false)
-		i = 2;
-	if (arg[i] != '\0')
+	i = 1;
+	newline = true;
+	if (arg[1] != NULL)
 	{
-		ft_printf("%s", arg[i]);
-		i++;
-		while (arg[i] != '\0')
+		newline = set_newline(arg[1]);
+		if (newline == false)
+			i = 2;
+		if (arg[i] != '\0')
 		{
-			ft_printf(" %s", arg[i]);
+			ft_printf("%s", arg[i]);
 			i++;
+			while (arg[i] != '\0')
+			{
+				ft_printf(" %s", arg[i]);
+				i++;
+			}
 		}
 	}
 	if (newline == true)
