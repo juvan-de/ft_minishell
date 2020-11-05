@@ -34,11 +34,11 @@ int		main(int ac, char **av, char **envp)
 		ft_printf("<%s> ", av[0] + 2);
 		ret = get_next_line(0, &line);
 		list = tokenizer(line);
-		ft_print_list(list);
+		// ft_print_list(list);
 		if (list)
 		{
 			parser(list, &data);
-			print_array(data->content);
+			// print_array(data->content);
 			redirection(data->redirect);
 			input_redirection(data->redirect);
 			distributor(data->content, &envvar_list);
