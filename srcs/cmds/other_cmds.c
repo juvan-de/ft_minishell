@@ -19,18 +19,14 @@ int		ft_find_path(char *cmd, t_envvar_list *envlist, char **res)
 	if (paths == 0)
 		printf("hier moet nog geexit worden hi ha ho\nft_find_path\n");
 	i = 0;
-	print_array(paths);
 	while (paths[i] != 0)
 	{
 		tmp = str_char_str_join(paths[i], '/', cmd);
-//		printf("\n\ndit is tmp: [%s]\n", tmp);
 		if (tmp == NULL)
 			printf("hier moet nog geexit worden hi ha ho\nft_find_path\n");
 		ret = stat(tmp, &buf);
-		printf("{%d}\n", ret);
 		if (ret == 0)
 		{
-//			printf("[%s]\n", tmp);
 			*res = tmp;
 			free_array(paths);
 			return (0);
@@ -86,4 +82,5 @@ void	ft_other_cmds(char **arg, t_envvar_list *envlist)
 		execve(path, arg, envp);
 	else
 		waitpid(ret, &status, WUNTRACED);
+	free_array(envp);
 }
