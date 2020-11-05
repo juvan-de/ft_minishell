@@ -14,5 +14,9 @@ void	distributor(char **arg, t_envvar_list *envlist)
 		}
 		i++;
 	}
+<<<<<<< HEAD
 	ft_other_cmds(arg, envlist);
+=======
+	ft_printf("Error!\nCommand not found.\n");
+>>>>>>> 9eef89dc96f10ece7c24795ae8dece33f3ef2b94
 }

@@ -6,8 +6,8 @@ _OBJ_FILES = main \
 			parsing/tokenizer \
 			parsing/parser \
 			parsing/distribution \
-			list/ft_lstaddback_shell \
-			list/ft_lstnew_shell \
+			list/ft_redirect\
+			list/ft_shell\
 			redirects/redirection \
 			utils/minishell_utils1 \
 			envvar/envvar_utils1 \
