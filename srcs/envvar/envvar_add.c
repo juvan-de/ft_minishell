@@ -38,6 +38,7 @@ void	check_envvar(t_envvar_list *envvar_list, char *var, int add_code)
 
 	if (ft_split_in_two(var, &s1, &s2, '=') == -1)
 		printf("erroroce add_envvar\n");
+	
 	printf("[%s] [%s]\n\n", s1, s2);
 	i = 0;
 	while (i < envvar_list->used)
