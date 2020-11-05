@@ -66,13 +66,10 @@ int			ft_split_in_two(char *str, char **name, char **value, char split);
 void		envvar_list_init(t_envvar_list *envvar_list, char **envp);
 void		check_envvar(t_envvar_list *envvar_list, char *var, int add_code);
 int			find_envvar(t_envvar_list *envlist, char *var);
-<<<<<<< HEAD
 int			ft_lstsize_shell(t_redirect *lst);
 char		*str_char_str_join(char *s1, char c, char *s2);
 void		ft_other_cmds(char **arg, t_envvar_list *envlist);
 void		free_array(char **array);
-=======
 
 void		clear_data(t_minishell **data);
->>>>>>> 9eef89dc96f10ece7c24795ae8dece33f3ef2b94
 #endif

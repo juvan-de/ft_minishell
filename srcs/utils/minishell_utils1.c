@@ -136,16 +136,3 @@ char	*str_char_str_join(char *s1, char c, char *s2)
 	ft_strlcpy(res + len_s1 + 1, s2, len_s2 + 1);
 	return (res);
 }
-
-void	free_array(char **array)
-{
-	int i;
-
-	i = 0;
-	while (array[i])
-	{
-		free(array[i]);
-		i++;
-	}
-	free(array);
-}

@@ -6,6 +6,7 @@ _OBJ_FILES = main \
 			parsing/tokenizer \
 			parsing/parser \
 			parsing/distribution \
+			parsing/free \
 			list/ft_redirect\
 			list/ft_shell\
 			redirects/redirection \

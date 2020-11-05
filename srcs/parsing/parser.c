@@ -1,46 +1,5 @@
 #include "../../includes/minishell.h"
 
-void	free_array(char **array)
-{
-	int i;
-
-	i = 0;
-	while (array[i])
-	{
-		free(array[i]);
-		i++;
-	}
-	free(array);
-}
-
-void	free_redirect(t_redirect *redirect)
-{
-	t_redirect *temp;
-
-	temp = redirect;
-	while (temp)
-	{
-		temp = temp->next;
-		free(redirect);
-		redirect = temp;
-	}
-}
-
-void	clear_data(t_minishell **data)
-{
-	t_minishell	*temp;
-
-	temp = (*data);
-	while (temp)
-	{
-		temp = temp->next;
-		free_array((*data)->content);
-		free_redirect((*data)->redirect);
-		free(*data);
-		(*data) = temp;
-	}
-}
-
 void	save_redirects(t_redirect **redirects, char *type, char *file)
 {
 	t_redirect	*temp;
@@ -63,32 +22,35 @@ void	save_redirects(t_redirect **redirects, char *type, char *file)
 int			calc_lstsize(t_list *list)
 {
 	int	res;
+	int	i;
 	t_list	*temp;
 
 	res = ft_lstsize(list);
 	temp = list;
+	i = 0;
 	while (temp)
 	{
 		if (*((char*)(temp->content)) == '<' || *((char*)(temp->content)) == '>')
 			res = res - 2;
 		temp = temp->next;
+		i++;
 	}
 	return (res);
 }
 
-void			parser(t_list *list, t_minishell **data)
+t_minishell	*fill_minishell(t_list *list)
 {
 	t_minishell	*temp;
 	t_redirect	*redirects;
-	char		**content;
 	int			arrlen;
 	int			i;
+	char		**content;
 
 	arrlen = calc_lstsize(list);
-	content = ft_calloc(sizeof(*content) * (arrlen + 1), 1);
 	i = 0;
 	temp = 0;
 	redirects = 0;
+	content = ft_calloc(sizeof(*content) * (arrlen + 1), 1);
 	while (list && (int)(*((char*)list->content)) != ';')
 	{
 		if (ft_strrchr("<>", (int)(*((char*)list->content))) == 0)
@@ -105,5 +67,26 @@ void			parser(t_list *list, t_minishell **data)
 		list = list->next;
 	}
 	temp = ft_lstnew_shell(content, redirects);
-	ft_lstadd_back_shell(data, temp);
+	return (temp);
+}
+
+void			parser(t_list *list, t_minishell **data)
+{
+	t_minishell	*temp;
+	t_list		*dup;
+
+	dup = list;
+	while (dup)
+	{
+		temp = fill_minishell(dup);
+		ft_lstadd_back_shell(data, temp);
+		while (dup && (*(char*)dup->content) != ';')
+		{
+			dup = dup->next;
+		}
+		if (dup && (*(char*)dup->content) == ';')
+		{
+			dup = dup->next;
+		}
+	}
 }
