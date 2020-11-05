@@ -1,7 +1,7 @@
 #include "../../includes/minishell.h"
 #include <stdlib.h>
 
-t_redirect		*ft_lstnew_redirect(char *type, char *file)
+t_redirect		*ft_lstnew_redirect(int type, char *file)
 {
 	t_redirect *new;
 

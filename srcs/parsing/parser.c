@@ -1,20 +1,61 @@
 #include "../../includes/minishell.h"
 
+void	free_array(char **array)
+{
+	int i;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
+}
+
+void	free_redirect(t_redirect *redirect)
+{
+	t_redirect *temp;
+
+	temp = redirect;
+	while (temp)
+	{
+		temp = temp->next;
+		free(redirect);
+		redirect = temp;
+	}
+}
+
+void	clear_data(t_minishell **data)
+{
+	t_minishell	*temp;
+
+	temp = (*data);
+	while (temp)
+	{
+		temp = temp->next;
+		free_array((*data)->content);
+		free_redirect((*data)->redirect);
+		free(*data);
+		(*data) = temp;
+	}
+}
+
 void	save_redirects(t_redirect **redirects, char *type, char *file)
 {
 	t_redirect	*temp;
 
 	if (type[0] == '<')
 	{
-		temp = ft_lstnew_redirect("smol", file);
+		temp = ft_lstnew_redirect(SMALLER, file);
 		ft_lstadd_back_redirect(redirects, temp);
 	}
 	else if (type[0] == '>')
 	{
 		if (ft_strncmp(type, ">>", 3) == 0)
-			temp = ft_lstnew_redirect("append", file);
+			temp = ft_lstnew_redirect(APPEND, file);
 		else
-			temp = ft_lstnew_redirect("big", file);
+			temp = ft_lstnew_redirect(TRUNC, file);
 		ft_lstadd_back_redirect(redirects, temp);
 	}
 }
@@ -35,7 +76,7 @@ int			calc_lstsize(t_list *list)
 	return (res);
 }
 
-int			parser(t_list *list, t_minishell **data)
+void			parser(t_list *list, t_minishell **data)
 {
 	t_minishell	*temp;
 	t_redirect	*redirects;
@@ -48,7 +89,7 @@ int			parser(t_list *list, t_minishell **data)
 	i = 0;
 	temp = 0;
 	redirects = 0;
-	while (list && (*((char*)list->content)) != ';')
+	while (list && (int)(*((char*)list->content)) != ';')
 	{
 		if (ft_strrchr("<>", (int)(*((char*)list->content))) == 0)
 		{
@@ -65,5 +106,4 @@ int			parser(t_list *list, t_minishell **data)
 	}
 	temp = ft_lstnew_shell(content, redirects);
 	ft_lstadd_back_shell(data, temp);
-	return (0);
 }

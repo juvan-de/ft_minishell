@@ -14,4 +14,5 @@ void	distributor(char **arg, t_envvar_list *envlist)
 		}
 		i++;
 	}
+	ft_printf("Error!\nCommand not found.\n");
 }
