@@ -86,4 +86,5 @@ void	ft_other_cmds(char **arg, t_envvar_list *envlist)
 		execve(path, arg, envp);
 	else
 		waitpid(ret, &status, WUNTRACED);
+	free_array(envp);
 }
