@@ -1,28 +1,36 @@
 #include "../../includes/minishell.h"
 
-void	resize_envvar_list(t_envvar_list *envvar_list)
+t_envvar	*resize_envvar_list(t_envvar_list *envvar_list, int up_down)
 {
 	int			i;
 	t_envvar	*new;
 
-	envvar_list->size += 8;
+	envvar_list->size += 8 * up_down;
+	printf("envvar_list->size: [%d]\n", envvar_list->size);
 	new = malloc(sizeof(t_envvar) * (envvar_list->size + 1));
+	i = 0;
 	while (i < envvar_list->used)
 	{
 		new[i] = envvar_list->var[i];
 		i++;
 	}
-	ft_memset(&(new[i]), 0, sizeof(t_envvar) *
-								(envvar_list->size - envvar_list->used + 1));
+	while (i <= envvar_list->size)
+	{
+		new[i].name = 0;
+		new[i].value = 0;
+		i++;
+	}
 	free(envvar_list->var);
-	envvar_list->var = new;
+	printf("het resize is gelukt!!!\n\n");
+	return (new);
 }
 
 void	add_envvar(t_envvar_list *envvar_list, char *s1, char *s2)
 {
+	printf("{%d}--{%d}\n", envvar_list->used, envvar_list->size);
 	if (envvar_list->used == envvar_list->size)
 	{
-		resize_envvar_list(envvar_list);
+		envvar_list->var = resize_envvar_list(envvar_list, 1);
 	}
 	printf("[%d]", envvar_list->used);
 	envvar_list->var[envvar_list->used].name = s1;
@@ -38,7 +46,6 @@ void	check_envvar(t_envvar_list *envvar_list, char *var, int add_code)
 
 	if (ft_split_in_two(var, &s1, &s2, '=') == -1)
 		printf("erroroce add_envvar\n");
-	
 	printf("[%s] [%s]\n\n", s1, s2);
 	i = 0;
 	while (i < envvar_list->used)

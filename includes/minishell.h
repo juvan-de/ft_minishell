@@ -72,4 +72,5 @@ void		ft_other_cmds(char **arg, t_envvar_list *envlist);
 void		free_array(char **array);
 
 void		clear_data(t_minishell **data);
+int			ft_check_var_name(char *str);
 #endif

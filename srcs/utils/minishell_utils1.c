@@ -136,3 +136,22 @@ char	*str_char_str_join(char *s1, char c, char *s2)
 	ft_strlcpy(res + len_s1 + 1, s2, len_s2 + 1);
 	return (res);
 }
+
+int		ft_check_var_name(char *str)
+{
+	int i;
+
+	i = 0;
+	if (ft_isalpha(str[i]) != 1 && str[i] != '_')
+		return (-1);
+	i++;
+	while (str[i] != '\0' && str[i] != '=')
+	{
+		if (ft_isalpha(str[i]) != 1 && str[i] != '_' && ft_isdigit(str[i]) != 1)
+			return (-1);
+		i++;
+	}
+	if (str[i] == '=')
+		return (1);
+	return (2);
+}

@@ -19,7 +19,7 @@ t_envvar	*ft_sort_envvar(t_envvar *sort, int len)
 				swap = sort[i].name;
 				sort[i].name = sort[i + 1].name;
 				sort[i + 1].name = swap;
-				swap = sort[i].name;
+				swap = sort[i].value;
 				sort[i].value = sort[i + 1].value;
 				sort[i + 1].value = swap;
 				change = true;
@@ -54,9 +54,22 @@ void	export_overview(t_envvar_list *envvar_list)
 	t_envvar	*sorted;
 
 	sorted = ft_envvardup(envvar_list->var, envvar_list->used);
+	i = 0;
+	while (i < envvar_list->used)
+	{
+		printf("dup: [%s] [%s]\n", envvar_list->var[i].name, envvar_list->var[i].value);
+		i++;
+	}
 	if (sorted == 0)
 		printf("hier moet een exitergens joh\n export overview\n");
 	sorted = ft_sort_envvar(sorted, envvar_list->used);
+	i = 0;
+	while (i < envvar_list->used)
+	{
+		printf("sorted: {%s} {%s}\n", sorted[i].name, sorted[i].value);
+		i++;
+	}
+	i = 0;
 	while (i < envvar_list->used)
 	{
 		if (sorted[i].value == NULL)
@@ -68,25 +81,6 @@ void	export_overview(t_envvar_list *envvar_list)
 		i++;
 	}
 	free(sorted);
-}
-
-int		ft_check_var_name(char *str)
-{
-	int i;
-
-	i = 0;
-	if (ft_isalpha(str[i]) != 1 && str[i] != '_')
-		return (-1);
-	i++;
-	while (str[i] != '\0' && str[i] != '=')
-	{
-		if (ft_isalpha(str[i]) != 1 && str[i] != '_' && ft_isdigit(str[i]) != 1)
-			return (-1);
-		i++;
-	}
-	if (str[i] == '=')
-		return (1);
-	return (2);
 }
 
 void	ft_export(char **arg, t_envvar_list *envlist)
