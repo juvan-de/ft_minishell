@@ -19,6 +19,7 @@ _OBJ_FILES = main \
 			echo/echo \
 			pwd/pwd \
 			cd/cd \
+			exit/exit \
 			unset/unset \
 			cmds/other_cmds
 

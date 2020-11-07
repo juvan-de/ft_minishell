@@ -40,7 +40,7 @@ void	ft_cd(char **arg, t_envvar_list *envlist)
 	oldpwd = NULL;
 	oldpwd = getcwd(oldpwd, 1);
 	if (oldpwd == 0)
-		printf("hier moet nog geexit worden hi ah ho\nft_cd\n");
+		exit_with_1message("Malloc failed", 1);
 	if (arg[1] == NULL)
 	{
 		index = find_envvar(envlist, "HOME");
@@ -56,7 +56,7 @@ void	ft_cd(char **arg, t_envvar_list *envlist)
 	if (chdir(path) == -1)
 	{
 		free(oldpwd);
-		printf("hier moet nog geexit worden hi ah ho\nft_cd\n");
+		ft_printf("minishell")
 	}
 	set_oldpwd(envlist, oldpwd);
 	set_pwd(envlist);

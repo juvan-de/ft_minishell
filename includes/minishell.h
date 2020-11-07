@@ -4,7 +4,7 @@
 # include "../ft_printf/printf.h"
 # include "../libft/libft.h"
 
-# define RET_VALUE;
+unsigned char	g_ret_value;
 
 typedef struct			s_redirect
 {
@@ -33,11 +33,11 @@ typedef struct			s_envvar_list
 	t_envvar			*var;
 }						t_envvar_list;
 
-enum	e_redirecttype
+enum		e_redirecttype
 {
-	APPEND,
-	TRUNC,
-	SMALLER,
+			APPEND = 0,
+			TRUNC = 1,
+			SMALLER = 2
 };
 
 int			ft_arraylen(char **array);
@@ -76,4 +76,10 @@ void		remove_envvar(t_envvar_list *envlist, int index);
 
 void		clear_data(t_minishell **data);
 int			ft_check_var_name(char *str);
+
+void		exit_with_3message(char *message_1, char *message_2,
+											char *message_3, int exit_value);
+void		exit_with_2message(char *message_1, char *message_2,
+																int exit_value);
+void		exit_with_1message(char *message_1, int exit_value);
 #endif

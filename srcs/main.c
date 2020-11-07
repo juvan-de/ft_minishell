@@ -21,6 +21,7 @@ int		main(int ac, char **av, char **envp)
 	t_envvar_list	envvar_list;
 	t_minishell		*data;
 
+	g_ret_value = 0;
 	if (ac != 1)
 	{
 		ft_printf("Error\nminishell does not need arguments\n");

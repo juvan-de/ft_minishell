@@ -15,6 +15,7 @@ void		ft_env(char **arg, t_envvar_list *envlist);
 void		ft_pwd(char **arg, t_envvar_list *envlist);
 void		ft_cd(char **arg, t_envvar_list *envlist);
 void		ft_unset(char **arg, t_envvar_list *envlist);
+void		ft_exit(char **arg, t_envvar_list *envlist);
 
 t_keyword		g_keyword[] = {
 	{"env", &ft_env},
@@ -23,6 +24,7 @@ t_keyword		g_keyword[] = {
 	{"pwd", &ft_pwd},
 	{"cd", &ft_cd},
 	{"unset", &ft_unset},
+	{"exit", &ft_exit},
 	{0, NULL}
 };
 
