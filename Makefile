@@ -19,6 +19,7 @@ _OBJ_FILES = main \
 			echo/echo \
 			pwd/pwd \
 			cd/cd \
+			unset/unset \
 			cmds/other_cmds
 
 OBJ_FILES = $(addsuffix .o, $(addprefix $(OBJ_DIR)/,$(_OBJ_FILES)))

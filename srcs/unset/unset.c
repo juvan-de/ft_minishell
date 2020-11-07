@@ -14,9 +14,7 @@ void	ft_unset(char **arg, t_envvar_list *envlist)
 		{
 			ret = find_envvar(envlist, arg[i]);
 			if (ret != -1)
-			{
 				remove_envvar(envlist, ret);
-			}
 		}
 		i++;
 	}

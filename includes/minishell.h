@@ -4,6 +4,8 @@
 # include "../ft_printf/printf.h"
 # include "../libft/libft.h"
 
+# define RET_VALUE;
+
 typedef struct			s_redirect
 {
 	char				*file;
@@ -70,6 +72,7 @@ int			ft_lstsize_shell(t_redirect *lst);
 char		*str_char_str_join(char *s1, char c, char *s2);
 void		ft_other_cmds(char **arg, t_envvar_list *envlist);
 void		free_array(char **array);
+void		remove_envvar(t_envvar_list *envlist, int index);
 
 void		clear_data(t_minishell **data);
 int			ft_check_var_name(char *str);

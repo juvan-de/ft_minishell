@@ -3,49 +3,33 @@
 #include <stdlib.h>
 #include "../../includes/minishell.h"
 
-static char	*get_var(char *str, int len, char **var, t_envvar_list *envvar_list)
+char *insert_var(char *name, t_envvar_list *envlist)
 {
-	int	i;
-
-	i = 0;
-	while (i < envvar_list->used)
-	{
-		if (ft_strncmp(str, envvar_list->var[i].name, len) == 0 && envvar_list->var[i].name[len] == '\0')
-			return (ft_strdup(envvar_list->var[i].value));
-		i++;
-	}
-	return (ft_strdup(""));
-}
-
-char	*insert_var(char *str, char **var, t_envvar_list *envvar_list)
-{
+	char	*ret;
 	int		i;
-	int		j;
-	char	*res;
-	char	*new;
 
-	j = 0;
-	res = ft_strdup("");
 	i = 0;
-	while (str[i] != '\0')
+	while (i < envlist->used)
 	{
-		if (i > 0 && str[i] == '$' && str[i - 1] == '\\')
+		if (ft_strcmp(envlist->var[i].name, name) == 0)
 		{
-			new = ft_substr(str, j, i);
-			res = ft_strjoin(res, new);
-			j = i;
-			while (str[i] != '\0' && str[i] != ' ')
+			if (envlist->var[i].value == 0)
+				return (0);
+			else
 			{
-				i++;
+				if (ft_strcmp("", envlist->var[i].value))
+					return (0);
+				else
+				{
+					ret = ft_strdup(envlist->var[i].value);
+					if (ret == 0)
+						printf("hier moet nog geexit worden hhi ha ho\ninsert_var\n");
+					return (ret);
+				}
+				
 			}
-			new = get_var(str + j + 1, i - j - 1, var, envvar_list);
-			res = ft_strjoin(res, new);
-			j = i;
 		}
 		i++;
 	}
-	new = ft_substr(str, j, i);
-	res = ft_strjoin(res, new);
-	return (res);
+	return (0);
 }
-

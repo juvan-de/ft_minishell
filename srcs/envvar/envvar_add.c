@@ -25,6 +25,21 @@ t_envvar	*resize_envvar_list(t_envvar_list *envvar_list, int up_down)
 	return (new);
 }
 
+void	remove_envvar(t_envvar_list *envlist, int index)
+{
+	free(envlist->var[index].name);
+	free(envlist->var[index].value);
+	while (index < envlist->used)
+	{
+		envlist->var[index].name = envlist->var[index + 1].name;
+		envlist->var[index].value = envlist->var[index + 1].value;
+		index++;
+	}
+	envlist->used--;
+	if (envlist->used + 8 < envlist->size)
+		envlist->var = resize_envvar_list(envlist, -1);
+}
+
 void	add_envvar(t_envvar_list *envvar_list, char *s1, char *s2)
 {
 	printf("{%d}--{%d}\n", envvar_list->used, envvar_list->size);
