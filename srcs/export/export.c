@@ -54,28 +54,14 @@ void	export_overview(t_envvar_list *envvar_list)
 	t_envvar	*sorted;
 
 	sorted = ft_envvardup(envvar_list->var, envvar_list->used);
-	i = 0;
-	while (i < envvar_list->used)
-	{
-		printf("dup: [%s] [%s]\n", envvar_list->var[i].name, envvar_list->var[i].value);
-		i++;
-	}
 	if (sorted == 0)
-		printf("hier moet een exitergens joh\n export overview\n");
+		exit_with_1message("Malloc failed", 1);
 	sorted = ft_sort_envvar(sorted, envvar_list->used);
 	i = 0;
 	while (i < envvar_list->used)
 	{
-		printf("sorted: {%s} {%s}\n", sorted[i].name, sorted[i].value);
-		i++;
-	}
-	i = 0;
-	while (i < envvar_list->used)
-	{
 		if (sorted[i].value == NULL)
-		{
 			ft_printf("declare -x %s\n", sorted[i].name);
-		}
 		else
 			ft_printf("declare -x %s=\"%s\"\n", sorted[i].name, sorted[i].value);
 		i++;
@@ -97,9 +83,7 @@ void	ft_export(char **arg, t_envvar_list *envlist)
 		i = 1;
 		while (i < len)
 		{
-			printf("[%s]\n", arg[i]);
 			ret = ft_check_var_name(arg[i]);
-			printf("ft_check_var_name = %d\n", ret);
 			if (ret != -1)
 				check_envvar(envlist, arg[i], ret);
 			i++;

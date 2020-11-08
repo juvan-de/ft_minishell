@@ -15,7 +15,7 @@ char	*insert_vartwo(char *value)
 		{
 			ret = ft_strdup(value);
 			if (ret == 0)
-				printf("hier moet nog geexit worden hhi ha ho\ninsert_var\n");
+				exit_with_1message("Malloc failed", 1);
 			return (ret);
 		}
 	}

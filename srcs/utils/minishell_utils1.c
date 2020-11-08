@@ -96,6 +96,8 @@ char	**ft_arraydup(char **array, int arraylen)
 	char	**new;
 
 	new = malloc(sizeof(char*) * (arraylen + 1));
+	if (new == 0)
+		return (0);
 	i = 0;
 	while (i < arraylen)
 	{

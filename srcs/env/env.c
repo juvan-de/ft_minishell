@@ -7,7 +7,8 @@ void	ft_env(char **arg, t_envvar_list *envlist)
 	print_array(arg);
 	if (ft_arraylen(arg) != 1)
 	{
-		printf("exit op ft_env; nog niet gedaan\n");
+		g_ret_value = 127;
+		ft_printf("%s: cd: %s: No such file or directory\n", PROMPT, arg[1]);
 	}
 	else
 	{
@@ -21,5 +22,6 @@ void	ft_env(char **arg, t_envvar_list *envlist)
 			}
 			i++;
 		}
+		g_ret_value = 0;
 	}
 }

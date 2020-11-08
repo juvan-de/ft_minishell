@@ -5,8 +5,8 @@
 #                                                      +:+                     #
 #    By: avan-ber <avan-ber@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
-#    Created: 2019/12/13 13:52:31 by avan-ber       #+#    #+#                 #
-#    Updated: 2020/01/06 14:43:39 by avan-ber      ########   odam.nl          #
+#    Created: 2019/12/13 13:52:31 by avan-ber      #+#    #+#                  #
+#    Updated: 2020/11/08 15:39:30 by avan-ber      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ BLUE =  \033[38;5;12m
 RED =  \033[38;5;9m
 YELLOW =  \033[38;5;11m
 WHITE =  \033[38;5;7m
+NORMAL = \033[0;0m
 
 
 all: $(NAME)
@@ -53,21 +54,21 @@ $(NAME): $(OBJECTS)
 	@ ar rcs $(NAME).a $(OBJECTS)
 	@ echo "$(RED)========================================"
 	@ echo "$(RED)||                DONE                ||"
-	@ echo "$(RED)========================================"
+	@ echo "$(RED)========================================$(NORMAL)"
 
 clean:
 	@ echo "\n$(LBLUE)removing 		$(BLUE)objects"
 	@ /bin/rm -f $(OBJECTS)
 	@ echo "$(RED)========================================"
 	@ echo "$(RED)||                DONE                ||"
-	@ echo "$(RED)========================================"
+	@ echo "$(RED)========================================$(NORMAL)"
 
 fclean: clean
 	@ echo "\n$(LBLUE)removing 		$(BLUE)$(NAME).a"
 	@ /bin/rm -f 	$(NAME).a
 	@ echo "$(RED)========================================"
 	@ echo "$(RED)||                DONE                ||"
-	@ echo "$(RED)========================================\n"
+	@ echo "$(RED)========================================\n$(NORMAL)"
 
 re: fclean all
 

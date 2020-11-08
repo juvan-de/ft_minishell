@@ -4,6 +4,9 @@
 # include "../ft_printf/printf.h"
 # include "../libft/libft.h"
 
+# define PROMPT "Minishell"
+# define VERSION "[1.0.12]"
+
 unsigned char	g_ret_value;
 
 typedef struct			s_redirect

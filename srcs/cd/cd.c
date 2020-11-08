@@ -10,9 +10,10 @@ void	set_pwd(t_envvar_list *envlist)
 	{
 		if (envlist->var[index].value)
 			free(envlist->var[index].value);
-		getcwd(envlist->var[index].value, 1);
+		envlist->var[index].value = NULL;
+		envlist->var[index].value = getcwd(envlist->var[index].value, 1);
 		if (envlist->var[index].value == 0)
-			printf("hier moet nog geexit worden hi ah ho\nset_pwd\n");
+			exit_with_1message("Malloc failed", 1);
 	}
 }
 
@@ -47,6 +48,7 @@ void	ft_cd(char **arg, t_envvar_list *envlist)
 		if (index == -1)
 		{
 			printf("minishell: cd: HOME not set");
+			g_ret_value = 1;
 			return ;
 		}
 		path = envlist->var[index].value;
@@ -56,8 +58,11 @@ void	ft_cd(char **arg, t_envvar_list *envlist)
 	if (chdir(path) == -1)
 	{
 		free(oldpwd);
-		ft_printf("minishell")
+		ft_printf("%s: cd: %s: No such file or directory\n", PROMPT, path);
+		g_ret_value = 1;
+		return ;
 	}
 	set_oldpwd(envlist, oldpwd);
 	set_pwd(envlist);
+	g_ret_value = 0;
 }

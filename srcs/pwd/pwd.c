@@ -9,7 +9,7 @@ void		ft_pwd(char **arg, t_envvar_list *envlist)
 	buf = NULL;
 	buf = getcwd(buf, 1);
 	if (buf == NULL)
-		printf("hier moet geexit worden hi ha ho\nft_pwd");
+		exit_with_1message("Malloc failed", 1);
 	ft_printf("%s\n", buf);
 	free(buf);
 }

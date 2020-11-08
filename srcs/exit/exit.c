@@ -33,14 +33,14 @@ long	ft_atol(char *nb)
 	while (nb[i] != '\0')
 	{
 		if (res * 10 < res)
-			exit_with_3message("minishell: exit: ", nb,
+			exit_with_3message("exit\nMinishell: exit: ", nb,
 											": numeric argument required", 255);
 		res = res * 10 + nb[i] - '0';
 		i++;
 	}
 	if (res > (unsigned long)(LONG_MAX) + 1 ||
 							(res == (unsigned long)(LONG_MAX) + 1 && neg == -1))
-		exit_with_3message("minishell: exit: ", nb,
+		exit_with_3message("exit\nMinishell: exit: ", nb,
 											": numeric argument required", 255);
 	return ((long)res * neg);
 }
@@ -54,12 +54,12 @@ void	ft_exit(char **arg, t_envvar_list *envlist)
 	if (len == 1)
 		exit_with_1message("exit", g_ret_value);
 	if (ft_isnumber(arg[1]) == -1)
-		exit_with_3message("minishell: exit: ", arg[1],
+		exit_with_3message("exit\nMinishell: exit: ", arg[1],
 											": numeric argument required", 255);
 	ret = ft_atol(arg[1]);
 	if (len > 2)
 	{
-		ft_printf("minishell: exit: too many arguments");
+		ft_printf("exit\n%s: exit: too many arguments", PROMPT);
 		g_ret_value = 1;
 	}
 	else

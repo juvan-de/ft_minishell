@@ -49,4 +49,5 @@ void	ft_echo(char **arg, t_envvar_list *envlist)
 	}
 	if (newline == true)
 		ft_printf("\n");
+	g_ret_value = 0;
 }

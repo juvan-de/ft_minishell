@@ -12,6 +12,27 @@ t_minishell		*data_init()
 	return (data);
 }
 
+void	print_prompt(void)
+{
+	char	*str;
+	int		i;
+
+	str = NULL;
+	str = getcwd(str, 1);
+	if (str == NULL)
+		exit_with_1message("Malloc failed", 1);
+	ft_printf("\033[1;38;5;14m%s \033[38;5;12m%s\e[0;0m", PROMPT, VERSION);
+	i = ft_strlen(str);
+	i--;
+	while (str[i] != '/')
+	{
+		i--;
+	}
+	ft_printf(" \033[38;5;9m<\033[38;5;9m%s>", str + i + 1);
+	ft_printf(" \033[38;5;11m➢\e[0;0m ");
+	free(str);
+}
+
 int		main(int ac, char **av, char **envp)
 {
 	char			*line;
@@ -33,7 +54,7 @@ int		main(int ac, char **av, char **envp)
 	envvar_list_init(&envvar_list, envp);
 	while (1)
 	{
-		ft_printf("<%s> ", av[0] + 2);
+		print_prompt();
 		ret = get_next_line(0, &line);
 		list = tokenizer(line);
 //		ft_print_list(list);

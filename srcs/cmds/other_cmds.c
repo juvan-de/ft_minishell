@@ -13,20 +13,19 @@ int		ft_find_path(char *cmd, t_envvar_list *envlist, char **res)
 	if (i == -1)
 	{
 		*res = ft_strdup(cmd);
-		printf("%s\n", *res);
 		if (*res == 0)
-			printf("hier moet nog geexit worden hi ha ho\nft_find_path\n");
+			exit_with_1message("Malloc failed", 1);
 		return (0);
 	}
 	paths = ft_split(envlist->var[i].value, ':');
 	if (paths == 0)
-		printf("hier moet nog geexit worden hi ha ho\nft_find_path\n");
+		exit_with_1message("Malloc failed", 1);
 	i = 0;
 	while (paths[i] != 0)
 	{
 		tmp = str_char_str_join(paths[i], '/', cmd);
 		if (tmp == NULL)
-			printf("hier moet nog geexit worden hi ha ho\nft_find_path\n");
+			exit_with_1message("Malloc failed", 1);
 		ret = stat(tmp, &buf);
 		if (ret == 0)
 		{
@@ -61,22 +60,27 @@ int		count_envvar_with_value(t_envvar_list *envlist)
 char	**make_envvar_dup(t_envvar_list *envlist)
 {
 	int		i;
+	int		j;
 	char	**dup;
 
 	dup = malloc(sizeof(char*) * (count_envvar_with_value(envlist) + 1));
 	if (dup == 0)
-		printf("hier moet nog geexit worden hi ha ho\nake_envvar_dup\n");
+		exit_with_1message("Malloc failed", 1);
 	i = 0;
+	j = 0;
 	while (i < envlist->used)
 	{
 		if (envlist->var[i].value != 0)
-			dup[i] = str_char_str_join(envlist->var[i].name, '=',
+		{
+			dup[j] = str_char_str_join(envlist->var[i].name, '=',
 														envlist->var[i].value);
-		if (dup[i] == 0)
-			printf("hier moet nog geexit worden hi ha ho\nake_envvar_dup\n");
+			if (dup[j] == 0)
+				exit_with_1message("Malloc failed", 1);
+			j++;
+		}
 		i++;
 	}
-	dup[i] = 0;
+	dup[j] = 0;
 	return (dup);
 }
 
@@ -97,10 +101,11 @@ void	ft_other_cmds(char **arg, t_envvar_list *envlist)
 	envp = make_envvar_dup(envlist);
 	ret = fork();
 	if (ret == -1)
-		printf("heir moet nog geexit worden hi ha ho\nft_other_cmds\n");
+		printf("heir moet nog geexit worden hi ha ho\nfork fail\nft_other_cmds\n");
 	if (ret == 0)
 		execve(path, arg, envp);
 	else
 		waitpid(ret, &status, WUNTRACED);
 	free_array(envp);
+	g_ret_value = 0;
 }
