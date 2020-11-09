@@ -106,7 +106,7 @@ void	ft_other_cmds(char **arg, t_envvar_list *envlist)
 	ret = fork();
 	if (ret == -1)
 		printf("heir moet nog geexit worden hi ha ho\nfork fail\nft_other_cmds\n");
-	if ( )
+	if (ret == 0)
 	{
 		if (execve(path, arg, envp) == -1)
 		{

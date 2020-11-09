@@ -59,10 +59,6 @@ t_minishell	*fill_minishell(t_list *list)
 			content[i] = ft_strdup(list->content);
 			i++;
 		}
-		else if
-		{
-
-		}
 		else
 		{
 			save_redirects(&redirects, (char*)list->content, (char*)list->next->content);
