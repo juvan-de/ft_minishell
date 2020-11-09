@@ -11,15 +11,13 @@ void	envvar_list_init(t_envvar_list *envvar_list, char **envp)
 	envvar_list->var = malloc(sizeof(t_envvar) * (envvar_list->size + 1));
 	ft_bzero(envvar_list->var, sizeof(t_envvar) * (envvar_list->size + 1));
 	if (envvar_list->var == 0)
-		printf("hier moet nog een protection\nenvvar_list_init\n");
+		exit_with_1message("Malloc failed", 1);
 	i = 0;
 	while (i < envvar_list->used)
 	{
 		if (ft_split_in_two(envp[i], &envvar_list->var[i].name,
 										&envvar_list->var[i].value, '=') == -1)
-		{
-			printf("hier moet nog geexit worden hi ha ho\nenvvar_list_init\n");
-		}
+			exit_with_1message("Malloc failed", 1);
 		i++;
 	}
 }

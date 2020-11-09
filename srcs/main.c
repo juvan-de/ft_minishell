@@ -6,6 +6,8 @@ t_minishell		*data_init()
 	t_minishell *data;
 
 	data = malloc(sizeof(*data));
+	if (data == 0)
+		exit_with_1message("Malloc failed", 1);
 	data->redirect = 0;
 	data->next = 0;
 	data->content = 0;

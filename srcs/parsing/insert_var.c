@@ -27,6 +27,8 @@ char	*insert_var(char *name, t_envvar_list *envlist)
 	int		i;
 
 	i = 0;
+	if (ft_strcmp("?", name) == 0)
+		return (ft_atoi(g_ret_value));
 	while (i < envlist->used)
 	{
 		if (ft_strcmp(envlist->var[i].name, name) == 0)
