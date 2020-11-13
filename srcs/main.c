@@ -59,15 +59,20 @@ int		main(int ac, char **av, char **envp)
 		print_prompt();
 		ret = get_next_line(0, &line);
 		list = tokenizer(line);
-//		ft_print_list(list);
 		if (list)
 		{
 			parser(list, &data);
 			while (data)
 			{
-				redirection(data->redirect);
-				input_redirection(data->redirect);
-				distributor(data->content, &envvar_list);
+				if (data->type == 4)
+				{
+					enter_pipe(data, &envvar_list);
+					data = data->next;
+				}
+				else
+				{
+					run_command(data, &envvar_list, 0);
+				}
 				dup2(fd[0], 0);
 				dup2(fd[1], 1);
 				data = data->next;

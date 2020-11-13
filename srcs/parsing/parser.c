@@ -21,8 +21,8 @@ void	save_redirects(t_redirect **redirects, char *type, char *file)
 
 int			calc_lstsize(t_list *list)
 {
-	int	res;
-	int	i;
+	int		res;
+	int		i;
 	t_list	*temp;
 
 	res = ft_lstsize(list);
@@ -30,7 +30,8 @@ int			calc_lstsize(t_list *list)
 	i = 0;
 	while (temp)
 	{
-		if (*((char*)(temp->content)) == '<' || *((char*)(temp->content)) == '>')
+		if (*((char*)(temp->content)) == '<' ||
+				*((char*)(temp->content)) == '>')
 			res = res - 2;
 		temp = temp->next;
 		i++;
@@ -51,18 +52,20 @@ t_minishell	*fill_minishell(t_list *list)
 	temp = 0;
 	redirects = 0;
 	content = ft_calloc(sizeof(*content) * (arrlen + 1), 1);
-	while (list && (int)(*((char*)list->content)) != ';')
+	while (list && ft_strchr("|;", (int)(*((char*)list->content))) == 0)
 	{
-		if (ft_strrchr("<>", (int)(*((char*)list->content))) == 0)
+		if (ft_strchr("<>", (int)(*((char*)list->content))) != 0)
 		{
-			content[i] = ft_calloc(sizeof(**content) * (ft_strlen(list->content) + 1), 1);
-			content[i] = ft_strdup(list->content);
-			i++;
+			save_redirects(&redirects, (char*)list->content,
+								(char*)list->next->content);
+			list = list->next;
 		}
 		else
 		{
-			save_redirects(&redirects, (char*)list->content, (char*)list->next->content);
-			list = list->next;
+			content[i] = ft_calloc(sizeof(**content) *
+				(ft_strlen(list->content) + 1), 1);
+			content[i] = ft_strdup(list->content);
+			i++;
 		}
 		list = list->next;
 	}
@@ -79,14 +82,22 @@ void			parser(t_list *list, t_minishell **data)
 	while (dup)
 	{
 		temp = fill_minishell(dup);
+		while (dup && ft_strchr(";|", (int)(*(char*)dup->content)) == 0)
+		{
+			dup = dup->next;
+		}
+		if (dup && (*(char*)dup->content) == '|')
+		{
+			temp->type = PIPE;
+			dup = dup->next;
+		}
+		else if (dup && (*(char*)dup->content) == ';')
+		{
+			temp->type = SEMICOLON;
+			dup = dup->next;
+		}
+		else
+			temp->type = SEMICOLON;
 		ft_lstadd_back_shell(data, temp);
-		while (dup && (*(char*)dup->content) != ';')
-		{
-			dup = dup->next;
-		}
-		if (dup && (*(char*)dup->content) == ';')
-		{
-			dup = dup->next;
-		}
 	}
 }

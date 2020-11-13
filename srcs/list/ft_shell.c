@@ -10,6 +10,7 @@ t_minishell	*ft_lstnew_shell(char **content, t_redirect *redirect)
 	shell->content = content;
 	shell->redirect = redirect;
 	shell->next = 0;
+	shell->type = 0;
 	return (shell);
 }
 

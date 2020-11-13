@@ -5,7 +5,7 @@
 # include "../libft/libft.h"
 
 # define PROMPT "Minishell"
-# define VERSION "[1.0.12]"
+# define VERSION "[0.0.12]"
 
 unsigned char	g_ret_value;
 
@@ -20,6 +20,7 @@ typedef struct 			s_minishell
 {
 	char				**content;
 	t_redirect			*redirect;
+	int					type;
 	struct s_minishell	*next;
 }						t_minishell;
 
@@ -38,14 +39,17 @@ typedef struct			s_envvar_list
 
 enum		e_redirecttype
 {
-			APPEND = 0,
-			TRUNC = 1,
-			SMALLER = 2
+	UNDEFINED = 0,
+	APPEND = 1,
+	TRUNC = 2,
+	SMALLER = 3,
+	PIPE = 4,
+	SEMICOLON = 5
 };
 
 int			ft_arraylen(char **array);
 int			ft_shell_find_elem(t_redirect *shell);
-void		distributor(char **arg, t_envvar_list *envlist);
+void		distributor(char **arg, t_envvar_list *envlist, int piped);
 void		parser(t_list *list, t_minishell **data);
 void		redirection(t_redirect *redirections);
 void		input_redirection(t_redirect *redirects);
@@ -61,6 +65,9 @@ char		*insert_var(char *str, char **var, t_envvar_list *envvar_list);
 int			check_datatype(char *content);
 t_list		*tokenizer(char *input);
 
+void		enter_pipe(t_minishell *data, t_envvar_list *envlist);
+void		run_command(t_minishell *data, t_envvar_list *envlist, int piped);
+
 void		ft_print_list(t_list *list);
 void		ft_print_redirect(t_redirect *list);
 void		print_array(char **array);
@@ -73,7 +80,7 @@ void		check_envvar(t_envvar_list *envvar_list, char *var, int add_code);
 int			find_envvar(t_envvar_list *envlist, char *var);
 int			ft_lstsize_shell(t_redirect *lst);
 char		*str_char_str_join(char *s1, char c, char *s2);
-void		ft_other_cmds(char **arg, t_envvar_list *envlist);
+void		ft_other_cmds(char **arg, t_envvar_list *envlist, int piped);
 void		free_array(char **array);
 void		remove_envvar(t_envvar_list *envlist, int index);
 
