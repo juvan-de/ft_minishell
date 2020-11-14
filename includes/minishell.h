@@ -36,6 +36,18 @@ typedef struct			s_envvar_list
 	t_envvar			*var;
 }						t_envvar_list;
 
+typedef struct			s_2int
+{
+	int					i;
+	int					j;
+}						t_2int;
+
+enum		e_qoutes
+{
+			NO_QUOTES = 0,
+			DOUBLE_QUOTES = 2
+};
+
 enum		e_redirecttype
 {
 			APPEND = 0,
