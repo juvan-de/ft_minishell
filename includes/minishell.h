@@ -46,7 +46,7 @@ enum		e_redirecttype
 int			ft_arraylen(char **array);
 int			ft_shell_find_elem(t_redirect *shell);
 void		distributor(char **arg, t_envvar_list *envlist);
-void		parser(t_list *list, t_minishell **data);
+void		parser(t_list *list, t_minishell **data, t_envvar_list *envlist);
 void		redirection(t_redirect *redirections);
 void		input_redirection(t_redirect *redirects);
 
@@ -57,7 +57,7 @@ int			ft_lstsize_redirect(t_redirect *lst);
 void		ft_lstadd_back_redirect(t_redirect **alst, t_redirect *new);
 t_redirect	*ft_lstnew_redirect(int type, char *file);
 
-char		*insert_var(char *str, char **var, t_envvar_list *envvar_list);
+char		*insert_var(char *str, t_envvar_list *envvar_list);
 int			check_datatype(char *content);
 t_list		*tokenizer(char *input);
 
@@ -85,4 +85,6 @@ void		exit_with_3message(char *message_1, char *message_2,
 void		exit_with_2message(char *message_1, char *message_2,
 																int exit_value);
 void		exit_with_1message(char *message_1, int exit_value);
+char		*ft_strcpy(char *dest, const char *src);
+char		*check_insert_var(char *str, t_envvar_list *envlist);
 #endif

@@ -62,7 +62,7 @@ int		main(int ac, char **av, char **envp)
 //		ft_print_list(list);
 		if (list)
 		{
-			parser(list, &data);
+			parser(list, &data, &envvar_list);
 			while (data)
 			{
 				redirection(data->redirect);

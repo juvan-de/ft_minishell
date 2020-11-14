@@ -11,7 +11,7 @@ void	save_redirects(t_redirect **redirects, char *type, char *file)
 	}
 	else if (type[0] == '>')
 	{
-		if (ft_strncmp(type, ">>", 3) == 0)
+		if (ft_strcmp(type, ">>") == 0)
 			temp = ft_lstnew_redirect(APPEND, file);
 		else
 			temp = ft_lstnew_redirect(TRUNC, file);
@@ -38,7 +38,18 @@ int			calc_lstsize(t_list *list)
 	return (res);
 }
 
-t_minishell	*fill_minishell(t_list *list)
+int			isredirects(char *str)
+{
+	if (ft_strcmp(str, "<") == 0)
+		return (1);
+	else if (ft_strcmp(str, ">") == 0)
+		return (1);
+	else if (ft_strcmp(str, ">>") == 0)
+		return (1);
+	return (0);
+}
+
+t_minishell	*fill_minishell(t_list *list, t_envvar_list *envlist)
 {
 	t_minishell	*temp;
 	t_redirect	*redirects;
@@ -53,16 +64,18 @@ t_minishell	*fill_minishell(t_list *list)
 	content = ft_calloc(sizeof(*content) * (arrlen + 1), 1);
 	while (list && (int)(*((char*)list->content)) != ';')
 	{
-		if (ft_strrchr("<>", (int)(*((char*)list->content))) == 0)
-		{
-			content[i] = ft_calloc(sizeof(**content) * (ft_strlen(list->content) + 1), 1);
-			content[i] = ft_strdup(list->content);
-			i++;
-		}
-		else
+		if (isredirects(list->content) == 1)
 		{
 			save_redirects(&redirects, (char*)list->content, (char*)list->next->content);
 			list = list->next;
+		}
+		else
+		{
+			content[i] = ft_strdup(list->content);
+			if (content[i] == 0)
+				exit_with_1message("Malloc failed", 1);
+			content[i] = check_insert_var(content[i], envlist);
+			i++;
 		}
 		list = list->next;
 	}
@@ -70,7 +83,7 @@ t_minishell	*fill_minishell(t_list *list)
 	return (temp);
 }
 
-void			parser(t_list *list, t_minishell **data)
+void			parser(t_list *list, t_minishell **data, t_envvar_list *envlist)
 {
 	t_minishell	*temp;
 	t_list		*dup;
@@ -78,7 +91,7 @@ void			parser(t_list *list, t_minishell **data)
 	dup = list;
 	while (dup)
 	{
-		temp = fill_minishell(dup);
+		temp = fill_minishell(dup, envlist);
 		ft_lstadd_back_shell(data, temp);
 		while (dup && (*(char*)dup->content) != ';')
 		{

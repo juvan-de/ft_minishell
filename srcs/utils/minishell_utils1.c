@@ -158,6 +158,20 @@ int		ft_check_var_name(char *str)
 	return (2);
 }
 
+char		*ft_strcpy(char *dest, const char *src)
+{
+	int i;
+
+	i = 0;
+	while (src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
 void	exit_with_3message(char *message_1, char *message_2, char *message_3, int exit_value)
 {
 	ft_printf("%s%s%s\n", message_1, message_2, message_3);

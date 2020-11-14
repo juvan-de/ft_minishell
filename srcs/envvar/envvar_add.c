@@ -75,6 +75,7 @@ char	*check_for_escape(char *str)
 	char	*new;
 
 	amount = ft_count_char_in_str(str, '\\');
+	printf("[%s]\n", str);
 	if (amount == 0)
 		return (str);
 	new = malloc(sizeof(char) * (amount + ft_strlen(str) + 1));
