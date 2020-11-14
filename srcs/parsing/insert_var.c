@@ -255,6 +255,10 @@ char	*check_insert_var(char *str, t_envvar_list *envlist)
 	temp = malloc_check(ft_substr(str, index.j, index.i - index.j));
 	temp = insert_var_str(temp, envlist, 0);
 	new = malloc_check(strjoin_and_free2(new, temp));
+	if (index.j == 0 && ft_strcmp(new, "") == 0)
+	{
+		free(new);
+		return (0);
+	}
 	return (new);
 }
-

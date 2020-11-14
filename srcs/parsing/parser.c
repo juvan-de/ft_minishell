@@ -49,6 +49,45 @@ int			isredirects(char *str)
 	return (0);
 }
 
+char **resize_arg_array(char **array, int len)
+{
+    int        i;
+    int        j;
+    int        count;
+    char    **new;
+
+    i = 0;
+    count = 0;
+    while (i < len)
+    {
+        if (array[i] == 0)
+            count++;
+        i++;
+    }
+    if (count == 0)
+        return (array);
+    else
+    {
+        new = malloc(sizeof(char*) * (len - count + 1));
+        i = 0;
+        j = 0;
+        while (j < len - count)
+        {
+            if (array[i + j] != 0)
+            {
+                new[j] = array[i + j];
+                j++;
+            }
+            else
+                i++;
+        }
+        new[j] = 0;
+		print_array(new);
+        free(array);
+        return (new);
+    }
+}
+
 t_minishell	*fill_minishell(t_list *list, t_envvar_list *envlist)
 {
 	t_minishell	*temp;
@@ -79,6 +118,7 @@ t_minishell	*fill_minishell(t_list *list, t_envvar_list *envlist)
 		}
 		list = list->next;
 	}
+	content = resize_arg_array(content, arrlen);
 	temp = ft_lstnew_shell(content, redirects);
 	return (temp);
 }
