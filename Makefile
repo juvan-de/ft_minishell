@@ -28,7 +28,7 @@ OBJ_FILES = $(addsuffix .o, $(addprefix $(OBJ_DIR)/,$(_OBJ_FILES)))
 
 LIB = -L./libft -lft -L./ft_printf -lftprintf  -L./getnextline -lgnl
 
-CFLAGS =
+CFLAGS = -fsanitize=address -g
 
 all: $(NAME)
 

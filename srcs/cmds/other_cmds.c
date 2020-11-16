@@ -84,6 +84,35 @@ char	**make_envvar_dup(t_envvar_list *envlist)
 	return (dup);
 }
 
+void	ft_other_cmds_piped(char **arg, t_envvar_list *envlist)
+{
+	int		ret;
+	int		status;
+	char	*path;
+	char	**envp;
+
+	if (ft_strchr_i(arg[0], '/') == -1)
+	{
+		if (ft_find_path(arg[0], envlist, &path) == -1)
+		{
+			ft_printf("%s: %s: command not found\n", PROMPT, arg[0]);
+			g_ret_value = 127;
+			return ;
+		}
+	}
+	else
+		path = arg[0];
+	envp = make_envvar_dup(envlist);
+	if (execve(path, arg, envp) == -1)
+	{
+		ft_printf("%s: %s: command not found\n", PROMPT, arg[0]);
+		g_ret_value = 127;
+		return ;
+	}
+	free_array(envp);
+	g_ret_value = 0;
+}
+
 void	ft_other_cmds(char **arg, t_envvar_list *envlist, int piped)
 {
 	int		ret;
@@ -91,6 +120,8 @@ void	ft_other_cmds(char **arg, t_envvar_list *envlist, int piped)
 	char	*path;
 	char	**envp;
 
+	if (piped)
+		ft_other_cmds_piped(arg, envlist);
 	if (ft_strchr_i(arg[0], '/') == -1)
 	{
 		if (ft_find_path(arg[0], envlist, &path) == -1)

@@ -50,12 +50,12 @@ int		main(int ac, char **av, char **envp)
 		ft_printf("Error\nminishell does not need arguments\n");
 		return (0);
 	}
-	fd[0] = dup(0);
-	fd[1] = dup(1);
 	data = 0;
 	envvar_list_init(&envvar_list, envp);
 	while (1)
 	{
+		fd[0] = dup(0);
+		fd[1] = dup(1);
 		print_prompt();
 		ret = get_next_line(0, &line);
 		list = tokenizer(line);
@@ -78,6 +78,8 @@ int		main(int ac, char **av, char **envp)
 				data = data->next;
 			}
 		}
+		close(fd[0]);
+		close(fd[1]);
 		clear_data(&data);
 	}
 }
