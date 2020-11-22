@@ -116,7 +116,13 @@ void	ft_other_cmds(char **arg, t_envvar_list *envlist)
 		}
 	}
 	else
+	{
 		waitpid(ret, &status, WUNTRACED);
+		// if (WIFEXITED(status))
+		// 	g_ret_value = WEXITSTATUS(status);
+		// if (WIFSIGNALED(status))
+		// 	g_ret_value = WSIGNAL(status) + 128;
+	}
 	free_array(envp);
 	g_ret_value = 0;
 }

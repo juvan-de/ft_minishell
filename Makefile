@@ -7,7 +7,10 @@ _OBJ_FILES = main \
 			parsing/parser \
 			parsing/distribution \
 			parsing/free \
-			parsing/insert_var \
+			parsing/expanding/expand \
+			parsing/expanding/expand_utils \
+			parsing/expanding/insert_var \
+			parsing/expanding/insert_var_utils \
 			list/ft_redirect\
 			list/ft_shell\
 			redirects/redirection \

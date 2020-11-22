@@ -69,7 +69,6 @@ int			ft_lstsize_redirect(t_redirect *lst);
 void		ft_lstadd_back_redirect(t_redirect **alst, t_redirect *new);
 t_redirect	*ft_lstnew_redirect(int type, char *file);
 
-char		*insert_var(char *str, t_envvar_list *envvar_list);
 int			check_datatype(char *content);
 t_list		*tokenizer(char *input);
 
@@ -98,5 +97,15 @@ void		exit_with_2message(char *message_1, char *message_2,
 																int exit_value);
 void		exit_with_1message(char *message_1, int exit_value);
 char		*ft_strcpy(char *dest, const char *src);
-char		*check_insert_var(char *str, t_envvar_list *envlist);
+char		**expand_var(char **array, t_envvar_list *envlist);
+void		*malloc_check(void *content);
+char		*strjoin_and_free3(char *str1, char *str2, char *str3);
+char		*strjoin_and_free2(char *str1, char *str2);
+char		**arrayjoin_and_free(char **array1, char **array2);
+int			find_envvar_name(char *str);
+int			is_escapechar(char c);
+int			check_quotes(char *str, int i, char quote);
+int			find_next_quotes(char *str, char c);
+char		*insert_var_str(char *str, t_envvar_list *envlist, int quotes);
+char		**insert_array_into_array(char **array, char **insert, int pos);
 #endif

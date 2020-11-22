@@ -113,12 +113,13 @@ t_minishell	*fill_minishell(t_list *list, t_envvar_list *envlist)
 			content[i] = ft_strdup(list->content);
 			if (content[i] == 0)
 				exit_with_1message("Malloc failed", 1);
-			content[i] = check_insert_var(content[i], envlist);
 			i++;
 		}
 		list = list->next;
 	}
-	content = resize_arg_array(content, arrlen);
+	printf("hij komt nieteens in de expander\n");
+	content = expand_var(content, envlist);
+	printf("hij komt eens in de expander\n");
 	temp = ft_lstnew_shell(content, redirects);
 	return (temp);
 }
