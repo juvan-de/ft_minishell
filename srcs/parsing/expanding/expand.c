@@ -36,13 +36,11 @@ static char	**expand_token_loop(char *str, t_envvar_list *envlist,
 	int		len_block;
 	char	**temp;
 
-	printf("[%s]\n", str);
 	while (str[index->i] != '\0')
 	{
 		if (check_quotes(str, index->i, '\"') == 1)
 		{
 			len_block = find_next_quotes(str + index->i + 1, '\"');
-			printf("%d\n", len_block);
 			temp = expand_part_of_a_token(str, envlist, index, len_block);
 			new = arrayjoin_and_free(new, temp);
 			index->i = index->i + len_block + 2;

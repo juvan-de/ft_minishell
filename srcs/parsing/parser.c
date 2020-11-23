@@ -117,9 +117,7 @@ t_minishell	*fill_minishell(t_list *list, t_envvar_list *envlist)
 		}
 		list = list->next;
 	}
-	printf("hij komt nieteens in de expander\n");
 	content = expand_var(content, envlist);
-	printf("hij komt eens in de expander\n");
 	temp = ft_lstnew_shell(content, redirects);
 	return (temp);
 }

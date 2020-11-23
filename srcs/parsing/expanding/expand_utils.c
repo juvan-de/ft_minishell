@@ -20,7 +20,6 @@ int		find_next_quotes(char *str, char c)
 	int i;
 
 	i = 0;
-	printf("%s\n", str);
 	while (str[i] != '\0')
 	{
 		if (check_quotes(str, i, c) == 1)
