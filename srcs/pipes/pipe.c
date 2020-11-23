@@ -47,7 +47,6 @@ void	enter_pipe(t_minishell *data, t_envvar_list *envlist)
 		pipecount++;
 		temp[0] = temp[0]->next;
 	}
-//	fildes = ft_calloc(sizeof(*fildes), pipecount * 2);
 	i = 0;
 	pipe(fildes);
 	printf("fildes1: [%d]\nfildes2:[%d]\n", fildes[0], fildes[1]);
@@ -73,20 +72,12 @@ void	enter_pipe(t_minishell *data, t_envvar_list *envlist)
 		id = fork();
 		if (id == 0)
 		{
-			if (i == 0)
-			{
-				execve("/bin/ls", , "");
-			}
-			if (i == 1)
-			{
-				execve("/usr/bin/wc", "", "");
-			}
-		//	run_command(temp[1], envlist, 1);
+			run_command(temp[1], envlist, 1);
 			exit(1);
 		}
 		else
 		{
-			dprintf(2, "whyyyy\n");
+		//	dprintf(2, "whyyyy\n");
 			close_pipes(fildes, pipecount);
 			waitpid(id, &status, 0);
 		}
@@ -95,6 +86,7 @@ void	enter_pipe(t_minishell *data, t_envvar_list *envlist)
 	}
 }
 
+//	fildes = ft_calloc(sizeof(*fildes), pipecount * 2);
 	//while (i < pipecount)
 	//{
 	//	pipe(fildes + (i * 2));
@@ -107,3 +99,4 @@ void	enter_pipe(t_minishell *data, t_envvar_list *envlist)
 	//	dprintf(2, "%d:[%d]\n", i, fildes[i]);
 	//	i++;
 	//}
+	
