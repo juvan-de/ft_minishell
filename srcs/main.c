@@ -73,13 +73,15 @@ int		main(int ac, char **av, char **envp)
 				{
 					run_command(data, &envvar_list, 0);
 				}
+				
 				dup2(fd[0], 0);
 				dup2(fd[1], 1);
+				close(fd[0]);
+				close(fd[1]);
 				data = data->next;
 			}
 		}
-		close(fd[0]);
-		close(fd[1]);
 		clear_data(&data);
+		dprintf(2, "it got through\n");
 	}
 }

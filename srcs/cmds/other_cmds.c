@@ -103,6 +103,7 @@ void	ft_other_cmds_piped(char **arg, t_envvar_list *envlist)
 	else
 		path = arg[0];
 	envp = make_envvar_dup(envlist);
+	dprintf(2, "path:[%s]\narg:[%s]\nenvp:[%s]\n", path, arg[0], envp[0]);
 	if (execve(path, arg, envp) == -1)
 	{
 		ft_printf("%s: %s: command not found\n", PROMPT, arg[0]);

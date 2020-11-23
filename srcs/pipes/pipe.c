@@ -29,103 +29,81 @@ void	close_pipes(int *fildes, int pipecount)
 
 void	enter_pipe(t_minishell *data, t_envvar_list *envlist)
 {
-	int			*fildes;
-	int			id[2];
+	int			fildes[2];
+	int			id;
 	int			status;
 	int			pipecount;
 	int			i;
-	t_minishell	*temp;
+	t_minishell	*temp[2];
+	char		**envp;
+	char		**arg;
 
-	temp = data;
+	temp[0] = data;
+	temp[1] = data;
 	pipecount = 0;
 	i = 0;
-	while (temp && temp->type == 4)
+	while (temp[0] && temp[0]->type == 4)
 	{
 		pipecount++;
-		temp = temp->next;
+		temp[0] = temp[0]->next;
 	}
-	fildes = ft_calloc(sizeof(*fildes), pipecount * 2);
-	while (i < pipecount)
-	{
-		pipe(fildes + (i * 2));
-		i++;
-	}
+//	fildes = ft_calloc(sizeof(*fildes), pipecount * 2);
 	i = 0;
-	while (i < 2 * pipecount)
-	{
-		dprintf(2, "%d:[%d]\n", i, fildes[i]);
-		i++;
-	}
-	i = 0;
+	pipe(fildes);
+	printf("fildes1: [%d]\nfildes2:[%d]\n", fildes[0], fildes[1]);
 	while (i <= pipecount)
 	{
-		id[i] = fork();
-		if (id[i] == 0 && i == 0)
+		if (i == 0)
 		{
 			dprintf(2, "first:[%d]\n", fildes[1]);
 			dup2(fildes[1], 1);
-			close(fildes[0]);
-			close(fildes[1]);
-			run_command(data, envlist, 1);
-			exit(1);
 		}
-		else if (id[i] == 0 && i > 0 && i < pipecount)
+		else if (i > 0 && i < pipecount)
 		{
 			dprintf(2, "middle:[%d]\n", fildes[(i - 1) * 2]);
 			dup2(fildes[(i - 1) * 2], 0);
 			dup2(fildes[3 + ((i - 1) * 2)], 1);
-			close_pipes(fildes, pipecount);
-			run_command(data, envlist, 1);
-			exit(1);
 		}
-		else if (id[i] == 0 && i == pipecount)
+		else if (i == pipecount)
 		{
 			dprintf(2, "last:[%d]\n", fildes[(pipecount * 2) - 2]);
 			dup2(fildes[(pipecount * 2) - 2], 0);
-			close(fildes[0]);
-			close(fildes[1]);
-			run_command(data, envlist, 1);
+		}
+		close_pipes(fildes, pipecount);
+		id = fork();
+		if (id == 0)
+		{
+			if (i == 0)
+			{
+				execve("/bin/ls", , "");
+			}
+			if (i == 1)
+			{
+				execve("/usr/bin/wc", "", "");
+			}
+		//	run_command(temp[1], envlist, 1);
 			exit(1);
 		}
 		else
 		{
 			dprintf(2, "whyyyy\n");
-			close(fildes[0]);
-			close(fildes[1]);
-			waitpid(id[i], &status, 0);
+			close_pipes(fildes, pipecount);
+			waitpid(id, &status, 0);
 		}
-		data = data->next;
 		i++;
+		temp[1] = temp[1]->next;
 	}
 }
 
-	// pipe(fildes);
-	// id[0] = fork();
-	// if (id[0] == -1)
-	// 	exit_with_1message("fork failed", 1);
-	// if (id[0] == 0)
-	// {
-	// 	close(fildes[0]);
-	// 	if (dup2(fildes[1], 1) == -1)
-	// 		exit_with_1message("dup failed", 1);
-	// 	close(fildes[1]);
-	// 	run_command(data, envlist, 1);
-	// 	exit(1);
-	// }
-	// id[1] = fork();
-	// if (id[1] == -1)
-	// 	exit_with_1message("fork failed", 1);
-	// if (id[1] == 0)
-	// {
-	// 	close(fildes[1]);
-	// 	if (dup2(fildes[0], 0) == -1)
-	// 		exit_with_1message("dup failed", 1);
-	// 	close(fildes[0]);
-	// 	run_command(data->next, envlist, 1);
-	// 	exit(1);
-	// }
-	// close(fildes[0]);
-	// close(fildes[1]);
-	// waitpid(id[0], &status, 0);
-	// waitpid(id[1], &status, 0);
-	// data = data->next;
+	//while (i < pipecount)
+	//{
+	//	pipe(fildes + (i * 2));
+	//	i++;
+	//}
+
+
+	//while (i < 2 * pipecount)
+	//{
+	//	dprintf(2, "%d:[%d]\n", i, fildes[i]);
+	//	i++;
+	//}
