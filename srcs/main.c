@@ -40,7 +40,6 @@ int		main(int ac, char **av, char **envp)
 	char			*line;
 	t_list			*list;
 	int				ret;
-	int				fd[2];
 	t_envvar_list	envvar_list;
 	t_minishell		*data;
 
@@ -54,8 +53,6 @@ int		main(int ac, char **av, char **envp)
 	envvar_list_init(&envvar_list, envp);
 	while (1)
 	{
-		fd[0] = dup(0);
-		fd[1] = dup(1);
 		print_prompt();
 		ret = get_next_line(0, &line);
 		list = tokenizer(line);
@@ -67,21 +64,16 @@ int		main(int ac, char **av, char **envp)
 				if (data->type == 4)
 				{
 					enter_pipe(data, &envvar_list);
-					data = data->next;
+					while (data->type == 4)
+						data = data->next;
 				}
 				else
 				{
 					run_command(data, &envvar_list, 0);
 				}
-				
-				dup2(fd[0], 0);
-				dup2(fd[1], 1);
-				close(fd[0]);
-				close(fd[1]);
 				data = data->next;
 			}
 		}
 		clear_data(&data);
-		dprintf(2, "it got through\n");
 	}
 }

@@ -64,6 +64,18 @@ void	print_array(char **array)
 	}
 }
 
+void	dprint_array(char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i] != '\0')
+	{
+		dprintf(2, "[%s]\n", array[i]);
+		i++;
+	}
+}
+
 int		ft_strchr_i(char *str, char c)
 {
 	int i;

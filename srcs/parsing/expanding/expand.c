@@ -90,8 +90,8 @@ char	**expand_var(char **array, t_envvar_list *envlist)
 	while (array[i] != '\0')
 	{
 		temp = expand_token(array[i], envlist);
-		array = insert_array_into_array(array, temp, i);
 		len_temp = ft_arraylen(temp);
+		array = insert_array_into_array(array, temp, i);
 		i += len_temp;
 	}
 	return (array);

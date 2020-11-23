@@ -7,8 +7,6 @@ void	distributor(char **arg, t_envvar_list *envlist, int piped)
 	i = 0;
 	if (arg[0])
 	{
-		if (ft_strncmp(g_keyword[i].keyword,
-					arg[0], ft_strlen(arg[0]) + 1) == 0)
 		while (g_keyword[i].func)
 		{
 			if (ft_strncmp(g_keyword[i].keyword, arg[0], ft_strlen(arg[0]) + 1) == 0)
@@ -18,10 +16,6 @@ void	distributor(char **arg, t_envvar_list *envlist, int piped)
 			}
 			i++;
 		}
-		ft_other_cmds(arg, envlist);
+		ft_other_cmds(arg, envlist, piped);
 	}
-<<<<<<< HEAD
-	ft_other_cmds(arg, envlist, piped);
-=======
->>>>>>> main
 }
