@@ -158,6 +158,20 @@ int		ft_check_var_name(char *str)
 	return (2);
 }
 
+char		*ft_strcpy(char *dest, const char *src)
+{
+	int i;
+
+	i = 0;
+	while (src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
 void	exit_with_3message(char *message_1, char *message_2, char *message_3, int exit_value)
 {
 	ft_printf("%s%s%s\n", message_1, message_2, message_3);
@@ -174,4 +188,126 @@ void	exit_with_1message(char *message_1, int exit_value)
 {
 	ft_printf("%s\n", message_1);
 	exit(exit_value);
+}
+
+void	*malloc_check(void *content)
+{
+	if (content == 0)
+		exit_with_1message("Malloc failed", 1);
+	return (content);
+}
+
+char	**arrayjoin_and_free(char **array1, char **array2)
+{
+	int		i;
+	int		j;
+	char	**new;
+
+	new = malloc_check(malloc(sizeof(char*) *
+							(ft_arraylen(array1) + ft_arraylen(array2) + 1)));
+	i = 0;
+	while (array1[i] != 0)
+	{
+		new[i] = array1[i];
+		i++;
+	}
+	j = 0;
+	while (array2[j] != 0)
+	{
+		new[i + j] = array2[j];
+		j++;
+	}
+	new[i + j] = 0;
+	free(array1);
+	free(array2);
+	return (new);
+}
+
+static int		copy_content_strjoin(char *dest, char *srcs)
+{
+	int i;
+
+	i = 0;
+	while (srcs[i] != '\0')
+	{
+		dest[i] = srcs[i];
+		i++;
+	}
+	return (i);
+}
+
+char	*strjoin_and_free3(char *str1, char *str2, char *str3)
+{
+	int		i;
+	char	*new;
+
+	new = malloc(ft_strlen(str1) + ft_strlen(str2) + ft_strlen(str3) + 1);
+	if (new == 0)
+		return (0);
+	i = copy_content_strjoin(new, str1);
+	i += copy_content_strjoin(new + i, str2);
+	i += copy_content_strjoin(new + i, str3);
+	new[i] = '\0';
+	free(str1);
+	free(str2);
+	free(str3);
+	return (new);
+}
+
+char	*strjoin_and_free2(char *str1, char *str2)
+{
+	int		i;
+	char	*new;
+
+	new = malloc(ft_strlen(str1) + ft_strlen(str2) + 1);
+	if (new == 0)
+		return (0);
+	i = copy_content_strjoin(new, str1);
+	i += copy_content_strjoin(new + i, str2);
+	new[i] = '\0';
+	free(str1);
+	free(str2);
+	return (new);
+}
+
+int	arraylcpy(char **dest, char **srcs, int len)
+{
+	int	i;
+
+	i = 0;
+	while (i < len)
+	{
+		dest[i] = srcs[i];
+		i++;
+	}
+	return (len);
+}
+
+char	**insert_array_into_array(char **array, char **insert, int pos)
+{
+	int		i;
+	int		j;
+	int		len_array;
+	int		len_insert;
+	char	**new;
+
+	len_array = ft_arraylen(array);
+	len_insert = ft_arraylen(insert);
+	new = malloc_check(malloc(sizeof(char*) * (len_array + len_insert)));
+	i = arraylcpy(new, array, pos);
+	j = 0;
+	while (j < len_insert)
+	{
+		new[i + j] = insert[j];
+		j++;
+	}
+	while (i < len_array - 1)
+	{
+		new[i + j] = array[i + 1];
+		i++;
+	}
+	new[i + j] = 0;
+	free(array);
+	free(insert);
+	return (new);
 }

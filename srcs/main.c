@@ -61,7 +61,7 @@ int		main(int ac, char **av, char **envp)
 		list = tokenizer(line);
 		if (list)
 		{
-			parser(list, &data);
+			parser(list, &data, &envvar_list);
 			while (data)
 			{
 				if (data->type == 4)

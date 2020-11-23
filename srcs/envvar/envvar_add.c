@@ -67,14 +67,14 @@ int		ft_count_char_in_str(char *str, char c)
 	return (count);
 }
 
-char	*check_for_escape(char *str)
+char	*check_for_escape_char(char *str)
 {
 	int		i;
 	int		j;
 	int		amount;
 	char	*new;
 
-	amount = ft_count_char_in_str(str, '\\');
+	amount = ft_count_char_in_str(str, '\\') + ft_count_char_in_str(str, '\"');
 	if (amount == 0)
 		return (str);
 	new = malloc(sizeof(char) * (amount + ft_strlen(str) + 1));
@@ -84,16 +84,15 @@ char	*check_for_escape(char *str)
 	j = 0;
 	while (str[i] != '\0')
 	{
-		new[j + i] = str[i];
-		if (str[i] == '\\')
+		if (str[i] == '\\' || str[i] == '\"')
 		{
 			new[j + i] = '\\';
 			j++;
 		}
+		new[j + i] = str[i];
 		i++;
 	}
 	new[j + i] = '\0';
-	printf("new: %s\n", new);
 	free(str);
 	return (new);
 }
@@ -104,10 +103,9 @@ void	check_envvar(t_envvar_list *envvar_list, char *var, int add_code)
 	char	*s1;
 	char	*s2;
 
-	printf("%s\n", var);
 	if (ft_split_in_two(var, &s1, &s2, '=') == -1)
 		exit_with_1message("Malloc failed", 1);
-	s2 = check_for_escape(s2);
+	s2 = check_for_escape_char(s2);
 	i = 0;
 	while (i < envvar_list->used)
 	{

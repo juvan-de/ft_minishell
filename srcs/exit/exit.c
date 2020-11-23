@@ -59,7 +59,7 @@ void	ft_exit(char **arg, t_envvar_list *envlist)
 	ret = ft_atol(arg[1]);
 	if (len > 2)
 	{
-		ft_printf("exit\n%s: exit: too many arguments", PROMPT);
+		ft_printf("exit\n%s: exit: too many arguments\n", PROMPT);
 		g_ret_value = 1;
 	}
 	else
