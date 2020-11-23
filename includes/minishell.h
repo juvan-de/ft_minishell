@@ -3,6 +3,7 @@
 # include "../getnextline/get_next_line.h"
 # include "../ft_printf/printf.h"
 # include "../libft/libft.h"
+# include <signal.h>
 
 # define PROMPT "Minishell"
 # define VERSION "[1.0.12]"
@@ -102,10 +103,8 @@ void		*malloc_check(void *content);
 char		*strjoin_and_free3(char *str1, char *str2, char *str3);
 char		*strjoin_and_free2(char *str1, char *str2);
 char		**arrayjoin_and_free(char **array1, char **array2);
-int			find_envvar_name(char *str);
-int			is_escapechar(char c);
-int			check_quotes(char *str, int i, char quote);
-int			find_next_quotes(char *str, char c);
-char		*insert_var_str(char *str, t_envvar_list *envlist, int quotes);
+char		*insert_var_str(char *str, t_envvar_list *envlist);
 char		**insert_array_into_array(char **array, char **insert, int pos);
+void		control_handler(int signal);
+void		print_prompt(void);
 #endif

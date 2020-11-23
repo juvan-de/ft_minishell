@@ -8,9 +8,7 @@ _OBJ_FILES = main \
 			parsing/distribution \
 			parsing/free \
 			parsing/expanding/expand \
-			parsing/expanding/expand_utils \
 			parsing/expanding/insert_var \
-			parsing/expanding/insert_var_utils \
 			list/ft_redirect\
 			list/ft_shell\
 			redirects/redirection \
@@ -25,6 +23,7 @@ _OBJ_FILES = main \
 			cd/cd \
 			exit/exit \
 			unset/unset \
+			signals/signals \
 			cmds/other_cmds
 
 OBJ_FILES = $(addsuffix .o, $(addprefix $(OBJ_DIR)/,$(_OBJ_FILES)))

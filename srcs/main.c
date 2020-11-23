@@ -14,26 +14,63 @@ t_minishell		*data_init()
 	return (data);
 }
 
-void	print_prompt(void)
+int		check_for_quotes(char *str)
 {
-	char	*str;
 	int		i;
+	char	double_quotes;
+	char	single_quotes;
 
-	str = NULL;
-	str = getcwd(str, 1);
-	if (str == NULL)
-		exit_with_1message("Malloc failed", 1);
-	ft_printf("\033[1;38;5;14m%s \033[38;5;12m%s\e[0;0m", PROMPT, VERSION);
-	i = ft_strlen(str);
-	i--;
-	while (str[i] != '/')
+	double_quotes = -1;
+	single_quotes = -1;
+	i = 0;
+	while (str[i] != '\0')
 	{
-		i--;
+		if (str[i] == '\"' && single_quotes == -1)
+			double_quotes *= -1;
+		if (str[i] == '\'' && double_quotes == -1)
+			single_quotes *= -1;
+		i++;
 	}
-	ft_printf(" \033[38;5;9m<\033[38;5;9m%s>", str + i + 1);
-	ft_printf(" \033[38;5;11m➢\e[0;0m ");
-	free(str);
+	if (single_quotes == 1 || double_quotes == 1)
+		return (0);
+	return (1);
 }
+
+int		check_for_syntax_error(t_list *list)
+{
+	t_list	*temp;
+	int		count;
+
+	temp = list;
+	count = 0;
+	while (temp)
+	{
+		if (ft_strchr("<>|;", ((char*)(temp->content))[0]))
+		{
+			if (count == 1)
+				return (0);
+			count++;
+		}
+		else
+			count = 0;
+		temp = temp->next;
+	}
+	return (1);
+}
+
+void	free_tokens(t_list *list)
+{
+	t_list *temp;
+
+	while (list)
+	{
+		temp = list->next;
+		free(list);
+		list = temp;
+	}
+}
+
+
 
 int		main(int ac, char **av, char **envp)
 {
@@ -54,25 +91,36 @@ int		main(int ac, char **av, char **envp)
 	fd[1] = dup(1);
 	data = 0;
 	envvar_list_init(&envvar_list, envp);
+	signal(SIGQUIT, control_handler);
+	signal(SIGINT, control_handler);
 	while (1)
 	{
 		print_prompt();
 		ret = get_next_line(0, &line);
 		list = tokenizer(line);
-//		ft_print_list(list);
-		if (list)
+		if (check_for_quotes(line) && check_for_syntax_error(list))
 		{
-			parser(list, &data, &envvar_list);
-			while (data)
+			if (list)
 			{
-				redirection(data->redirect);
-				input_redirection(data->redirect);
-				distributor(data->content, &envvar_list);
-				dup2(fd[0], 0);
-				dup2(fd[1], 1);
-				data = data->next;
+				parser(list, &data, &envvar_list);
+				while (data)
+				{
+					redirection(data->redirect);
+					input_redirection(data->redirect);
+					distributor(data->content, &envvar_list);
+					dup2(fd[0], 0);
+					dup2(fd[1], 1);
+					data = data->next;
+				}
 			}
+			clear_data(&data);
 		}
-		clear_data(&data);
+		else
+		{
+			ft_printf("Error: multiline is not handled\n");
+			g_ret_value = (char)258;
+		}
+		free_tokens(list);
+		free(line);
 	}
 }

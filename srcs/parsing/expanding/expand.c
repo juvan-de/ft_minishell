@@ -10,9 +10,9 @@ static char	**expand_part_of_a_token(char *str, t_envvar_list *envlist,
 	char	**temp;
 
 	no_quote_str = malloc_check(ft_substr(str, index->j, index->i - index->j));
-	no_quote_str = insert_var_str(no_quote_str, envlist, 0);
+	no_quote_str = insert_var_str(no_quote_str, envlist);
 	quote_str = malloc_check(ft_substr(str, index->i + 1, len_block));
-	quote_str = insert_var_str(quote_str, envlist, 2);
+	quote_str = insert_var_str(quote_str, envlist);
 	temp = malloc_check(ft_split(no_quote_str, ' '));
 	free(no_quote_str);
 	if (temp[0] == 0)
@@ -38,17 +38,9 @@ static char	**expand_token_loop(char *str, t_envvar_list *envlist,
 
 	while (str[index->i] != '\0')
 	{
-		if (check_quotes(str, index->i, '\"') == 1)
+		if (str[index->i] == '\"' || str[index->i] == '\'')
 		{
-			len_block = find_next_quotes(str + index->i + 1, '\"');
-			temp = expand_part_of_a_token(str, envlist, index, len_block);
-			new = arrayjoin_and_free(new, temp);
-			index->i = index->i + len_block + 2;
-			index->j = index->i;
-		}
-		else if (check_quotes(str, index->i, '\'') == 1)
-		{
-			len_block = ft_strchr_i(str + index->i + 1, '\'');
+			len_block = ft_strchr_i(str + index->i + 1, str[index->i]);
 			temp = expand_part_of_a_token(str, envlist, index, len_block);
 			new = arrayjoin_and_free(new, temp);
 			index->i = index->i + len_block + 2;
@@ -72,7 +64,7 @@ static char	**expand_token(char *str, t_envvar_list *envlist)
 	index.j = 0;
 	new = expand_token_loop(str, envlist, &index, new);
 	str_no_quotes = malloc_check(ft_substr(str, index.j, index.i - index.j));
-	str_no_quotes = insert_var_str(str_no_quotes, envlist, 0);
+	str_no_quotes = insert_var_str(str_no_quotes, envlist);
 	temp = malloc_check(ft_split(str_no_quotes, ' '));
 	free(str_no_quotes);
 	new = arrayjoin_and_free(new, temp);

@@ -123,6 +123,7 @@ void	ft_other_cmds(char **arg, t_envvar_list *envlist)
 		// if (WIFSIGNALED(status))
 		// 	g_ret_value = WSIGNAL(status) + 128;
 	}
+	free(path);
 	free_array(envp);
 	g_ret_value = 0;
 }
