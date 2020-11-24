@@ -1,5 +1,15 @@
 #include "../../includes/distributor.h"
 
+void	run_command(t_minishell *data, t_envvar_list *envlist, int piped)
+{
+	if (data->redirect)
+	{
+		redirection(data->redirect);
+		input_redirection(data->redirect);
+	}
+	distributor(data->content, envlist, piped);
+}
+
 void	distributor(char **arg, t_envvar_list *envlist, int piped)
 {
 	int	i;
