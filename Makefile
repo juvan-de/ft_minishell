@@ -32,7 +32,7 @@ OBJ_FILES = $(addsuffix .o, $(addprefix $(OBJ_DIR)/,$(_OBJ_FILES)))
 
 LIB = -L./libft -lft -L./ft_printf -lftprintf  -L./getnextline -lgnl
 
-CFLAGS = -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
