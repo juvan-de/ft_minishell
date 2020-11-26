@@ -12,6 +12,7 @@ void	control_handler(int signal)
 
 void	signal_function_execve(int signal)
 {
+	(void)signal;
 	write(1, "\n", 1);
 }
 

@@ -44,7 +44,6 @@ static char	**expand_part_of_a_token(char *str, t_envvar_list *envlist,
 static char	**expand_token_loop(char *str, t_envvar_list *envlist,
 													t_2int *index, char **new)
 {
-	int		len_block;
 	char	**temp;
 
 	while (str[index->i] != '\0')
@@ -64,7 +63,6 @@ static char	**expand_token(char *str, t_envvar_list *envlist)
 {
 	t_2int	index;
 	char	*str_no_quotes;
-	int		block_len;
 	char	**temp;
 	char	**new;
 
