@@ -24,9 +24,9 @@ long	ft_atol(char *nb)
 	unsigned long	res;
 
 	neg = 1;
+	i = 0;
 	if (nb[i] == '-')
 		neg = -1;
-	i = 0;
 	if (nb[i] == '-' || nb[i] == '+')
 		i++;
 	res = 0;
@@ -50,6 +50,7 @@ void	ft_exit(char **arg, t_envvar_list *envlist)
 	int		len;
 	long	ret;
 
+	(void)envlist;
 	len = ft_arraylen(arg);
 	if (len == 1)
 		exit_with_1message("exit", g_ret_value);
