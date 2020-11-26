@@ -14,25 +14,60 @@ t_minishell		*data_init()
 	return (data);
 }
 
-void	print_prompt(void)
+int		check_for_quotes(char *str)
 {
-	char	*str;
 	int		i;
+	char	double_quotes;
+	char	single_quotes;
 
-	str = NULL;
-	str = getcwd(str, 1);
-	if (str == NULL)
-		exit_with_1message("Malloc failed", 1);
-	ft_printf("\033[1;38;5;14m%s \033[38;5;12m%s\e[0;0m", PROMPT, VERSION);
-	i = ft_strlen(str);
-	i--;
-	while (str[i] != '/')
+	double_quotes = -1;
+	single_quotes = -1;
+	i = 0;
+	while (str[i] != '\0')
 	{
-		i--;
+		if (str[i] == '\"' && single_quotes == -1)
+			double_quotes *= -1;
+		if (str[i] == '\'' && double_quotes == -1)
+			single_quotes *= -1;
+		i++;
 	}
-	ft_printf(" \033[38;5;9m<\033[38;5;9m%s>", str + i + 1);
-	ft_printf(" \033[38;5;11m➢\e[0;0m ");
-	free(str);
+	if (single_quotes == 1 || double_quotes == 1)
+		return (0);
+	return (1);
+}
+
+int		check_for_syntax_error(t_list *list)
+{
+	t_list	*temp;
+	int		count;
+
+	temp = list;
+	count = 0;
+	while (temp)
+	{
+		if (ft_strchr("<>|;", ((char*)(temp->content))[0]))
+		{
+			if (count == 1)
+				return (0);
+			count++;
+		}
+		else
+			count = 0;
+		temp = temp->next;
+	}
+	return (1);
+}
+
+void	free_tokens(t_list *list)
+{
+	t_list *temp;
+
+	while (list)
+	{
+		temp = list->next;
+		free(list);
+		list = temp;
+	}
 }
 
 void	initiate_command(t_list *list, t_minishell *data, t_envvar_list *envvar_list)
@@ -73,6 +108,7 @@ int		main(int ac, char **av, char **envp)
 	envvar_list_init(&envvar_list, envp);
 	while (1)
 	{
+		set_signals(control_handler);
 		print_prompt();
 		ret = get_next_line(0, &line);
 		list = tokenizer(line);

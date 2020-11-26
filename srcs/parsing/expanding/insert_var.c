@@ -1,6 +1,23 @@
 #include <stdlib.h>
 #include "../../../includes/minishell.h"
 
+static int		find_envvar_name(char *str)
+{
+	int i;
+
+	i = 0;
+	if (ft_isalpha(str[i]) != 1 && str[i] != '_')
+		return (i);
+	i++;
+	while (str[i] != '\0')
+	{
+		if (ft_isalpha(str[i]) != 1 && str[i] != '_' && ft_isdigit(str[i]) != 1)
+			return (i);
+		i++;
+	}
+	return (i);
+}
+
 static char	*insert_vartwo(char *value)
 {
 	char	*ret;
@@ -63,7 +80,7 @@ static char	*change_name_to_var(char *str, char *new, t_2int *index,
 	return (new);
 }
 
-char	*insert_var_str(char *str, t_envvar_list *envlist, int quotes)
+char	*insert_var_str(char *str, t_envvar_list *envlist)
 {
 	t_2int	index;
 	char	*new;
@@ -73,14 +90,6 @@ char	*insert_var_str(char *str, t_envvar_list *envlist, int quotes)
 	new = malloc_check(ft_strdup(""));
 	while (str[index.i] != '\0')
 	{
-		if (str[index.i] == '\\' &&
-						(quotes == 0 || is_escapechar(str[index.i + 1]) == 1))
-		{
-			tmp = malloc_check(ft_substr(str, index.j, index.i - index.j));
-			new = malloc_check(strjoin_and_free2(new, tmp));
-			index.i += 2;
-			index.j = index.i - 1;
-		}
 		if (str[index.i] == '$')
 			new = change_name_to_var(str, new, &index, envlist);
 		else

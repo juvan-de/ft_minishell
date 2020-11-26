@@ -103,6 +103,7 @@ void	ft_other_cmds_piped(char **arg, t_envvar_list *envlist)
 	else
 		path = arg[0];
 	envp = make_envvar_dup(envlist);
+	set_signals(signal_function_execve);
 	if (execve(path, arg, envp) == -1)
 	{
 		ft_printf("%s: %s: command not found\n", PROMPT, arg[0]);
@@ -137,13 +138,13 @@ void	ft_other_cmds(char **arg, t_envvar_list *envlist, int piped)
 	ret = fork();
 	if (ret == -1)
 		printf("heir moet nog geexit worden hi ha ho\nfork fail\nft_other_cmds\n");
+	set_signals(signal_function_execve);
 	if (ret == 0)
 	{
 		if (execve(path, arg, envp) == -1)
 		{
 			ft_printf("%s: %s: command not found\n", PROMPT, arg[0]);
-			g_ret_value = 127;
-			exit(1);
+			exit(127);
 		}
 	}
 	else
@@ -154,6 +155,7 @@ void	ft_other_cmds(char **arg, t_envvar_list *envlist, int piped)
 		// if (WIFSIGNALED(status))
 		// 	g_ret_value = WSIGNAL(status) + 128;
 	}
+	free(path);
 	free_array(envp);
 	g_ret_value = 0;
 }

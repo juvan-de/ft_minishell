@@ -323,3 +323,28 @@ char	**insert_array_into_array(char **array, char **insert, int pos)
 	free(insert);
 	return (new);
 }
+
+void	print_prompt(void)
+{
+	char	*str;
+	int		i;
+
+	str = NULL;
+	str = getcwd(str, 1);
+	if (str == NULL)
+		exit_with_1message("Malloc failed", 1);
+	if (g_ret_value == 0)
+		ft_printf("\033[1;38;5;34m⇡ ");
+	else
+		ft_printf("\033[1;38;5;9m⇡ ");
+	ft_printf("\033[1;38;5;14m%s \033[38;5;12m%s\e[0;0m", PROMPT, VERSION);
+	i = ft_strlen(str);
+	i--;
+	while (str[i] != '/')
+	{
+		i--;
+	}
+	ft_printf(" \033[38;5;9m<%s>", str + i + 1);
+	ft_printf(" \033[38;5;11m➢\e[0;0m ");
+	free(str);
+}
