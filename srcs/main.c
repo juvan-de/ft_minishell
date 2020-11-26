@@ -82,6 +82,7 @@ void	initiate_command(t_list *list, t_minishell *data,
 		{
 			if (data->type == 4)
 			{
+				set_signals(signal_function_pipes);
 				ret = enter_pipe(data, envvar_list);
 				while (data->type == 4)
 					data = data->next;
@@ -91,7 +92,7 @@ void	initiate_command(t_list *list, t_minishell *data,
 			data = data->next;
 		}
 		clear_data(&data);
-	}		
+	}
 }
 
 int		main(int ac, char **av, char **envp)
