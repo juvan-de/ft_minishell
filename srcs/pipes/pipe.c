@@ -69,12 +69,11 @@ int		execute_pipe(int id, t_minishell *data,
 	}
 }
 
-void	enter_pipe(t_minishell *data, t_envvar_list *envlist)
+int		enter_pipe(t_minishell *data, t_envvar_list *envlist)
 {
 	int			stdfd[2];
 	int			*fildes;
-	int			id;
-	int			status;
+	int			status[2];
 	int			pipecount;
 	int			i;
 
@@ -89,10 +88,11 @@ void	enter_pipe(t_minishell *data, t_envvar_list *envlist)
 		if (stdfd[1] == -1)
 			exit_with_1message("dup failed", 1);
 		dupping(fildes, pipecount, i);
-		id = fork();
-		id = execute_pipe(id, data, stdfd, envlist);
+		status[0] = fork();
+		status[0] = execute_pipe(status[0], data, stdfd, envlist);
 		i++;
 		data = data->next;
 	}
-	waitpid(id, &status, 0);
+	waitpid(status[0], &status[1], 0);
+	return (status[1]);
 }

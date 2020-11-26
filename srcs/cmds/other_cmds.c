@@ -143,7 +143,7 @@ void	ft_other_cmds(char **arg, t_envvar_list *envlist, int piped)
 		{
 			ft_printf("%s: %s: command not found\n", PROMPT, arg[0]);
 			g_ret_value = 127;
-			return ;
+			exit(1);
 		}
 	}
 	else
