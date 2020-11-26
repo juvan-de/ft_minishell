@@ -10,3 +10,13 @@ void	control_handler(int signal)
 	}
 }
 
+void	signal_function_execve(int signal)
+{
+	write(1, "\n", 1);
+}
+
+void	set_signals(void (*func)(int))
+{
+	signal(SIGQUIT, func);
+	signal(SIGINT, func);
+}

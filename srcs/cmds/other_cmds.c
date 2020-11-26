@@ -106,13 +106,13 @@ void	ft_other_cmds(char **arg, t_envvar_list *envlist)
 	ret = fork();
 	if (ret == -1)
 		printf("heir moet nog geexit worden hi ha ho\nfork fail\nft_other_cmds\n");
+	set_signals(signal_function_execve);
 	if (ret == 0)
 	{
 		if (execve(path, arg, envp) == -1)
 		{
 			ft_printf("%s: %s: command not found\n", PROMPT, arg[0]);
-			g_ret_value = 127;
-			return ;
+			exit(127);
 		}
 	}
 	else

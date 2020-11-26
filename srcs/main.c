@@ -70,8 +70,6 @@ void	free_tokens(t_list *list)
 	}
 }
 
-
-
 int		main(int ac, char **av, char **envp)
 {
 	char			*line;
@@ -91,10 +89,9 @@ int		main(int ac, char **av, char **envp)
 	fd[1] = dup(1);
 	data = 0;
 	envvar_list_init(&envvar_list, envp);
-	signal(SIGQUIT, control_handler);
-	signal(SIGINT, control_handler);
 	while (1)
 	{
+		set_signals(control_handler);
 		print_prompt();
 		ret = get_next_line(0, &line);
 		list = tokenizer(line);

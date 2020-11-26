@@ -105,6 +105,8 @@ char		*strjoin_and_free2(char *str1, char *str2);
 char		**arrayjoin_and_free(char **array1, char **array2);
 char		*insert_var_str(char *str, t_envvar_list *envlist);
 char		**insert_array_into_array(char **array, char **insert, int pos);
+void		set_signals(void (*func)(int));
 void		control_handler(int signal);
+void		signal_function_execve(int signal);
 void		print_prompt(void);
 #endif
