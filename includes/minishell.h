@@ -96,7 +96,7 @@ void		ft_other_cmds(char **arg, t_envvar_list *envlist, int piped);
 void		free_array(char **array);
 void		remove_envvar(t_envvar_list *envlist, int index);
 
-void		clear_data(t_minishell **data);
+void		clear_data(t_minishell *data);
 int			ft_check_var_name(char *str);
 
 void		exit_with_3message(char *message_1, char *message_2,

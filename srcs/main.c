@@ -86,6 +86,10 @@ void	initiate_command(t_list *list, t_envvar_list *envvar_list)
 		if (temp->type == 4)
 		{
 			ret = enter_pipe(temp, envvar_list);
+			if (WIFEXITED(ret))
+				g_ret_value = WEXITSTATUS(ret);
+			if (WIFSIGNALED(ret))
+				g_ret_value = WTERMSIG(ret) + 128;
 			while (temp->type == 4)
 				temp = temp->next;
 		}
@@ -121,5 +125,6 @@ int		main(int ac, char **av, char **envp)
 			initiate_command(list, &envvar_list);
 		free(line);
 		free_tokens(list);
+		system("echo 1 >> leaks.txt ; leaks minishell | grep \"total leaked bytes\"  >> leaks.txt");
 	}
 }
