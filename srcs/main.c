@@ -75,7 +75,7 @@ void	initiate_command(t_list *list, t_minishell *data,
 {
 	int	ret;
 
-	parser(list, &data, envvar_list);
+	parser(list, &data);
 	while (data)
 	{
 		if (data->type == 4)

@@ -63,7 +63,8 @@ void	export_overview(t_envvar_list *envvar_list)
 		if (sorted[i].value == NULL)
 			ft_printf("declare -x %s\n", sorted[i].name);
 		else
-			ft_printf("declare -x %s=\"%s\"\n", sorted[i].name, sorted[i].value);
+			ft_printf("declare -x %s=\"%s\"\n", sorted[i].name,
+															sorted[i].value);
 		i++;
 	}
 	free(sorted);
@@ -72,21 +73,28 @@ void	export_overview(t_envvar_list *envvar_list)
 void	ft_export(char **arg, t_envvar_list *envlist)
 {
 	int	i;
+	int	count;
 	int ret;
 	int	len;
 
 	len = ft_arraylen(arg);
+	count = 0;
+	i = 1;
 	if (len == 1)
 		export_overview(envlist);
 	else
-	{
-		i = 1;
 		while (i < len)
 		{
 			ret = ft_check_var_name(arg[i]);
 			if (ret != -1)
 				check_envvar(envlist, arg[i], ret);
+			else
+			{
+				count = 1;
+				printf("%s: export: '%s':  not a valid identifier\n",
+																PROMPT, arg[i]);
+			}
 			i++;
 		}
-	}
+	g_ret_value = count;
 }

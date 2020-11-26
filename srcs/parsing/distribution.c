@@ -22,8 +22,9 @@ void	distributor(char **arg, t_envvar_list *envlist, int piped)
 
 void	run_command(t_minishell *data, t_envvar_list *envlist, int piped)
 {
-	int	stdfd[2];
+	int	stdfd[2];	
 
+	data->content = expand_var(data->content, envlist);
 	stdfd[0] = dup(STDIN_FILENO);
 	stdfd[1] = dup(STDOUT_FILENO);
 	if (data->redirect)

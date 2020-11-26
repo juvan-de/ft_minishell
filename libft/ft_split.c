@@ -5,27 +5,28 @@
 /*                                                     +:+                    */
 /*   By: juvan-de <juvan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/05 16:35:54 by juvan-de       #+#    #+#                */
-/*   Updated: 2019/11/25 15:29:57 by juvan-de      ########   odam.nl         */
+/*   Created: 2019/11/05 16:35:54 by juvan-de      #+#    #+#                 */
+/*   Updated: 2020/11/26 17:01:17 by abelfrancis   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		word_count(char const *str, char c)
+static int	word_count(char const *s, char c)
 {
 	int i;
 	int count;
 
 	i = 0;
 	count = 0;
-	while (str[i] != '\0')
+	while (s[i] != '\0')
 	{
-		if ((i == 0 || str[i] == c) && str[i + 1] != c && str[i + 1] != '\0')
-		{
+		while (s[i] == c)
+			i++;
+		if (s[i] != c && s[i] != '\0')
 			count++;
-		}
-		i++;
+		while (s[i] != c && s[i] != '\0')
+			i++;
 	}
 	return (count);
 }
