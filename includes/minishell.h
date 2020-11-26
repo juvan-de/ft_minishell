@@ -77,7 +77,7 @@ t_redirect	*ft_lstnew_redirect(int type, char *file);
 int			check_datatype(char *content);
 t_list		*tokenizer(char *input);
 
-void		enter_pipe(t_minishell *data, t_envvar_list *envlist);
+int			enter_pipe(t_minishell *data, t_envvar_list *envlist);
 void		run_command(t_minishell *data, t_envvar_list *envlist, int piped);
 
 void		ft_print_list(t_list *list);

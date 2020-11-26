@@ -70,6 +70,26 @@ void	free_tokens(t_list *list)
 	}
 }
 
+void	initiate_command(t_list *list, t_minishell *data, t_envvar_list *envvar_list)
+{
+	int	ret;
+
+	parser(list, &data, envvar_list);
+	while (data)
+	{
+		if (data->type == 4)
+		{
+			ret = enter_pipe(data, envvar_list);
+			while (data->type == 4)
+				data = data->next;
+		}
+		else
+			run_command(data, envvar_list, 0);
+		data = data->next;
+	}
+	clear_data(&data);
+}
+
 int		main(int ac, char **av, char **envp)
 {
 	char			*line;
@@ -92,32 +112,7 @@ int		main(int ac, char **av, char **envp)
 		print_prompt();
 		ret = get_next_line(0, &line);
 		list = tokenizer(line);
-		if (check_for_quotes(line) && check_for_syntax_error(list))
-		{
-			if (list)
-			{
-				parser(list, &data, &envvar_list);
-				while (data)
-				{
-					if (data->type == 4)
-					{
-						enter_pipe(data, &envvar_list);
-						while (data->type == 4)
-							data = data->next;
-					}
-					else
-						run_command(data, &envvar_list, 0);
-					data = data->next;
-				}
-			}
-			clear_data(&data);
-		}
-		else
-		{
-			ft_printf("Error: multiline is not handled\n");
-			g_ret_value = (char)258;
-		}
-		free_tokens(list);
-		free(line);
+		if (list)
+			initiate_command(list, data, &envvar_list);
 	}
 }
