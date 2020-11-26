@@ -70,7 +70,8 @@ void	free_tokens(t_list *list)
 	}
 }
 
-void	initiate_command(t_list *list, t_minishell *data, t_envvar_list *envvar_list)
+void	initiate_command(t_list *list, t_minishell *data,
+													t_envvar_list *envvar_list)
 {
 	int	ret;
 
@@ -98,6 +99,7 @@ int		main(int ac, char **av, char **envp)
 	t_envvar_list	envvar_list;
 	t_minishell		*data;
 
+	(void)av;
 	g_ret_value = 0;
 	if (ac != 1)
 	{

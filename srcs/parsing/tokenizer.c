@@ -1,24 +1,5 @@
 #include "../../includes/minishell.h"
 
-static int			ft_content_in_list(char *content)
-{
-	int	i;
-	const char *commands[4];
-
-	i = 0;
-	commands[0] = "echo";
-	commands[1] = "pwd";
-	commands[2] = "env";
-	commands[3] = 0;
-	while (commands[i])
-	{
-		if (ft_strncmp(commands[i], content, ft_strlen(content) + 1) == 0)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 static char		*make_token(char *content, int i, t_list **list)
 {
 	char	*res;

@@ -6,6 +6,8 @@ void		ft_pwd(char **arg, t_envvar_list *envlist)
 {
 	char	*buf;
 
+	(void)arg;
+	(void)envlist;
 	buf = NULL;
 	buf = getcwd(buf, 1);
 	if (buf == NULL)

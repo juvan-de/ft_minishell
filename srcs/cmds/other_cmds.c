@@ -86,8 +86,6 @@ char	**make_envvar_dup(t_envvar_list *envlist)
 
 void	ft_other_cmds_piped(char **arg, t_envvar_list *envlist)
 {
-	int		ret;
-	int		status;
 	char	*path;
 	char	**envp;
 
