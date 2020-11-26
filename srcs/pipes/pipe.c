@@ -44,6 +44,7 @@ void	dupping(int *fildes, int pipecount, int i)
 	{
 		if (dup2(fildes[(pipecount * 2) - 2], STDIN_FILENO) == -1)
 			exit_with_1message("dup failed", 1);
+		close(fildes[(pipecount * 2) - 2]);
 	}
 }
 
@@ -90,9 +91,10 @@ int		enter_pipe(t_minishell *data, t_envvar_list *envlist)
 		dupping(fildes, pipecount, i);
 		status[0] = fork();
 		status[0] = execute_pipe(status[0], data, stdfd, envlist);
-		i++;
 		data = data->next;
+		i++;
 	}
 	waitpid(status[0], &status[1], 0);
+	free(fildes);
 	return (status[1]);
 }

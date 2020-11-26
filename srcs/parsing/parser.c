@@ -67,7 +67,8 @@ t_minishell	*fill_minishell(t_list *list, t_envvar_list *envlist)
 	{
 		if (isredirects(list->content) == 1)
 		{
-			save_redirects(&redirects, (char*)list->content, (char*)list->next->content);
+			save_redirects(&redirects, (char*)list->content,
+									(char*)list->next->content);
 			list = list->next;
 		}
 		else

@@ -26,17 +26,18 @@ void	free_redirect(t_redirect *redirect)
 	}
 }
 
-void	clear_data(t_minishell **data)
+void	clear_data(t_minishell *data)
 {
 	t_minishell	*temp;
 
-	temp = (*data);
+	temp = data;
 	while (temp)
 	{
 		temp = temp->next;
-		free_array((*data)->content);
-		free_redirect((*data)->redirect);
-		free(*data);
-		(*data) = temp;
+		free_array(data->content);
+		free_redirect(data->redirect);
+		free(data);
+		data = temp;
 	}
+	free(data);
 }

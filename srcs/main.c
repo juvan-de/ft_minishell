@@ -65,39 +65,43 @@ void	free_tokens(t_list *list)
 	while (list)
 	{
 		temp = list->next;
+		free(list->content);
 		free(list);
 		list = temp;
 	}
+	free(list);
 }
 
-void	initiate_command(t_list *list, t_minishell *data,
-													t_envvar_list *envvar_list)
+void	initiate_command(t_list *list, t_envvar_list *envvar_list)
 {
-	int	ret;
+	int			ret;
+	t_minishell	*data;
+	t_minishell	*temp;
 
+	data = 0;
 	parser(list, &data, envvar_list);
-	while (data)
+	temp = data;
+	while (temp)
 	{
-		if (data->type == 4)
+		if (temp->type == 4)
 		{
-			ret = enter_pipe(data, envvar_list);
-			while (data->type == 4)
-				data = data->next;
+			ret = enter_pipe(temp, envvar_list);
+			while (temp->type == 4)
+				temp = temp->next;
 		}
 		else
-			run_command(data, envvar_list, 0);
-		data = data->next;
+			run_command(temp, envvar_list, 0);
+		temp = temp->next;
 	}
-	clear_data(&data);
+	clear_data(data);
 }
 
 int		main(int ac, char **av, char **envp)
 {
 	char			*line;
 	t_list			*list;
-	int				ret;
 	t_envvar_list	envvar_list;
-	t_minishell		*data;
+	int				ret;
 
 	(void)av;
 	g_ret_value = 0;
@@ -106,7 +110,6 @@ int		main(int ac, char **av, char **envp)
 		ft_printf("Error\nminishell does not need arguments\n");
 		return (0);
 	}
-	data = 0;
 	envvar_list_init(&envvar_list, envp);
 	while (1)
 	{
@@ -115,6 +118,8 @@ int		main(int ac, char **av, char **envp)
 		ret = get_next_line(0, &line);
 		list = tokenizer(line);
 		if (list)
-			initiate_command(list, data, &envvar_list);
+			initiate_command(list, &envvar_list);
+		free(line);
+		free_tokens(list);
 	}
 }
