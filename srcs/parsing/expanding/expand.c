@@ -1,25 +1,14 @@
 #include <stdlib.h>
 #include "../../../includes/minishell.h"
 
-static char	**expand_part_of_a_token(char *str, t_envvar_list *envlist,
-												t_2int *index, int len_block)
+char	**check_for_temp(char **temp, char *quote_str)
 {
 	int		len_array;
-	char	*no_quote_str;
-	char	*quote_str;
-	char	**temp;
 
-	no_quote_str = malloc_check(ft_substr(str, index->j, index->i - index->j));
-	no_quote_str = insert_var_str(no_quote_str, envlist);
-	quote_str = malloc_check(ft_substr(str, index->i + 1, len_block));
-	quote_str = insert_var_str(quote_str, envlist);
-	temp = malloc_check(ft_split(no_quote_str, ' '));
-	free(no_quote_str);
 	if (temp[0] == 0)
 	{
 		free(temp);
 		temp = malloc_check(ft_arraydup(&quote_str, 1));
-		free(quote_str);
 	}
 	else
 	{
@@ -27,6 +16,28 @@ static char	**expand_part_of_a_token(char *str, t_envvar_list *envlist,
 		temp[len_array - 1] = malloc_check(
 					strjoin_and_free2(temp[len_array - 1], quote_str));
 	}
+	return (temp);
+}
+
+static char	**expand_part_of_a_token(char *str, t_envvar_list *envlist,
+													t_2int *index, char quotes)
+{
+	char	*no_quote_str;
+	char	*quote_str;
+	char	**temp;
+	int		len_block;
+
+	len_block = ft_strchr_i(str + index->i + 1, quotes);
+	no_quote_str = malloc_check(ft_substr(str, index->j, index->i - index->j));
+	no_quote_str = insert_var_str(no_quote_str, envlist);
+	quote_str = malloc_check(ft_substr(str, index->i + 1, len_block));
+	if (quotes == '\"')
+		quote_str = insert_var_str(quote_str, envlist);
+	temp = malloc_check(ft_split(no_quote_str, ' '));
+	free(no_quote_str);
+	temp = check_for_temp(temp, quote_str);
+	index->i = index->i + len_block + 2;
+	index->j = index->i;
 	return (temp);
 }
 
@@ -40,13 +51,11 @@ static char	**expand_token_loop(char *str, t_envvar_list *envlist,
 	{
 		if (str[index->i] == '\"' || str[index->i] == '\'')
 		{
-			len_block = ft_strchr_i(str + index->i + 1, str[index->i]);
-			temp = expand_part_of_a_token(str, envlist, index, len_block);
+			temp = expand_part_of_a_token(str, envlist, index, str[index->i]);
 			new = arrayjoin_and_free(new, temp);
-			index->i = index->i + len_block + 2;
-			index->j = index->i;
 		}
-		index->i++;
+		else
+			index->i++;
 	}
 	return (new);
 }

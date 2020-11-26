@@ -103,6 +103,7 @@ void	ft_other_cmds_piped(char **arg, t_envvar_list *envlist)
 	else
 		path = arg[0];
 	envp = make_envvar_dup(envlist);
+	set_signals(signal_function_execve);
 	if (execve(path, arg, envp) == -1)
 	{
 		ft_printf("%s: %s: command not found\n", PROMPT, arg[0]);

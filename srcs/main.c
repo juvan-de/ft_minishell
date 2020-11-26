@@ -92,38 +92,23 @@ int		main(int ac, char **av, char **envp)
 		print_prompt();
 		ret = get_next_line(0, &line);
 		list = tokenizer(line);
-<<<<<<< HEAD
-		if (list)
-=======
 		if (check_for_quotes(line) && check_for_syntax_error(list))
->>>>>>> avan-ber
 		{
 			if (list)
 			{
-<<<<<<< HEAD
-				if (data->type == 4)
-				{
-					enter_pipe(data, &envvar_list);
-					while (data->type == 4)
-						data = data->next;
-				}
-				else
-				{
-					run_command(data, &envvar_list, 0);
-				}
-				data = data->next;
-=======
 				parser(list, &data, &envvar_list);
 				while (data)
 				{
-					redirection(data->redirect);
-					input_redirection(data->redirect);
-					distributor(data->content, &envvar_list);
-					dup2(fd[0], 0);
-					dup2(fd[1], 1);
+					if (data->type == 4)
+					{
+						enter_pipe(data, &envvar_list);
+						while (data->type == 4)
+							data = data->next;
+					}
+					else
+						run_command(data, &envvar_list, 0);
 					data = data->next;
 				}
->>>>>>> avan-ber
 			}
 			clear_data(&data);
 		}
