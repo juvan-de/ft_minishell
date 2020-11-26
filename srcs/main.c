@@ -79,7 +79,7 @@ void	initiate_command(t_list *list, t_envvar_list *envvar_list)
 	t_minishell	*temp;
 
 	data = 0;
-	parser(list, &data, envvar_list);
+	parser(list, &data);
 	temp = data;
 	while (temp)
 	{

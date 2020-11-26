@@ -63,7 +63,7 @@ enum		e_redirecttype
 int			ft_arraylen(char **array);
 int			ft_shell_find_elem(t_redirect *shell);
 void		distributor(char **arg, t_envvar_list *envlist, int piped);
-void		parser(t_list *list, t_minishell **data, t_envvar_list *envlist);
+void		parser(t_list *list, t_minishell **data);
 void		redirection(t_redirect *redirections);
 void		input_redirection(t_redirect *redirects);
 

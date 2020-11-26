@@ -50,7 +50,7 @@ int			calc_lstsize(t_list *list)
 	return (res);
 }
 
-t_minishell	*fill_minishell(t_list *list, t_envvar_list *envlist)
+t_minishell	*fill_minishell(t_list *list)
 {
 	t_minishell	*temp;
 	t_redirect	*redirects;
@@ -80,12 +80,11 @@ t_minishell	*fill_minishell(t_list *list, t_envvar_list *envlist)
 		}
 		list = list->next;
 	}
-	content = expand_var(content, envlist);
 	temp = ft_lstnew_shell(content, redirects);
 	return (temp);
 }
 
-void			parser(t_list *list, t_minishell **data, t_envvar_list *envlist)
+void			parser(t_list *list, t_minishell **data)
 {
 	t_minishell	*temp;
 	t_list		*dup;
@@ -93,7 +92,7 @@ void			parser(t_list *list, t_minishell **data, t_envvar_list *envlist)
 	dup = list;
 	while (dup)
 	{
-		temp = fill_minishell(dup, envlist);
+		temp = fill_minishell(dup);
 		while (dup && ft_strchr(";|", (int)(*(char*)dup->content)) == 0)
 		{
 			dup = dup->next;
