@@ -75,20 +75,23 @@ void	initiate_command(t_list *list, t_minishell *data,
 {
 	int	ret;
 
-	parser(list, &data);
-	while (data)
+	if (list)
 	{
-		if (data->type == 4)
+		parser(list, &data);
+		while (data)
 		{
-			ret = enter_pipe(data, envvar_list);
-			while (data->type == 4)
-				data = data->next;
+			if (data->type == 4)
+			{
+				ret = enter_pipe(data, envvar_list);
+				while (data->type == 4)
+					data = data->next;
+			}
+			else
+				run_command(data, envvar_list, 0);
+			data = data->next;
 		}
-		else
-			run_command(data, envvar_list, 0);
-		data = data->next;
-	}
-	clear_data(&data);
+		clear_data(&data);
+	}		
 }
 
 int		main(int ac, char **av, char **envp)
@@ -102,10 +105,7 @@ int		main(int ac, char **av, char **envp)
 	(void)av;
 	g_ret_value = 0;
 	if (ac != 1)
-	{
-		ft_printf("Error\nminishell does not need arguments\n");
-		return (0);
-	}
+		exit_with_1message("Error\nminishell does not need arguments", 1);
 	data = 0;
 	envvar_list_init(&envvar_list, envp);
 	while (1)
@@ -113,8 +113,12 @@ int		main(int ac, char **av, char **envp)
 		set_signals(control_handler);
 		print_prompt();
 		ret = get_next_line(0, &line);
+		if (ret == -2)
+		{
+			free(line);
+			line = malloc_check(ft_strdup("exit"));
+		}
 		list = tokenizer(line);
-		if (list)
-			initiate_command(list, data, &envvar_list);
+		initiate_command(list, data, &envvar_list);
 	}
 }

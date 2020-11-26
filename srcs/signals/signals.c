@@ -5,6 +5,7 @@ void	control_handler(int signal)
 	write(1, "\b\b  \b\b", 6);
 	if (signal == SIGINT)
 	{
+		g_ret_value = 1;
 		write(1, "\n", 1);
 		print_prompt();
 	}

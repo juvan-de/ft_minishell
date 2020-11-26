@@ -38,7 +38,7 @@ all: $(NAME)
 $(NAME): $(OBJ_FILES)
 	make bonus -C libft
 	make -C ft_printf
-	make bonus -C getnextline
+	make -C getnextline
 	$(CC) -o $(NAME) $(OBJ_FILES) $(LIB) $(CFLAGS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c

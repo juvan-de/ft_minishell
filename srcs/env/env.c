@@ -4,7 +4,6 @@ void	ft_env(char **arg, t_envvar_list *envlist)
 {
 	int		i;
 
-	print_array(arg);
 	if (ft_arraylen(arg) != 1)
 	{
 		g_ret_value = 127;

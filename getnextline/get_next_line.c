@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: avan-ber <avan-ber@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/25 08:06:17 by avan-ber       #+#    #+#                */
-/*   Updated: 2020/01/16 11:14:50 by avan-ber      ########   odam.nl         */
+/*   Created: 2019/11/25 08:06:17 by avan-ber      #+#    #+#                 */
+/*   Updated: 2020/11/26 23:06:15 by abelfrancis   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ static int	ft_new_line(int fd, char **rest, char **line)
 	check = 0;
 	while (ft_strlen_c(*rest, '\n') == -1 && b_read != 0)
 	{
+		write(1, "  \b\b", 4);
 		b_read = read(fd, buf, BUFFER_SIZE);
 		if (b_read == -1)
 			return (free_rest_and_return(*rest));
@@ -92,6 +93,8 @@ static int	ft_new_line(int fd, char **rest, char **line)
 	if (b_read == 0)
 	{
 		*line = *rest;
+		if (**line == '\0')
+			return (-2);
 		*rest = 0;
 	}
 	return (b_read);
@@ -113,7 +116,7 @@ int			get_next_line(int fd, char **line)
 	if (ft_strlen_c(fd_rest[fd], '\n') == -1)
 	{
 		b_read = ft_new_line(fd, &fd_rest[fd], line);
-		if (b_read == -1 || b_read == 0)
+		if (b_read == -1 || b_read == 0 || b_read == -2)
 			return (b_read);
 	}
 	if (ft_split_in_two(&fd_rest[fd], line, '\n') == -1)
