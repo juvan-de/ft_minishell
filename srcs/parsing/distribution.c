@@ -34,8 +34,8 @@ void	run_command(t_minishell *data, t_envvar_list *envlist, int piped)
 		exit_with_1message("dup failed", 1);
 	if (data->redirect)
 	{
-		redirection(data->redirect);
 		input_redirection(data->redirect);
+		redirection(data->redirect);
 	}
 	distributor(data->content, envlist, piped);
 	if (dup2(stdfd[0], STDIN_FILENO) == -1)

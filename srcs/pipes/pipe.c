@@ -74,11 +74,13 @@ int		enter_pipe(t_minishell *data, t_envvar_list *envlist)
 {
 	int			stdfd[2];
 	int			*fildes;
-	int			status[2];
+	int			status;
+	int			*id;
 	int			pipecount;
 	int			i;
 
 	pipecount = pre_pipe(data, &fildes);
+	id = ft_calloc(sizeof(int), pipecount);
 	i = 0;
 	while (i <= pipecount)
 	{
@@ -89,12 +91,17 @@ int		enter_pipe(t_minishell *data, t_envvar_list *envlist)
 		if (stdfd[1] == -1)
 			exit_with_1message("dup failed", 1);
 		dupping(fildes, pipecount, i);
-		status[0] = fork();
-		status[0] = execute_pipe(status[0], data, stdfd, envlist);
+		id[i] = fork();
+		id[i] = execute_pipe(id[i], data, stdfd, envlist);
 		data = data->next;
 		i++;
 	}
-	waitpid(status[0], &status[1], 0);
+	i = 0;
+	while (i <= pipecount)
+	{
+		waitpid(id[i], &status, 0);
+		i++;
+	}
 	free(fildes);
-	return (status[1]);
+	return (status);
 }
