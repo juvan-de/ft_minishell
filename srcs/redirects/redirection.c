@@ -18,7 +18,8 @@ void	input_redirection(t_redirect *redirects)
 		if (redirects->next)
 		{
 			redirects = redirects->next;
-			close(fd);
+			if (redirects->type == SMALLER)
+				close(fd);
 		}
 		i++;
 	}
@@ -28,9 +29,9 @@ void	input_redirection(t_redirect *redirects)
 
 void	redirection(t_redirect *redirections)
 {
-	int	fd;
-	int	i;
-	int	arrlen;
+	int			fd;
+	int			i;
+	int			arrlen;
 	t_redirect	*temp;
 
 	temp = redirections;
@@ -39,15 +40,14 @@ void	redirection(t_redirect *redirections)
 	while (i < arrlen)
 	{
 		if (temp->type == TRUNC)
-		{
 			fd = open(temp->file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		}
 		else if (temp->type == APPEND)
 			fd = open(temp->file, O_CREAT | O_WRONLY | O_APPEND, 0644);
 		if (temp->next)
 		{
 			temp = temp->next;
-			close(fd);
+			if (temp->type == TRUNC || temp->type == APPEND)
+				close(fd);
 		}
 		i++;
 	}
