@@ -9,7 +9,8 @@ void	distributor(char **arg, t_envvar_list *envlist, int piped)
 	{
 		while (g_keyword[i].func)
 		{
-			if (ft_strncmp(g_keyword[i].keyword, arg[0], ft_strlen(arg[0]) + 1) == 0)
+			if (ft_strncmp(g_keyword[i].keyword, arg[0], ft_strlen(arg[0]) + 1)
+																		== 0)
 			{
 				g_keyword[i].func(arg, envlist);
 				return ;
@@ -26,15 +27,21 @@ void	run_command(t_minishell *data, t_envvar_list *envlist, int piped)
 
 	data->content = expand_var(data->content, envlist);
 	stdfd[0] = dup(STDIN_FILENO);
+	if (stdfd[0] == -1)
+		exit_with_1message("dup failed", 1);
 	stdfd[1] = dup(STDOUT_FILENO);
+	if (stdfd[1] == -1)
+		exit_with_1message("dup failed", 1);
 	if (data->redirect)
 	{
 		redirection(data->redirect);
 		input_redirection(data->redirect);
 	}
 	distributor(data->content, envlist, piped);
-	dup2(stdfd[0], STDIN_FILENO);
-	dup2(stdfd[1], STDOUT_FILENO);
+	if (dup2(stdfd[0], STDIN_FILENO) == -1)
+		exit_with_1message("dup failed", 1);
+	if (dup2(stdfd[1], STDOUT_FILENO) == -1)
+		exit_with_1message("dup failed", 1);
 	close(stdfd[0]);
 	close(stdfd[1]);
 }

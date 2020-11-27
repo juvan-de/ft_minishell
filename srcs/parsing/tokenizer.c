@@ -33,20 +33,20 @@ t_list		*tokenizer(char *input)
 {
 	t_list	*list;
 	int		i;
-	int		doublequotemark;
-	int		singlequotemark;
+	int		dq;
+	int		sq;
 
 	i = 0;
-	doublequotemark = -1;
-	singlequotemark = -1;
+	dq = -1;
+	sq = -1;
 	list = 0;
 	while (input[i])
 	{
-		if (input[i] == '\"' && singlequotemark == -1)
-			doublequotemark *= -1;
-		if (input[i] == '\'' && doublequotemark == -1)
-			singlequotemark *= -1;
-		if (ft_strrchr(" |<>;", (int)input[i]) != 0 && doublequotemark == -1 && singlequotemark == -1 && i > 0)
+		if (input[i] == '\"' && sq == -1)
+			dq *= -1;
+		if (input[i] == '\'' && dq == -1)
+			sq *= -1;
+		if (ft_strrchr(" |<>;", input[i]) != 0 && dq == -1 && sq == -1 && i > 0)
 		{
 			input = make_token(input, i, &list);
 			i = -1;

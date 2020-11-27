@@ -12,20 +12,14 @@ int		ft_find_path(char *cmd, t_envvar_list *envlist, char **res)
 	i = find_envvar(envlist, "PATH");
 	if (i == -1)
 	{
-		*res = ft_strdup(cmd);
-		if (*res == 0)
-			exit_with_1message("Malloc failed", 1);
+		*res = malloc_check(ft_strdup(cmd));
 		return (0);
 	}
-	paths = ft_split(envlist->var[i].value, ':');
-	if (paths == 0)
-		exit_with_1message("Malloc failed", 1);
+	paths = malloc_check(ft_split(envlist->var[i].value, ':'));
 	i = 0;
 	while (paths[i] != 0)
 	{
-		tmp = str_char_str_join(paths[i], '/', cmd);
-		if (tmp == NULL)
-			exit_with_1message("Malloc failed", 1);
+		tmp = malloc_check(str_char_str_join(paths[i], '/', cmd));
 		ret = stat(tmp, &buf);
 		if (ret == 0)
 		{
@@ -94,19 +88,16 @@ void	ft_other_cmds_piped(char **arg, t_envvar_list *envlist)
 		if (ft_find_path(arg[0], envlist, &path) == -1)
 		{
 			ft_printf("%s: %s: command not found\n", PROMPT, arg[0]);
-			g_ret_value = 127;
-			return ;
+			exit(127);
 		}
 	}
 	else
 		path = arg[0];
 	envp = make_envvar_dup(envlist);
-	set_signals(signal_function_execve);
 	if (execve(path, arg, envp) == -1)
 	{
 		ft_printf("%s: %s: command not found\n", PROMPT, arg[0]);
-		g_ret_value = 127;
-		return ;
+		exit(127);
 	}
 	free_array(envp);
 	g_ret_value = 0;
@@ -119,6 +110,7 @@ void	ft_other_cmds(char **arg, t_envvar_list *envlist, int piped)
 	char	*path;
 	char	**envp;
 
+	set_signals(signal_function_execve);
 	if (piped)
 		ft_other_cmds_piped(arg, envlist);
 	if (ft_strchr_i(arg[0], '/') == -1)
@@ -135,8 +127,7 @@ void	ft_other_cmds(char **arg, t_envvar_list *envlist, int piped)
 	envp = make_envvar_dup(envlist);
 	ret = fork();
 	if (ret == -1)
-		printf("heir moet nog geexit worden hi ha ho\nfork fail\nft_other_cmds\n");
-	set_signals(signal_function_execve);
+		exit_with_1message("fork failed", 1);
 	if (ret == 0)
 	{
 		if (execve(path, arg, envp) == -1)
@@ -148,10 +139,7 @@ void	ft_other_cmds(char **arg, t_envvar_list *envlist, int piped)
 	else
 	{
 		waitpid(ret, &status, WUNTRACED);
-		// if (WIFEXITED(status))
-		// 	g_ret_value = WEXITSTATUS(status);
-		// if (WIFSIGNALED(status))
-		// 	g_ret_value = WSIGNAL(status) + 128;
+		check_status(status);
 	}
 	free(path);
 	free_array(envp);

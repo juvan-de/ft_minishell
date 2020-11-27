@@ -6,7 +6,7 @@
 #    By: avan-ber <avan-ber@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/02/28 13:29:47 by avan-ber      #+#    #+#                  #
-#    Updated: 2020/06/26 18:37:44 by avan-ber      ########   odam.nl          #
+#    Updated: 2020/11/27 09:55:20 by abelfrancis   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ BLUE =		\033[38;5;12m
 RED =		\033[38;5;9m
 YELLOW =	\033[38;5;11m
 WHITE =		\033[38;5;7m
+NORMAL =	\033[0;0m
 
 
 all: $(NAME)
@@ -35,14 +36,14 @@ $(NAME): $(OBJECTS)
 	@ ar rcs $(NAME).a $(OBJECTS)
 	@ echo "$(RED)========================================"
 	@ echo "$(RED)||                DONE                ||"
-	@ echo "$(RED)========================================"
+	@ echo "$(RED)========================================$(NORMAL)"
 
 bonus: $(BONUS)
 	@echo "\n$(LBLUE)making 		   $(BLUE)$(NAME).a"
 	@ar rcs $(NAME).a $(BONUS)
 	@ echo "$(RED)========================================"
 	@ echo "$(RED)||                DONE                ||"
-	@ echo "$(RED)========================================"
+	@ echo "$(RED)========================================$(NORMAL)"
 
 clean:
 	@ echo "\n$(LBLUE)removing 		$(BLUE)objects"
@@ -50,7 +51,7 @@ clean:
 	@ /bin/rm -f $(BONUS)
 	@ echo "$(RED)========================================"
 	@ echo "$(RED)||                DONE                ||"
-	@ echo "$(RED)========================================"
+	@ echo "$(RED)========================================$(NORMAL)"
 
 fclean: clean
 	@ echo "\n$(LBLUE)removing 		$(BLUE)$(NAME).a"
@@ -59,7 +60,7 @@ fclean: clean
 	@ /bin/rm -f 	$(NAME)_bonus.a
 	@ echo "$(RED)========================================"
 	@ echo "$(RED)||                DONE                ||"
-	@ echo "$(RED)========================================\n"
+	@ echo "$(RED)========================================\n$(NORMAL)"
 
 re: fclean all
 

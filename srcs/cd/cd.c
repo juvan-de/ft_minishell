@@ -47,7 +47,7 @@ void	ft_cd(char **arg, t_envvar_list *envlist)
 		index = find_envvar(envlist, "HOME");
 		if (index == -1)
 		{
-			printf("minishell: cd: HOME not set");
+			ft_printf("minishell: cd: HOME not set");
 			g_ret_value = 1;
 			return ;
 		}

@@ -348,3 +348,11 @@ void	print_prompt(void)
 	ft_printf(" \033[38;5;11m➢\e[0;0m ");
 	free(str);
 }
+
+void	check_status(int status)
+{
+	if (WIFEXITED(status))
+		g_ret_value = WEXITSTATUS(status);
+	if (WIFSIGNALED(status))
+		g_ret_value = WTERMSIG(status) + 128;
+}

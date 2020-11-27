@@ -116,4 +116,6 @@ void		set_signals(void (*func)(int));
 void		control_handler(int signal);
 void		signal_function_execve(int signal);
 void		print_prompt(void);
+void		signal_function_pipes(int signal);
+void		check_status(int status);
 #endif

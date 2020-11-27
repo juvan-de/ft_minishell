@@ -78,26 +78,27 @@ void	initiate_command(t_list *list, t_envvar_list *envvar_list)
 	t_minishell	*data;
 	t_minishell	*temp;
 
-	data = 0;
-	parser(list, &data);
-	temp = data;
-	while (temp)
+	if (list)
 	{
-		if (temp->type == 4)
+		data = 0;
+		parser(list, &data);
+		temp = data;
+		while (temp)
 		{
-			ret = enter_pipe(temp, envvar_list);
-			if (WIFEXITED(ret))
-				g_ret_value = WEXITSTATUS(ret);
-			if (WIFSIGNALED(ret))
-				g_ret_value = WTERMSIG(ret) + 128;
-			while (temp->type == 4)
-				temp = temp->next;
+			if (temp->type == 4)
+			{
+				set_signals(signal_function_pipes);
+				ret = enter_pipe(temp, envvar_list);
+				check_status(ret);
+				while (temp->type == 4)
+					temp = temp->next;
+			}
+			else
+				run_command(temp, envvar_list, 0);
+			temp = temp->next;
 		}
-		else
-			run_command(temp, envvar_list, 0);
-		temp = temp->next;
+		clear_data(data);
 	}
-	clear_data(data);
 }
 
 int		main(int ac, char **av, char **envp)
@@ -110,21 +111,21 @@ int		main(int ac, char **av, char **envp)
 	(void)av;
 	g_ret_value = 0;
 	if (ac != 1)
-	{
-		ft_printf("Error\nminishell does not need arguments\n");
-		return (0);
-	}
+		exit_with_1message("Error\nminishell does not need arguments", 1);
 	envvar_list_init(&envvar_list, envp);
 	while (1)
 	{
 		set_signals(control_handler);
 		print_prompt();
 		ret = get_next_line(0, &line);
+		if (ret == -2)
+		{
+			free(line);
+			line = malloc_check(ft_strdup("exit"));
+		}
 		list = tokenizer(line);
-		if (list)
-			initiate_command(list, &envvar_list);
+		initiate_command(list, &envvar_list);
 		free(line);
 		free_tokens(list);
-		system("echo 1 >> leaks.txt ; leaks minishell | grep \"total leaked bytes\"  >> leaks.txt");
 	}
 }
