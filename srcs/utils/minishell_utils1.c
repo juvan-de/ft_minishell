@@ -356,3 +356,28 @@ void	check_status(int status)
 	if (WIFSIGNALED(status))
 		g_ret_value = WTERMSIG(status) + 128;
 }
+
+char	**arraymerge_and_free(char **array1, char**array2)
+{
+	int		i;
+	char	**new;
+	int		len_array1;
+	int		len_array2;
+
+	if (array1[0] == 0)
+	{
+		free(array1);
+		return (array2);
+	}
+	len_array1 = ft_arraylen(array1);
+	len_array2 = ft_arraylen(array2);
+	new = malloc_check(malloc(sizeof(char*) * (len_array1 + len_array2)));
+	array2[0] = malloc_check(
+						strjoin_and_free2(array1[len_array1 - 1], array2[0]));
+	i = arraylcpy(new, array1, len_array1 - 1);
+	arraylcpy(new + i, array2, len_array2);
+	new[i + len_array2] = 0;
+	free(array1);
+	free(array2);
+	return (new);
+}

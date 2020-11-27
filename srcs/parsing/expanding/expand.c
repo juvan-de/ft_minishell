@@ -51,7 +51,7 @@ static char	**expand_token_loop(char *str, t_envvar_list *envlist,
 		if (str[index->i] == '\"' || str[index->i] == '\'')
 		{
 			temp = expand_part_of_a_token(str, envlist, index, str[index->i]);
-			new = arrayjoin_and_free(new, temp);
+			new = arraymerge_and_free(new, temp);
 		}
 		else
 			index->i++;
@@ -74,8 +74,7 @@ static char	**expand_token(char *str, t_envvar_list *envlist)
 	str_no_quotes = insert_var_str(str_no_quotes, envlist);
 	temp = malloc_check(ft_split(str_no_quotes, ' '));
 	free(str_no_quotes);
-	new = arrayjoin_and_free(new, temp);
-	free(str);
+	new = arraymerge_and_free(new, temp);
 	return (new);
 }
 

@@ -118,4 +118,5 @@ void		signal_function_execve(int signal);
 void		print_prompt(void);
 void		signal_function_pipes(int signal);
 void		check_status(int status);
+char		**arraymerge_and_free(char **array1, char**array2);
 #endif

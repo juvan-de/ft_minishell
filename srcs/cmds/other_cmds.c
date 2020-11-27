@@ -145,3 +145,4 @@ void	ft_other_cmds(char **arg, t_envvar_list *envlist, int piped)
 	free_array(envp);
 	g_ret_value = 0;
 }
+
