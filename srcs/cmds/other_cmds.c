@@ -123,7 +123,7 @@ void	ft_other_cmds(char **arg, t_envvar_list *envlist, int piped)
 		}
 	}
 	else
-		path = arg[0];
+		path = malloc_check(ft_strdup(arg[0]));
 	envp = make_envvar_dup(envlist);
 	ret = fork();
 	if (ret == -1)
