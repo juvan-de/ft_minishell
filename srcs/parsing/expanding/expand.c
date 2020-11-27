@@ -89,6 +89,7 @@ char	**expand_var(char **array, t_envvar_list *envlist)
 	{
 		temp = expand_token(array[i], envlist);
 		len_temp = ft_arraylen(temp);
+		free(array[i]);
 		array = insert_array_into_array(array, temp, i);
 		i += len_temp;
 	}
