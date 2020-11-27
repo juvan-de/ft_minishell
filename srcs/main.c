@@ -1,7 +1,7 @@
 #include "../includes/minishell.h"
 #include <stdbool.h>
 
-t_minishell		*data_init()
+t_minishell		*data_init(void)
 {
 	t_minishell *data;
 
@@ -58,20 +58,6 @@ int		check_for_syntax_error(t_list *list)
 	return (1);
 }
 
-void	free_tokens(t_list *list)
-{
-	t_list *temp;
-
-	while (list)
-	{
-		temp = list->next;
-		free(list->content);
-		free(list);
-		list = temp;
-	}
-	free(list);
-}
-
 void	initiate_command(t_list *list, t_envvar_list *envvar_list)
 {
 	int			ret;
@@ -110,6 +96,7 @@ int		main(int ac, char **av, char **envp)
 
 	(void)av;
 	g_ret_value = 0;
+	g_debug = 0;
 	if (ac != 1)
 		exit_with_1message("Error\nminishell does not need arguments", 1);
 	envvar_list_init(&envvar_list, envp);

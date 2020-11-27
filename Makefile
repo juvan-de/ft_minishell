@@ -6,15 +6,20 @@ _OBJ_FILES = main \
 			parsing/tokenizer \
 			parsing/parser \
 			parsing/distribution \
-			parsing/free \
 			pipes/pipe \
 			parsing/expanding/expand \
 			parsing/expanding/insert_var \
 			list/ft_redirect\
 			list/ft_shell\
 			redirects/redirection \
-			utils/minishell_utils1 \
-			envvar/envvar_utils1 \
+			utils/utils1 \
+			utils/free \
+			utils/exit \
+			utils/envvar \
+			utils/str_allocating \
+			utils/array_allocating \
+			utils/str \
+			utils/array \
 			envvar/envvar_init \
 			envvar/envvar_add \
 			export/export \
@@ -25,7 +30,8 @@ _OBJ_FILES = main \
 			exit/exit \
 			unset/unset \
 			signals/signals \
-			cmds/other_cmds
+			cmds/other_cmds \
+			cmds/other_cmds_utils
 
 OBJ_FILES = $(addsuffix .o, $(addprefix $(OBJ_DIR)/,$(_OBJ_FILES)))
 

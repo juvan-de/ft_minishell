@@ -60,7 +60,6 @@ enum		e_redirecttype
 	SEMICOLON = 5
 };
 
-int			ft_arraylen(char **array);
 int			ft_shell_find_elem(t_redirect *shell);
 void		distributor(char **arg, t_envvar_list *envlist, int piped);
 void		parser(t_list *list, t_minishell **data);
@@ -80,43 +79,80 @@ t_list		*tokenizer(char *input);
 int			enter_pipe(t_minishell *data, t_envvar_list *envlist);
 void		run_command(t_minishell *data, t_envvar_list *envlist, int piped);
 
-void		ft_print_list(t_list *list);
-void		ft_print_redirect(t_redirect *list);
-void		print_array(char **array);
-int			ft_strchr_i(char *str, char c);
-int			ft_strcmp(char *s1, char *s2);
-char		**ft_arraydup(char **array, int arraylen);
-int			ft_split_in_two(char *str, char **name, char **value, char split);
 void		envvar_list_init(t_envvar_list *envvar_list, char **envp);
 void		check_envvar(t_envvar_list *envvar_list, char *var, int add_code);
-int			find_envvar(t_envvar_list *envlist, char *var);
-int			ft_lstsize_shell(t_redirect *lst);
-char		*str_char_str_join(char *s1, char c, char *s2);
 void		ft_other_cmds(char **arg, t_envvar_list *envlist, int piped);
-void		free_array(char **array);
 void		remove_envvar(t_envvar_list *envlist, int index);
 
-void		clear_data(t_minishell *data);
-int			ft_check_var_name(char *str);
 
+char		**expand_var(char **array, t_envvar_list *envlist);
+char		*insert_var_str(char *str, t_envvar_list *envlist);
+void		set_signals(void (*func)(int));
+void		control_handler(int signal);
+void		signal_function_execve(int signal);
+void		signal_function_pipes(int signal);
+char		**make_envvar_dup(t_envvar_list *envlist)s;
+int			ft_find_path(char *cmd, t_envvar_list *envlist, char **res);
+
+
+/*
+** exitfunctions
+*/
 void		exit_with_3message(char *message_1, char *message_2,
 											char *message_3, int exit_value);
 void		exit_with_2message(char *message_1, char *message_2,
 																int exit_value);
 void		exit_with_1message(char *message_1, int exit_value);
-char		*ft_strcpy(char *dest, const char *src);
-char		**expand_var(char **array, t_envvar_list *envlist);
-void		*malloc_check(void *content);
+
+/*
+** strfunctions
+*/
+//static int	copy_content_strjoin(char *dest, char *srcs)
 char		*strjoin_and_free3(char *str1, char *str2, char *str3);
 char		*strjoin_and_free2(char *str1, char *str2);
+char		*str_char_str_join(char *s1, char c, char *s2);
+
+/*
+** strfunctions
+*/
+int			ft_strcmp(char *s1, char *s2);
+int			ft_strchr_i(char *str, char c);
+
+/*
+** arrayfunctions
+*/
+//static int	arraylcpy(char **dest, char **srcs, int len)
+char		**ft_arraydup(char **array, int arraylen);
 char		**arrayjoin_and_free(char **array1, char **array2);
-char		*insert_var_str(char *str, t_envvar_list *envlist);
-char		**insert_array_into_array(char **array, char **insert, int pos);
-void		set_signals(void (*func)(int));
-void		control_handler(int signal);
-void		signal_function_execve(int signal);
-void		print_prompt(void);
-void		signal_function_pipes(int signal);
-void		check_status(int status);
 char		**arraymerge_and_free(char **array1, char**array2);
+char		**insert_array_into_array(char **array, char **insert, int pos);
+
+/*
+** arrayfunctions
+*/
+int			ft_arraylen(char **array);
+
+/*
+** envvarfunctions
+*/
+int			ft_check_var_name(char *str);
+int			find_envvar(t_envvar_list *envlist, char *var);
+int			ft_split_in_two(char *str, char **name, char **value, char split);
+
+/*
+** freefunctions
+*/
+void		free_array(char **array);
+void		free_tokens(t_list *list);
+void		clear_data(t_minishell *data);
+
+/*
+** nog niet verdeeltfunctions
+*/
+int			isredirects(char *str);
+void		*malloc_check(void *content);
+void		check_status(int status);
+void		print_prompt(void);
+int			ft_lstsize_shell(t_redirect *lst);
+
 #endif

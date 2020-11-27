@@ -12,7 +12,8 @@ void	ft_unset(char **arg, t_envvar_list *envlist)
 	{
 		if (ft_check_var_name(arg[i]) == -1)
 		{
-			printf("minishell: unset: `%s': not a valid identifier\n", arg[i]);
+			ft_printf("minishell: unset: `%s': not a valid identifier\n",
+																		arg[i]);
 			error_value = 1;
 		}
 		else
