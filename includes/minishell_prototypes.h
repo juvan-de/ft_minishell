@@ -21,7 +21,7 @@ int			enter_pipe(t_minishell *data, t_envvar_list *envlist);
 /*
 ** Redirect functions
 */
-void		redirection(t_redirect *redirections);
+void		redirection(t_redirect *redirections, int i);
 void		input_redirection(t_redirect *redirects);
 
 /*
@@ -49,7 +49,7 @@ void		check_envvar(t_envvar_list *envvar_list, char *var, int add_code);
 **==============================================================================
 */
 
-
+void	ft_print_redirect(t_redirect *list);
 
 /*
 ** Minishell utils -------------------------------------------------------------
@@ -110,7 +110,7 @@ int			ft_find_path(char *cmd, t_envvar_list *envlist, char **res);
 /*
 ** other commands utils
 */
-int			count_pipes(t_minishell *data)
+int			count_pipes(t_minishell *data);
 
 /*
 ** str allocationg utils

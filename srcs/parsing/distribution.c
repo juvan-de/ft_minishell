@@ -4,6 +4,17 @@
 #include "../../includes/distributor.h"
 #include <unistd.h>
 
+void	ft_print_redirect(t_redirect *list)
+{
+	t_redirect *temp;
+
+	temp = list;
+	while (temp != NULL)
+	{
+		ft_printf("%s:[%s]\n", temp->file, temp->type);
+		temp = temp->next;
+	}
+}
 void	distributor(char **arg, t_envvar_list *envlist, int piped)
 {
 	int	i;
@@ -39,7 +50,7 @@ void	run_command(t_minishell *data, t_envvar_list *envlist, int piped)
 	if (data->redirect)
 	{
 		input_redirection(data->redirect);
-		redirection(data->redirect);
+		redirection(data->redirect, 0);
 	}
 	distributor(data->content, envlist, piped);
 	if (dup2(stdfd[0], STDIN_FILENO) == -1)
