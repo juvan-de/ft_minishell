@@ -14,6 +14,7 @@ _OBJ_FILES = main \
 			list/ft_shell\
 			redirects/redirection \
 			utils/minishell_utils1 \
+			utils/pipes \
 			envvar/envvar_utils1 \
 			envvar/envvar_init \
 			envvar/envvar_add \

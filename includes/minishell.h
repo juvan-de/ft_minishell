@@ -98,7 +98,7 @@ void		remove_envvar(t_envvar_list *envlist, int index);
 
 void		clear_data(t_minishell *data);
 int			ft_check_var_name(char *str);
-
+int			count_pipes(t_minishell *data);
 void		exit_with_3message(char *message_1, char *message_2,
 											char *message_3, int exit_value);
 void		exit_with_2message(char *message_1, char *message_2,

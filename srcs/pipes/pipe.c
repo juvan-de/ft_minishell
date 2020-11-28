@@ -2,13 +2,14 @@
 #include <unistd.h>
 #include <sys/types.h>
 
-int		pre_pipe(t_minishell *data, int **fildes)
+int		pre_pipe(t_minishell *data, int **fildes, int **id)
 {
 	int	i;
 	int pipecount;
 
 	pipecount = 0;
 	i = 0;
+	(*id) = ft_calloc(sizeof(int), pipecount + 1);
 	while (data && data->type == 4)
 	{
 		pipecount++;
@@ -70,18 +71,15 @@ int		execute_pipe(int id, t_minishell *data,
 	}
 }
 
-int		enter_pipe(t_minishell *data, t_envvar_list *envlist)
+void		run_pipe(int *id, int *fildes,
+					t_minishell *data, t_envvar_list *envlist)
 {
-	int			stdfd[2];
-	int			*fildes;
-	int			status;
-	int			*id;
-	int			pipecount;
-	int			i;
+	int	stdfd[2];
+	int	i;
+	int	pipecount;
 
-	pipecount = pre_pipe(data, &fildes);
-	id = ft_calloc(sizeof(int), pipecount);
 	i = 0;
+	pipecount = count_pipes(data);
 	while (i <= pipecount)
 	{
 		stdfd[0] = dup(STDIN_FILENO);
@@ -96,12 +94,25 @@ int		enter_pipe(t_minishell *data, t_envvar_list *envlist)
 		data = data->next;
 		i++;
 	}
+}
+
+int		enter_pipe(t_minishell *data, t_envvar_list *envlist)
+{
+	int			*fildes;
+	int			status;
+	int			*id;
+	int			pipecount;
+	int			i;
+
 	i = 0;
+	pipecount = pre_pipe(data, &fildes, &id);
+	run_pipe(id, fildes, data, envlist);
 	while (i <= pipecount)
 	{
 		waitpid(id[i], &status, 0);
 		i++;
 	}
 	free(fildes);
+	free(id);
 	return (status);
 }
