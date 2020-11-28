@@ -77,6 +77,5 @@ void		ft_other_cmds(char **arg, t_envvar_list *envlist, int piped)
 	ret = fork();
 	check_different_processes(ret, path, envp, arg);
 	free(path);
-	g_ret_value = 0;
 }
 

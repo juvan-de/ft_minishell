@@ -110,7 +110,7 @@ int			ft_find_path(char *cmd, t_envvar_list *envlist, char **res);
 /*
 ** other commands utils
 */
-int			count_pipes(t_minishell *data)
+int			count_pipes(t_minishell *data);
 
 /*
 ** str allocationg utils
