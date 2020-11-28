@@ -6,16 +6,21 @@ _OBJ_FILES = main \
 			parsing/tokenizer \
 			parsing/parser \
 			parsing/distribution \
-			parsing/free \
 			pipes/pipe \
 			parsing/expanding/expand \
 			parsing/expanding/insert_var \
-			list/ft_redirect\
-			list/ft_shell\
 			redirects/redirection \
-			utils/minishell_utils1 \
+			utils/utils1 \
 			utils/pipes \
-			envvar/envvar_utils1 \
+			utils/free \
+			utils/list \
+			utils/other_cmds \
+			utils/exit \
+			utils/envvar \
+			utils/str_allocating \
+			utils/array_allocating \
+			utils/str \
+			utils/array \
 			envvar/envvar_init \
 			envvar/envvar_add \
 			export/export \

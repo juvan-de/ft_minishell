@@ -1,8 +1,10 @@
 #include "../../includes/minishell.h"
+#include "../../includes/minishell_types.h"
+#include "../../includes/minishell_prototypes.h"
 #include <unistd.h>
 #include <sys/types.h>
 
-int		pre_pipe(t_minishell *data, int **fildes, int **id)
+static int	pre_pipe(t_minishell *data, int **fildes, int **id)
 {
 	int	i;
 	int pipecount;
@@ -24,7 +26,7 @@ int		pre_pipe(t_minishell *data, int **fildes, int **id)
 	return (pipecount);
 }
 
-void	dupping(int *fildes, int pipecount, int i)
+static void	dupping(int *fildes, int pipecount, int i)
 {
 	if (i == 0)
 	{
@@ -49,7 +51,7 @@ void	dupping(int *fildes, int pipecount, int i)
 	}
 }
 
-int		execute_pipe(int id, t_minishell *data,
+static int	execute_pipe(int id, t_minishell *data,
 					int *stdfd, t_envvar_list *envlist)
 {
 	if (id == -1)
@@ -71,7 +73,7 @@ int		execute_pipe(int id, t_minishell *data,
 	}
 }
 
-void		run_pipe(int *id, int *fildes,
+static void	run_pipe(int *id, int *fildes,
 					t_minishell *data, t_envvar_list *envlist)
 {
 	int	stdfd[2];
@@ -96,7 +98,7 @@ void		run_pipe(int *id, int *fildes,
 	}
 }
 
-int		enter_pipe(t_minishell *data, t_envvar_list *envlist)
+int			enter_pipe(t_minishell *data, t_envvar_list *envlist)
 {
 	int			*fildes;
 	int			status;

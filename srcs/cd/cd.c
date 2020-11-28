@@ -1,7 +1,10 @@
 #include "../../includes/minishell.h"
-#include <stdbool.h>
+#include "../../includes/minishell_prototypes.h"
+#include "../../includes/minishell_types.h"
+#include <unistd.h>
+#include <stdlib.h>
 
-void	set_pwd(t_envvar_list *envlist)
+static void	set_pwd(t_envvar_list *envlist)
 {
 	int index;
 
@@ -17,7 +20,7 @@ void	set_pwd(t_envvar_list *envlist)
 	}
 }
 
-void	set_oldpwd(t_envvar_list *envlist, char *oldpwd)
+static void	set_oldpwd(t_envvar_list *envlist, char *oldpwd)
 {
 	int index;
 
@@ -32,9 +35,22 @@ void	set_oldpwd(t_envvar_list *envlist, char *oldpwd)
 		free(oldpwd);
 }
 
-void	ft_cd(char **arg, t_envvar_list *envlist)
+static char	*set_home_path(t_envvar_list *envlist)
 {
-	int		index;
+	int	index;
+
+	index = find_envvar(envlist, "HOME");
+	if (index == -1)
+	{
+		ft_printf("minishell: cd: HOME not set");
+		g_ret_value = 1;
+		return (0);
+	}
+	return (envlist->var[index].value);
+}
+
+void		ft_cd(char **arg, t_envvar_list *envlist)
+{
 	char	*path;
 	char	*oldpwd;
 
@@ -43,18 +59,11 @@ void	ft_cd(char **arg, t_envvar_list *envlist)
 	if (oldpwd == 0)
 		exit_with_1message("Malloc failed", 1);
 	if (arg[1] == NULL)
-	{
-		index = find_envvar(envlist, "HOME");
-		if (index == -1)
-		{
-			ft_printf("minishell: cd: HOME not set");
-			g_ret_value = 1;
-			return ;
-		}
-		path = envlist->var[index].value;
-	}
+		path = set_home_path(envlist);
 	else
 		path = arg[1];
+	if (path == 0)
+		return ;
 	if (chdir(path) == -1)
 	{
 		free(oldpwd);

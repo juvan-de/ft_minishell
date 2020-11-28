@@ -1,4 +1,7 @@
 #include "../../includes/minishell.h"
+#include "../../includes/minishell_prototypes.h"
+#include <signal.h>
+#include <unistd.h>
 
 void	control_handler(int signal)
 {

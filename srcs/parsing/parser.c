@@ -1,6 +1,8 @@
 #include "../../includes/minishell.h"
+#include "../../includes/minishell_prototypes.h"
+#include "../../includes/minishell_types.h"
 
-void	save_redirects(t_redirect **redirects, char *type, char *file)
+static void			save_redirects(t_redirect **redirects, char *type, char *file)
 {
 	t_redirect	*temp;
 
@@ -19,18 +21,7 @@ void	save_redirects(t_redirect **redirects, char *type, char *file)
 	}
 }
 
-int			isredirects(char *str)
-{
-	if (ft_strcmp(str, "<") == 0)
-		return (1);
-	else if (ft_strcmp(str, ">") == 0)
-		return (1);
-	else if (ft_strcmp(str, ">>") == 0)
-		return (1);
-	return (0);
-}
-
-int			calc_lstsize(t_list *list)
+static int			calc_lstsize(t_list *list)
 {
 	int		res;
 	int		i;
@@ -50,19 +41,12 @@ int			calc_lstsize(t_list *list)
 	return (res);
 }
 
-t_minishell	*fill_minishell(t_list *list)
+static void			fill_minishell_loop(t_list *list, t_redirect *redirects,
+																char **content)
 {
-	t_minishell	*temp;
-	t_redirect	*redirects;
-	int			arrlen;
-	int			i;
-	char		**content;
+	int i;
 
-	arrlen = calc_lstsize(list);
 	i = 0;
-	temp = 0;
-	redirects = 0;
-	content = ft_calloc(sizeof(*content) * (arrlen + 1), 1);
 	while (list && ft_strchr("|;", (int)(*((char*)list->content))) == 0)
 	{
 		if (isredirects(list->content) == 1)
@@ -73,13 +57,25 @@ t_minishell	*fill_minishell(t_list *list)
 		}
 		else
 		{
-			content[i] = ft_strdup(list->content);
-			if (content[i] == 0)
-				exit_with_1message("Malloc failed", 1);
+			content[i] = malloc_check(ft_strdup(list->content));
 			i++;
 		}
 		list = list->next;
 	}
+}
+
+static t_minishell	*fill_minishell(t_list *list)
+{
+	t_minishell	*temp;
+	t_redirect	*redirects;
+	int			arrlen;
+	char		**content;
+
+	arrlen = calc_lstsize(list);
+	temp = 0;
+	redirects = 0;
+	content = ft_calloc(sizeof(*content) * (arrlen + 1), 1);
+	fill_minishell_loop(list, redirects, content);
 	temp = ft_lstnew_shell(content, redirects);
 	return (temp);
 }

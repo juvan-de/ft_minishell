@@ -1,7 +1,9 @@
 #include "../../includes/minishell.h"
+#include "../../includes/minishell_prototypes.h"
+#include "../../includes/minishell_types.h"
 #include <limits.h>
 
-int		ft_isnumber(char *str)
+static int	ft_isnumber(char *str)
 {
 	int	i;
 
@@ -17,7 +19,7 @@ int		ft_isnumber(char *str)
 	return (1);
 }
 
-long	ft_atol(char *nb)
+static long	ft_atol(char *nb)
 {
 	int				i;
 	int				neg;
@@ -45,7 +47,7 @@ long	ft_atol(char *nb)
 	return ((long)res * neg);
 }
 
-void	ft_exit(char **arg, t_envvar_list *envlist)
+void		ft_exit(char **arg, t_envvar_list *envlist)
 {
 	int		len;
 	long	ret;

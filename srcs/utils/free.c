@@ -1,6 +1,8 @@
 #include "../../includes/minishell.h"
+#include "../../includes/minishell_types.h"
+#include <stdlib.h>
 
-void	free_array(char **array)
+void		free_array(char **array)
 {
 	int i;
 
@@ -13,7 +15,7 @@ void	free_array(char **array)
 	free(array);
 }
 
-void	free_redirect(t_redirect *redirect)
+static void	free_redirect(t_redirect *redirect)
 {
 	t_redirect *temp;
 
@@ -26,7 +28,7 @@ void	free_redirect(t_redirect *redirect)
 	}
 }
 
-void	clear_data(t_minishell *data)
+void		clear_data(t_minishell *data)
 {
 	t_minishell	*temp;
 
@@ -40,4 +42,18 @@ void	clear_data(t_minishell *data)
 		data = temp;
 	}
 	free(data);
+}
+
+void		free_tokens(t_list *list)
+{
+	t_list *temp;
+
+	while (list)
+	{
+		temp = list->next;
+		free(list->content);
+		free(list);
+		list = temp;
+	}
+	free(list);
 }

@@ -1,7 +1,10 @@
+
 #include "../includes/minishell.h"
+#include "../includes/minishell_prototypes.h"
+#include "../includes/minishell_types.h"
 #include <stdbool.h>
 
-t_minishell		*data_init()
+t_minishell		*data_init(void)
 {
 	t_minishell *data;
 
@@ -58,21 +61,7 @@ int		check_for_syntax_error(t_list *list)
 	return (1);
 }
 
-void	free_tokens(t_list *list)
-{
-	t_list *temp;
-
-	while (list)
-	{
-		temp = list->next;
-		free(list->content);
-		free(list);
-		list = temp;
-	}
-	free(list);
-}
-
-void	initiate_command(t_list *list, t_envvar_list *envvar_list)
+static void	initiate_command(t_list *list, t_envvar_list *envvar_list)
 {
 	int			ret;
 	t_minishell	*data;
@@ -101,7 +90,7 @@ void	initiate_command(t_list *list, t_envvar_list *envvar_list)
 	}
 }
 
-int		main(int ac, char **av, char **envp)
+int			main(int ac, char **av, char **envp)
 {
 	char			*line;
 	t_list			*list;

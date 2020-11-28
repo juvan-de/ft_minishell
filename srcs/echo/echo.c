@@ -1,4 +1,5 @@
 #include "../../includes/minishell.h"
+#include "../../includes/minishell_types.h"
 #include <stdbool.h>
 
 static bool	set_newline(char *data)
@@ -23,7 +24,7 @@ static bool	set_newline(char *data)
 		return (true);
 }
 
-void	ft_echo(char **arg, t_envvar_list *envlist)
+void		ft_echo(char **arg, t_envvar_list *envlist)
 {
 	bool	newline;
 	int		i;

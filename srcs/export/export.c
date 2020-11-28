@@ -1,7 +1,10 @@
 #include "../../includes/minishell.h"
+#include "../../includes/minishell_prototypes.h"
+#include "../../includes/minishell_types.h"
 #include <stdbool.h>
+#include <stdlib.h>
 
-t_envvar	*ft_sort_envvar(t_envvar *sort, int len)
+static t_envvar	*ft_sort_envvar(t_envvar *sort, int len)
 {
 	bool	change;
 	int		i;
@@ -30,7 +33,7 @@ t_envvar	*ft_sort_envvar(t_envvar *sort, int len)
 	return (sort);
 }
 
-t_envvar	*ft_envvardup(t_envvar	*dup, int len)
+static t_envvar	*ft_envvardup(t_envvar	*dup, int len)
 {
 	int			i;
 	t_envvar	*new;
@@ -48,7 +51,7 @@ t_envvar	*ft_envvardup(t_envvar	*dup, int len)
 	return (new);
 }
 
-void	export_overview(t_envvar_list *envvar_list)
+static void		export_overview(t_envvar_list *envvar_list)
 {
 	int			i;
 	t_envvar	*sorted;
@@ -70,7 +73,7 @@ void	export_overview(t_envvar_list *envvar_list)
 	free(sorted);
 }
 
-void	ft_export(char **arg, t_envvar_list *envlist)
+void			ft_export(char **arg, t_envvar_list *envlist)
 {
 	int	i;
 	int	count;

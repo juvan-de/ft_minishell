@@ -1,5 +1,7 @@
-#include "../../includes/minishell.h"
+#include "../../includes/minishell_prototypes.h"
+#include "../../includes/minishell_types.h"
 #include <fcntl.h>
+#include <unistd.h>
 
 void	input_redirection(t_redirect *redirects)
 {

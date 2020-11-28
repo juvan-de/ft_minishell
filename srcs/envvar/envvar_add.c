@@ -1,14 +1,14 @@
-#include "../../includes/minishell.h"
+#include "../../includes/minishell_prototypes.h"
+#include "../../includes/minishell_types.h"
+#include <stdlib.h>
 
-t_envvar	*resize_envvar_list(t_envvar_list *envvar_list, int up_down)
+static t_envvar	*resize_envvar_list(t_envvar_list *envvar_list, int up_down)
 {
 	int			i;
 	t_envvar	*new;
 
 	envvar_list->size += 8 * up_down;
-	new = malloc(sizeof(t_envvar) * (envvar_list->size + 1));
-	if (new == 0)
-		exit_with_1message("Malloc failed", 1);
+	new = malloc_check(malloc(sizeof(t_envvar) * (envvar_list->size + 1)));
 	i = 0;
 	while (i < envvar_list->used)
 	{
@@ -40,7 +40,7 @@ void	remove_envvar(t_envvar_list *envlist, int index)
 		envlist->var = resize_envvar_list(envlist, -1);
 }
 
-void	add_envvar(t_envvar_list *envvar_list, char *s1, char *s2)
+static void	add_envvar(t_envvar_list *envvar_list, char *s1, char *s2)
 {
 	if (envvar_list->used == envvar_list->size)
 	{

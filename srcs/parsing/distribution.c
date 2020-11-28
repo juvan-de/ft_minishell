@@ -1,4 +1,8 @@
+#include "../../includes/minishell.h"
+#include "../../includes/minishell_prototypes.h"
+#include "../../includes/minishell_types.h"
 #include "../../includes/distributor.h"
+#include <unistd.h>
 
 void	distributor(char **arg, t_envvar_list *envlist, int piped)
 {
