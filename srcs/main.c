@@ -4,6 +4,18 @@
 #include "../includes/minishell_types.h"
 #include <stdbool.h>
 
+void	ft_print_list(t_list *list)
+{
+	t_list	*temp;
+
+	temp = list;
+	while (temp != NULL)
+	{
+		ft_printf("[%s]\n", temp->content);
+		temp = temp->next;
+	}
+}
+
 t_minishell		*data_init(void)
 {
 	t_minishell *data;

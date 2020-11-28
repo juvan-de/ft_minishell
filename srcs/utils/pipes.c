@@ -1,5 +1,5 @@
 #include "../../includes/minishell.h"
-# include "../../includes/minishell_types.h"
+#include "../../includes/minishell_types.h"
 
 int			count_pipes(t_minishell *data)
 {

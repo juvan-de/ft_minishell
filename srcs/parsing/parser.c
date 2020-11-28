@@ -41,12 +41,13 @@ static int			calc_lstsize(t_list *list)
 	return (res);
 }
 
-static void			fill_minishell_loop(t_list *list, t_redirect *redirects,
-																char **content)
+static t_redirect		*fill_minishell_loop(t_list *list, char **content)
 {
-	int i;
+	int			i;
+	t_redirect	*redirects;
 
 	i = 0;
+	redirects = 0;
 	while (list && ft_strchr("|;", (int)(*((char*)list->content))) == 0)
 	{
 		if (isredirects(list->content) == 1)
@@ -62,20 +63,20 @@ static void			fill_minishell_loop(t_list *list, t_redirect *redirects,
 		}
 		list = list->next;
 	}
+	return (redirects);
 }
 
 static t_minishell	*fill_minishell(t_list *list)
 {
 	t_minishell	*temp;
-	t_redirect	*redirects;
 	int			arrlen;
 	char		**content;
+	t_redirect	*redirects;
 
 	arrlen = calc_lstsize(list);
 	temp = 0;
-	redirects = 0;
 	content = ft_calloc(sizeof(*content) * (arrlen + 1), 1);
-	fill_minishell_loop(list, redirects, content);
+	redirects = fill_minishell_loop(list, content);
 	temp = ft_lstnew_shell(content, redirects);
 	return (temp);
 }
