@@ -1,4 +1,6 @@
 #include "../../includes/minishell.h"
+#include "../../includes/minishell_prototypes.h"
+#include "../../includes/minishell_types.h"
 
 void	ft_unset(char **arg, t_envvar_list *envlist)
 {

@@ -1,5 +1,8 @@
 #include "../../includes/minishell.h"
+#include "../../includes/minishell_prototypes.h"
+#include "../../includes/minishell_types.h"
 #include <sys/stat.h>
+#include <stdlib.h>
 
 static char	*check_different_paths(char **paths, char *cmd)
 {

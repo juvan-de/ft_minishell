@@ -1,4 +1,6 @@
 #include "../../includes/minishell.h"
+#include "../../includes/minishell_prototypes.h"
+#include <stdlib.h>
 
 int		ft_split_in_two(char *str, char **name, char **value, char split)
 {

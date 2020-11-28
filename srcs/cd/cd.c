@@ -1,7 +1,10 @@
 #include "../../includes/minishell.h"
-#include <stdbool.h>
+#include "../../includes/minishell_prototypes.h"
+#include "../../includes/minishell_types.h"
+#include <unistd.h>
+#include <stdlib.h>
 
-void	set_pwd(t_envvar_list *envlist)
+static void	set_pwd(t_envvar_list *envlist)
 {
 	int index;
 
@@ -17,7 +20,7 @@ void	set_pwd(t_envvar_list *envlist)
 	}
 }
 
-void	set_oldpwd(t_envvar_list *envlist, char *oldpwd)
+static void	set_oldpwd(t_envvar_list *envlist, char *oldpwd)
 {
 	int index;
 
@@ -32,7 +35,7 @@ void	set_oldpwd(t_envvar_list *envlist, char *oldpwd)
 		free(oldpwd);
 }
 
-char	*set_home_path(t_envvar_list *envlist)
+static char	*set_home_path(t_envvar_list *envlist)
 {
 	int	index;
 
@@ -46,7 +49,7 @@ char	*set_home_path(t_envvar_list *envlist)
 	return (envlist->var[index].value);
 }
 
-void	ft_cd(char **arg, t_envvar_list *envlist)
+void		ft_cd(char **arg, t_envvar_list *envlist)
 {
 	char	*path;
 	char	*oldpwd;

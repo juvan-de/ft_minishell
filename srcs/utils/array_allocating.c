@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "../../includes/minishell_prototypes.h"
 #include <stdlib.h>
 
 static int	arraylcpy(char **dest, char **srcs, int len)
@@ -27,7 +27,7 @@ char		**ft_arraydup(char **array, int arraylen)
 	return (new);
 }
 
-char	**arrayjoin_and_free(char **array1, char **array2)
+char		**arrayjoin_and_free(char **array1, char **array2)
 {
 	int		i;
 	int		len_array1;
@@ -45,7 +45,7 @@ char	**arrayjoin_and_free(char **array1, char **array2)
 	return (new);
 }
 
-char	**insert_array_into_array(char **array, char **insert, int pos)
+char		**insert_array_into_array(char **array, char **insert, int pos)
 {
 	int		i;
 	int		j;
@@ -74,7 +74,7 @@ char	**insert_array_into_array(char **array, char **insert, int pos)
 	return (new);
 }
 
-char	**arraymerge_and_free(char **array1, char **array2)
+char		**arraymerge_and_free(char **array1, char **array2)
 {
 	int		i;
 	char	**new;

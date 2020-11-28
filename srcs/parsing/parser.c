@@ -1,6 +1,8 @@
 #include "../../includes/minishell.h"
+#include "../../includes/minishell_prototypes.h"
+#include "../../includes/minishell_types.h"
 
-void	save_redirects(t_redirect **redirects, char *type, char *file)
+static void			save_redirects(t_redirect **redirects, char *type, char *file)
 {
 	t_redirect	*temp;
 
@@ -19,7 +21,7 @@ void	save_redirects(t_redirect **redirects, char *type, char *file)
 	}
 }
 
-int			calc_lstsize(t_list *list)
+static int			calc_lstsize(t_list *list)
 {
 	int		res;
 	int		i;
@@ -39,7 +41,8 @@ int			calc_lstsize(t_list *list)
 	return (res);
 }
 
-void	fill_minishell_loop(t_list *list, t_redirect *redirects, char **content)
+static void			fill_minishell_loop(t_list *list, t_redirect *redirects,
+																char **content)
 {
 	int i;
 
@@ -61,7 +64,7 @@ void	fill_minishell_loop(t_list *list, t_redirect *redirects, char **content)
 	}
 }
 
-t_minishell	*fill_minishell(t_list *list)
+static t_minishell	*fill_minishell(t_list *list)
 {
 	t_minishell	*temp;
 	t_redirect	*redirects;

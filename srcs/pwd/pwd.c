@@ -1,8 +1,9 @@
 #include "../../includes/minishell.h"
+#include "../../includes/minishell_prototypes.h"
+#include "../../includes/minishell_types.h"
 #include <unistd.h>
-#include <limits.h>
 
-void		ft_pwd(char **arg, t_envvar_list *envlist)
+void	ft_pwd(char **arg, t_envvar_list *envlist)
 {
 	char	*buf;
 

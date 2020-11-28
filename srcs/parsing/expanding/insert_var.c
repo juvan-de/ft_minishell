@@ -1,7 +1,9 @@
-#include <stdlib.h>
 #include "../../../includes/minishell.h"
+#include "../../../includes/minishell_prototypes.h"
+#include "../../../includes/minishell_types.h"
+#include <stdlib.h>
 
-static int		find_envvar_name(char *str)
+static int	find_envvar_name(char *str)
 {
 	int i;
 

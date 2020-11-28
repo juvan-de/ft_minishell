@@ -1,5 +1,7 @@
-
 #include "../../includes/minishell.h"
+#include "../../includes/minishell_prototypes.h"
+#include "../../includes/minishell_types.h"
+#include <stdlib.h>
 
 void	envvar_list_init(t_envvar_list *envvar_list, char **envp)
 {

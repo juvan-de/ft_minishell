@@ -1,7 +1,9 @@
-#include <stdlib.h>
 #include "../../../includes/minishell.h"
+#include "../../../includes/minishell_prototypes.h"
+#include "../../../includes/minishell_types.h"
+#include <stdlib.h>
 
-char	**check_for_temp(char **temp, char *quote_str)
+static char	**check_for_temp(char **temp, char *quote_str)
 {
 	int		len_array;
 

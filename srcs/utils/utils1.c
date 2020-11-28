@@ -1,9 +1,13 @@
 #include "../../includes/minishell.h"
+#include "../../includes/minishell_prototypes.h"
+#include "../../includes/minishell_types.h"
+#include <unistd.h>
+#include <sys/wait.h>
 
 int		ft_lstsize_shell(t_redirect *lst)
 {
 	t_redirect	*temp;
-	int		counter;
+	int			counter;
 
 	temp = lst;
 	counter = 0;
@@ -58,7 +62,7 @@ void	check_status(int status)
 		g_ret_value = WTERMSIG(status) + 128;
 }
 
-int			isredirects(char *str)
+int		isredirects(char *str)
 {
 	if (ft_strcmp(str, "<") == 0)
 		return (1);

@@ -1,6 +1,7 @@
 #include "../../includes/minishell.h"
+#include "../../includes/minishell_types.h"
 
-static char		*make_token(char *content, int i, t_list **list)
+static char	*make_token(char *content, int i, t_list **list)
 {
 	char	*res;
 	t_list	*temp;

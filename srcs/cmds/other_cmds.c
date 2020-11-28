@@ -1,7 +1,11 @@
 #include "../../includes/minishell.h"
-#include <sys/stat.h>
+#include "../../includes/minishell_prototypes.h"
+#include "../../includes/minishell_types.h"
+#include <sys/wait.h>
+#include <unistd.h>
+#include <stdlib.h>
 
-void	ft_other_cmds_piped(char **arg, t_envvar_list *envlist)
+void		ft_other_cmds_piped(char **arg, t_envvar_list *envlist)
 {
 	char	*path;
 	char	**envp;
@@ -23,11 +27,11 @@ void	ft_other_cmds_piped(char **arg, t_envvar_list *envlist)
 		exit(127);
 	}
 	free_array(envp);
-	// free(path);
+	free(path);
 	g_ret_value = 0;
 }
 
-void	check_different_progresses(int ret, char *path, char **envp, char **arg)
+static void	check_different_processes(int ret, char *path, char **envp, char **arg)
 {
 	int		status;
 
@@ -49,7 +53,7 @@ void	check_different_progresses(int ret, char *path, char **envp, char **arg)
 	free_array(envp);
 }
 
-void	ft_other_cmds(char **arg, t_envvar_list *envlist, int piped)
+void		ft_other_cmds(char **arg, t_envvar_list *envlist, int piped)
 {
 	int		ret;
 	char	*path;
@@ -71,7 +75,7 @@ void	ft_other_cmds(char **arg, t_envvar_list *envlist, int piped)
 		path = malloc_check(ft_strdup(arg[0]));
 	envp = make_envvar_dup(envlist);
 	ret = fork();
-	check_different_progresses(ret, path, envp, arg);
+	check_different_processes(ret, path, envp, arg);
 	free(path);
 	g_ret_value = 0;
 }

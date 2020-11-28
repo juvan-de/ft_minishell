@@ -1,4 +1,6 @@
 #include "../../includes/minishell.h"
+#include "../../includes/minishell_types.h"
+#include "../../includes/minishell_prototypes.h"
 #include <unistd.h>
 #include <sys/types.h>
 
